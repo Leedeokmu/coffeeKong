@@ -7,28 +7,123 @@ buildscript {
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath('io.spring.gradle:dependency-management-plugin:0.5.2.RELEASE')
+		classpath("org.springframework:springloaded:1.2.6.RELEASE")
 	}
 }
-
 apply plugin: 'java'
-apply plugin: 'eclipse-wtp'
-apply plugin: 'org.springframework.boot'
 apply plugin: 'war'
+apply plugin: 'eclipse-wtp'
+apply plugin: 'idea'
+apply plugin: 'spring-boot'
 
-group = 'com'
-version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+war {
+	archiveName = "coffeekong.war"
+}
 
 repositories {
 	mavenCentral()
 }
 
-configurations {
-	providedRuntime
+idea {
+	module {
+		inheritOutputDirs = false
+		outputDir = file("$buildDir/classes/main/")
+	}
 }
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
 	providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+project.ext{
+	springSessionVersion = '1.1.1.RELEASE'
+}
+
+final String DEFAULT_PROFILE = 'dev'
+if(!project.hasProperty('profile') || !profile){
+	ext.profile = DEFAULT_PROFILE
+}
+sourceSets{
+	main{
+		resources{
+			srcDirs = [
+			        "src/main/resources-${profile}",
+					"src/main/resources",
+					"src/main/webapps"
+			]
+		}
+	}
+	test{
+		resources{
+			srcDirs = [
+					"src/main/resources-${profile}",
+					"src/main/resources",
+					"src/test/webapps"
+			]
+		}
+	}
+}
+
+task copyToLib(type:Copy){
+	from configurations.runtime
+	into "$buildDir/output/lib"
+}
+
+ext.bundlesDir = "$buildDir/otuput/lib"
+
+dependencies {
+	testCompile('junit:junit:4.+')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+
+	// spring boot essentials
+	compile("org.springframework.boot:spring-boot-starter-parent:${springBootVersion}")
+	compile("org.springframework.boot:spring-boot-starter-aop")
+	compile("org.springframework.boot:spring-boot-starter-web")
+	compile("org.springframework.boot:spring-boot-starter-jdbc")
+	compile("org.springframework.boot:spring-boot-starter-tomcat")
+	compile('org.springframework.boot:spring-boot-starter-security')
+
+	// commons library
+	compile 'commons-collections:commons-collections:3.2'
+	compile 'org.apache.commons:commons-lang3:3.0'
+	compile 'commons-io:commons-io:2.4'
+	// log4jdbc
+	compile('com.googlecode.log4jdbc:log4jdbc:1.2')
+	// logback
+	compile 'ch.qos.logback:logback-classic:1.1.7'
+	// mysql connector
+	compile 'mysql:mysql-connector-java:5.1.36'
+	// mybatis
+	compile 'org.mybatis:mybatis:3.4.5'
+	compile 'org.mybatis:mybatis-spring:1.3.1'
+	compile 'commons-dbcp:commons-dbcp:1.4'
+	// servlet
+	compile group: 'javax.servlet.jsp', name: 'javax.servlet.jsp-api', version: '2.3.1'
+	compile 'javax.servlet:javax.servlet-api:3.1.0'
+	compile 'javax.servlet:jstl:1.2'
+	// embedded tomcat
+	compile 'org.apache.tomcat.embed:tomcat-embed-jasper'
+	// jackson for json communication
+	compile 'com.fasterxml.jackson.core:jackson-core:2.6.0'
+	compile 'com.fasterxml.jackson.core:jackson-databind:2.6.0'
+	compile group: 'org.json', name: 'json', version: '20160212'
+	// time
+	compile 'joda-time:joda-time:2.8.2'
+	compile group: 'joda-time', name: 'joda-time-jsptags', version: '1.1.1'
+	// session
+	compile("org.springframework.session:spring-session:${springSessionVersion}")
+	// validator
+	compile('javax.validation:validation-api:1.1.0.Final')
+	compile('org.hibernate:hibernate-validator:5.2.4.Final')
+	// imgsclr
+	compile('org.imgscalr:imgscalr-lib:4.2')
+}
+
+test {
+	systemProperties 'property': 'value'
 }

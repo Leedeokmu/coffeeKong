@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.coffeekong.mapper.MgrMapper">
+	<select id="login" parameterType="com.coffeekong.dto.LoginDTO" resultType="com.coffeekong.domain.MgrVO">
+		SELECT
+			*
+		FROM
+			tbl_manager
+		WHERE
+			m_email=#{email} AND m_pwd=#{pw}
+	</select>
+	<update id="rmbLogin" parameterType="hashmap">
+		UPDATE
+			tbl_manager
+		SET
+			sess_id = #{sess_id}, sess_limit = #{limit}
+		WHERE
+			m_email = #{email}
+	</update>
+</mapper>
