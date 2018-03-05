@@ -92,6 +92,8 @@ dependencies {
 	compile 'commons-collections:commons-collections:3.2'
 	compile 'org.apache.commons:commons-lang3:3.0'
 	compile 'commons-io:commons-io:2.4'
+	// lombok
+	compile 'org.projectlombok:lombok:1.16.6'
 	// log4jdbc
 	compile('com.googlecode.log4jdbc:log4jdbc:1.2')
 	// logback

@@ -16,7 +16,7 @@ public class IndexController {
 	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index(Model model) {
-		logger.info("index ############################");
+		logger.debug("index ############################");
 		
 		model.addAttribute("content", "");
 		return "index";
@@ -24,7 +24,7 @@ public class IndexController {
 	
 	@RequestMapping(value = "/info/{type}", method = RequestMethod.GET)
 	public String information(@PathVariable String type, Model model) {
-		logger.info("information ############################ info : " + type);
+		logger.debug("information ############################ info : " + type);
 		
 		model.addAttribute("content",type);
 		return "index";
@@ -32,14 +32,14 @@ public class IndexController {
 	
 	@RequestMapping(value = "/learn", method = RequestMethod.GET)
 	public String learn() {
-		logger.info("learn ############################");
+		logger.debug("learn ############################");
 		
 		return "/learn/learn";
 	}
 	
 	@RequestMapping(value = "/learn/{type}", method = RequestMethod.GET)
 	public String learn(@PathVariable String type, Model model) {
-		logger.info("learn ############################ type : " + type);
+		logger.debug("learn ############################ type : " + type);
 		
 		model.addAttribute("content",type);
 		return "/learn/learn";

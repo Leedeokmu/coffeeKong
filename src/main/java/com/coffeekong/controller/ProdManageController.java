@@ -36,7 +36,7 @@ public class ProdManageController {
 	
 	@RequestMapping(value = "/insert", method = RequestMethod.GET)
 	public String insertGET(@ModelAttribute("cri") SearchCriteria cri, HttpSession session, Model model) throws Exception {
-		logger.info("Product Manage Insert############################");
+		logger.debug("Product Manage Insert############################");
 		
 		model.addAttribute("content", "pminsert");
 		return "/admin/adminPage";
@@ -45,15 +45,15 @@ public class ProdManageController {
 	@ResponseBody
 	@RequestMapping(value = "/insert", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
 	public String insertPOST(SearchCriteria cri, ProductVO pvo, MultipartFile file, HttpSession session) throws Exception {
-		logger.info("Product Manage Insert############################ pvo : " + pvo.toString());
-		logger.info("originalName: " + file.getOriginalFilename());
-	    logger.info("size: " + file.getSize());
-	    logger.info("contentType: " + file.getContentType());
+		logger.debug("Product Manage Insert############################ pvo : " + pvo.toString());
+		logger.debug("originalName: " + file.getOriginalFilename());
+	    logger.debug("size: " + file.getSize());
+	    logger.debug("contentType: " + file.getContentType());
 		
 	    String relativePath = "/resources/dist/product";
 	    String uploadPath = context.getRealPath(relativePath);
 	    String imgUrl = relativePath + FileUploadUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes());
-	    logger.info("image Url ########################## " + imgUrl);
+	    logger.debug("image Url ########################## " + imgUrl);
 	    pvo.setP_img(imgUrl);
 	    
 	    service.insert(pvo);
@@ -63,7 +63,7 @@ public class ProdManageController {
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(@ModelAttribute("cri") SearchCriteria cri, HttpSession session, Model model) throws Exception {
-		logger.info("Product Manage list############################ cri : " + cri.toString());
+		logger.debug("Product Manage list############################ cri : " + cri.toString());
 		
 		model.addAttribute("list", service.list(cri));
 		PageMaker pmk = new PageMaker();
@@ -77,7 +77,7 @@ public class ProdManageController {
 			model.addAttribute("search", "on");
 		}
 		
-		logger.info("search ######################## : " + cri.getKeyword());
+		logger.debug("search ######################## : " + cri.getKeyword());
 		
 		model.addAttribute("content", "pmlist"); 
 		return "/admin/adminPage";
@@ -85,7 +85,7 @@ public class ProdManageController {
 	
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
 	public String detail(@ModelAttribute("cri") SearchCriteria cri, int pid, HttpSession session, Model model) throws Exception {
-		logger.info("Produt Manage Detail############################ pid: " + pid);
+		logger.debug("Produt Manage Detail############################ pid: " + pid);
 		
 		model.addAttribute("pvo", service.getByPid(pid));
 		model.addAttribute("content", "pmdetail");
@@ -94,7 +94,7 @@ public class ProdManageController {
 	
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
 	public String update(@ModelAttribute("cri") SearchCriteria cri, int pid, HttpSession session, Model model) throws Exception {
-		logger.info("Product Manage Update############################ pid : " + pid);
+		logger.debug("Product Manage Update############################ pid : " + pid);
 		
 		model.addAttribute("pvo", service.getByPid(pid));
 		model.addAttribute("content", "pmupdate");
@@ -104,7 +104,7 @@ public class ProdManageController {
 	@ResponseBody
 	@RequestMapping(value = "/update/save", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
 	public String updateSave(SearchCriteria cri, ProductVO pvo, MultipartFile file, HttpSession session) throws Exception {
-		logger.info("Product Manage Update Save############################ pvo : " + pvo.toString());
+		logger.debug("Product Manage Update Save############################ pvo : " + pvo.toString());
 		
 		if(file != null){
 			File uploadedfile = new File(context.getRealPath("/"), pvo.getP_img());
@@ -113,7 +113,7 @@ public class ProdManageController {
 		    String relativePath = "/resources/dist/product";
 		    String uploadPath = context.getRealPath(relativePath);
 		    String imgUrl = relativePath + FileUploadUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes());
-		    logger.info("image Url ########################## " + imgUrl);
+		    logger.debug("image Url ########################## " + imgUrl);
 		    pvo.setP_img(imgUrl);
 		}
 		service.update(pvo);
@@ -123,11 +123,11 @@ public class ProdManageController {
 	
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public String delete(SearchCriteria cri, int pid, String p_img, HttpSession session, RedirectAttributes rattr) throws Exception {
-		logger.info("Product Manage delete############################ pid : " + pid + ", p_img : " + p_img);
+		logger.debug("Product Manage delete############################ pid : " + pid + ", p_img : " + p_img);
 		
 		
 		File file = new File(context.getRealPath("/"), p_img);
-		logger.info("path ###############################" + file.getAbsolutePath());
+		logger.debug("path ###############################" + file.getAbsolutePath());
 
 		file.delete();
 		service.delete(pid);

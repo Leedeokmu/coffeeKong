@@ -28,7 +28,7 @@ public class ManageController {
 	
 	@RequestMapping(value="", method=RequestMethod.GET)
 	public String index(Model model, HttpSession session){
-		logger.info("manage index ##############################");
+		logger.debug("manage index ##############################");
 		
 		if(session.getAttribute("mgr") == null){
 			model.addAttribute("content", "login");
@@ -41,7 +41,7 @@ public class ManageController {
 	
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public String loginGET(Model model){
-		logger.info("manage login##############################");
+		logger.debug("manage login##############################");
 		
 		model.addAttribute("content", "login");
 		return "/admin/adminPage";
@@ -49,7 +49,7 @@ public class ManageController {
 	
 	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public String loginPOST (@Valid LoginDTO dto, BindingResult error, HttpSession session, RedirectAttributes rttr ){
-		logger.info("manage login ########################### dto : " + dto.toString());
+		logger.debug("manage login ########################### dto : " + dto.toString());
 		
 		if(error.hasErrors()){
 			rttr.addAttribute("errmsg", "CHECK THE FORM");
@@ -74,7 +74,7 @@ public class ManageController {
 	@RequestMapping(value="/logout", method=RequestMethod.GET)
 	public String logout(HttpServletRequest request,HttpServletResponse response,
 			HttpSession session, RedirectAttributes rttr) throws Exception{ 
-		logger.info("mgr logout #############################");
+		logger.debug("mgr logout #############################");
 		Object status = session.getAttribute("mgr");
 		if(status != null){
 			session.removeAttribute("mgr");

@@ -27,7 +27,7 @@ public class UserManageController {
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(@ModelAttribute("cri") SearchCriteria cri, HttpSession session, Model model) throws Exception {
-		logger.info("User Manage list############################ cri : " + cri.toString());
+		logger.debug("User Manage list############################ cri : " + cri.toString());
 		
 		model.addAttribute("list", service.list(cri));
 		PageMaker pmk = new PageMaker();
@@ -41,7 +41,7 @@ public class UserManageController {
 			model.addAttribute("search", "on");
 		}
 		
-		logger.info("search ######################## : " + cri.getKeyword());
+		logger.debug("search ######################## : " + cri.getKeyword());
 		
 		model.addAttribute("content", "umlist");
 		return "/admin/adminPage";
@@ -49,7 +49,7 @@ public class UserManageController {
 	
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
 	public String detail(@ModelAttribute("cri") SearchCriteria cri, String email, HttpSession session, Model model) throws Exception {
-		logger.info("User Manage Detail############################ email: " + email);
+		logger.debug("User Manage Detail############################ email: " + email);
 		
 		model.addAttribute("uvo", service.detail(email));
 		model.addAttribute("content", "umdetail");
@@ -58,7 +58,7 @@ public class UserManageController {
 	
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
 	public String update(@ModelAttribute("cri") SearchCriteria cri, @RequestParam String email, HttpSession session, Model model) throws Exception {
-		logger.info("User Manage Update############################ email : " + email);
+		logger.debug("User Manage Update############################ email : " + email);
 		
 		model.addAttribute("uvo", service.detail(email));
 		model.addAttribute("content", "umupdate");
@@ -67,7 +67,7 @@ public class UserManageController {
 	
 	@RequestMapping(value = "/update/save", method = RequestMethod.POST)
 	public String updateSave(SearchCriteria cri, UserVO uvo, HttpSession session, RedirectAttributes rattr) throws Exception {
-		logger.info("User Manage list############################ uvo : " + uvo.toString());
+		logger.debug("User Manage list############################ uvo : " + uvo.toString());
 		
 		service.update(uvo);
 		
@@ -81,7 +81,7 @@ public class UserManageController {
 	
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public String delete(SearchCriteria cri, String email, HttpSession session, RedirectAttributes rattr) throws Exception {
-		logger.info("User Manage delete############################ email : " + email);
+		logger.debug("User Manage delete############################ email : " + email);
 		
 		service.deleteUser(email);
 		

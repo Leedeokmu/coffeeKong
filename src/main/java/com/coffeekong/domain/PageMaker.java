@@ -14,7 +14,6 @@ public class PageMaker {
 	private boolean prev;
 	private boolean next;
 	private int displayPageNum = 10;
-	
 	private Criteria cri;
 		
 	public Criteria getCri() {
@@ -30,6 +29,7 @@ public class PageMaker {
 		this.totalCount = totalCount;
 		calcData();
 	}
+
 	public String makeSearch(int page){
 		UriComponents uriComponents = UriComponentsBuilder.newInstance()
 			.queryParam("page",page).queryParam("perPageNum", cri.getPerPageNum())

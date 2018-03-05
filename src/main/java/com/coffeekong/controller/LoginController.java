@@ -34,7 +34,7 @@ public class LoginController {
 	
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public String loginGET(Model model){
-		logger.info("login ##########################"); 
+		logger.debug("login ##########################");
 	
 		model.addAttribute("content", "login");
 		return "index";
@@ -43,7 +43,7 @@ public class LoginController {
 	@ResponseBody
 	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public ResponseEntity<String> loginPOST (@Valid @RequestBody LoginDTO dto, BindingResult error, HttpSession session ){ 
-		logger.info("login ########################### dto : " + dto.toString());
+		logger.debug("login ########################### dto : " + dto.toString());
 		
 		ResponseEntity<String> entity = null;
 		
@@ -57,7 +57,7 @@ public class LoginController {
 				}else{
 					if (session.getAttribute("login") != null) {
 						
-						logger.info("clear login session attr #######################");
+						logger.debug("clear login session attr #######################");
 						session.removeAttribute("login");
 					}
 					
@@ -67,7 +67,7 @@ public class LoginController {
 						Date limit = new Date(System.currentTimeMillis() + (duration * 1000));
 						service.rmbLogin(uvo.getU_email(), session.getId(), limit);
 					}
-					logger.info("dest #############: "+(String)session.getAttribute("dest"));
+					logger.debug("dest #############: "+(String)session.getAttribute("dest"));
 					entity = new ResponseEntity<String>((String)session.getAttribute("dest"), HttpStatus.OK);
 				}
 			} catch (Exception e) {
@@ -75,14 +75,14 @@ public class LoginController {
 				entity = new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 			}
 		}
-		logger.info("entity ############ : "+ entity);
+		logger.debug("entity ############ : "+ entity);
 		return entity;
 	}
 	
 	@RequestMapping(value="/logout", method=RequestMethod.GET)
 	public String logout(HttpServletRequest request,HttpServletResponse response,
 			HttpSession session, RedirectAttributes rttr) throws Exception{ 
-		logger.info("logout #############################");
+		logger.debug("logout #############################");
 		Object status = session.getAttribute("login");
 		if(status != null){
 			UserVO uvo = (UserVO)status;

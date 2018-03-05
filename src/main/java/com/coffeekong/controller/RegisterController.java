@@ -28,7 +28,7 @@ public class RegisterController {
 	@ResponseBody
 	@RequestMapping(value="/register", method=RequestMethod.POST)
 	public ResponseEntity<String> register(@RequestBody @Valid UserVO uvo, BindingResult result) throws Exception{ 
-		logger.info("register ########################### uvo : " + uvo.toString());
+		logger.debug("register ########################### uvo : " + uvo.toString());
 		
 		ResponseEntity<String> entity = null;
 		
@@ -45,7 +45,7 @@ public class RegisterController {
 	
 	@RequestMapping(value="/registerSuccess", method=RequestMethod.GET)
 	public String registerCompl(Model model){
-		logger.info("registerSuccess ##########################"); 
+		logger.debug("registerSuccess ##########################");
 	
 		model.addAttribute("content", "regCompl");
 		return "index";
@@ -54,7 +54,7 @@ public class RegisterController {
 	@ResponseBody
 	@RequestMapping(value="/register/chkId", method=RequestMethod.POST)
 	public ResponseEntity<String> chkId( String u_email){
-		logger.info("chkId ########################### email : " + u_email);
+		logger.debug("chkId ########################### email : " + u_email);
 		ResponseEntity<String> entity = null;
 		
 		try {

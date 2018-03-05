@@ -23,7 +23,7 @@ public class AuthMgrInterceptor extends HandlerInterceptorAdapter {
 
 		HttpSession session = request.getSession();
 		if (session.getAttribute("mgr") == null) {
-			logger.info("current manager is not logged in");
+			logger.debug("current manager is not logged in");
 			saveDest(request);
 
 			response.sendRedirect("/manage/login");
@@ -42,7 +42,7 @@ public class AuthMgrInterceptor extends HandlerInterceptorAdapter {
 			query = "?" + query;
 		}
 		if (req.getMethod().equals("GET")) {
-			logger.info("destination ##################" + (uri + query));
+			logger.debug("destination ##################" + (uri + query));
 			req.getSession().setAttribute("dest", uri + query);
 		}
 	}

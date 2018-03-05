@@ -26,7 +26,7 @@ public class OrderManageController {
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(@ModelAttribute("cri") SearchCriteria cri, HttpSession session, Model model) throws Exception {
-		logger.info("Order Manage list############################ cri : " + cri.toString());
+		logger.debug("Order Manage list############################ cri : " + cri.toString());
 		
 		model.addAttribute("list", service.list(cri));
 		PageMaker pmk = new PageMaker();
@@ -40,7 +40,7 @@ public class OrderManageController {
 			model.addAttribute("search", "on");
 		}
 		
-		logger.info("search ######################## : " + cri.getKeyword());
+		logger.debug("search ######################## : " + cri.getKeyword());
 		
 		model.addAttribute("content", "omlist");
 		return "/admin/adminPage";
@@ -48,7 +48,7 @@ public class OrderManageController {
 	
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
 	public String detail(@ModelAttribute("cri") SearchCriteria cri, int oid, HttpSession session, Model model) throws Exception {
-		logger.info("Order Manage Detail############################ oid: " + oid);
+		logger.debug("Order Manage Detail############################ oid: " + oid);
 		
 		model.addAttribute("ovo", service.getByOid(oid));
 		model.addAttribute("content", "omdetail");
@@ -57,7 +57,7 @@ public class OrderManageController {
 	
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
 	public String update(@ModelAttribute("cri") SearchCriteria cri, int oid, HttpSession session, Model model) throws Exception {
-		logger.info("Order Manage Update############################ oid : " + oid);
+		logger.debug("Order Manage Update############################ oid : " + oid);
 		
 		model.addAttribute("ovo", service.getByOid(oid));
 		model.addAttribute("content", "omupdate");
@@ -66,7 +66,7 @@ public class OrderManageController {
 	
 	@RequestMapping(value = "/update/save", method = RequestMethod.POST)
 	public String updateSave(SearchCriteria cri, OrderVO ovo, HttpSession session, RedirectAttributes rattr) throws Exception {
-		logger.info("Order Manage list############################ ovo : " + ovo.toString());
+		logger.debug("Order Manage list############################ ovo : " + ovo.toString());
 		
 		service.update(ovo);
 		
@@ -80,7 +80,7 @@ public class OrderManageController {
 	
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public String delete(SearchCriteria cri, int oid, HttpSession session, RedirectAttributes rattr) throws Exception {
-		logger.info("Order Manage delete############################ oid : " + oid);
+		logger.debug("Order Manage delete############################ oid : " + oid);
 		
 		service.delete(oid);
 		
@@ -94,7 +94,7 @@ public class OrderManageController {
 	
 	@RequestMapping(value = "/update/state", method = RequestMethod.POST)
 	public String updateState(SearchCriteria cri, int oid, String state, HttpSession session, RedirectAttributes rattr) throws Exception {
-		logger.info("Order Manage Update State############################ oid : " + oid + ", state : " + state);
+		logger.debug("Order Manage Update State############################ oid : " + oid + ", state : " + state);
 		
 		service.updateState(oid, state);
 		

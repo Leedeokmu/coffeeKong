@@ -66,7 +66,7 @@ public class FileUploadUtils {
 
 		makeDir(uploadPath, yearPath, monthPath, datePath);
 
-		logger.info(datePath);
+		logger.debug(datePath);
 
 		return datePath;
 	}

@@ -24,7 +24,7 @@ public class OrderController {
 	
 	@RequestMapping(value="/order", method=RequestMethod.GET)
 	public String orderGET(Model model){
-		logger.info("order get################################################");
+		logger.debug("order get################################################");
 		
 		model.addAttribute("content", "order");
 		return "/index";
@@ -32,7 +32,7 @@ public class OrderController {
 	
 	@RequestMapping(value="/order", method=RequestMethod.POST)
 	public String orderPOST(OrderVO ovo, HttpSession session, Model model){
-		logger.info("order post ################################### OrderVO : "+ovo.toString());
+		logger.debug("order post ################################### OrderVO : "+ovo.toString());
 		List<CartVO> list = (List<CartVO>) session.getAttribute("cart");
 		
 		try {

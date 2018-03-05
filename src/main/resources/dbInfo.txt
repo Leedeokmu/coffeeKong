@@ -9,7 +9,25 @@
 	CONN projectspr/oracle;
 */
 
-set define off;
+UPDATE mysql.user SET authentication_string=password('test') WHERE user ='root';
+
+CREATE USER 'coffeekong'@'%' IDENTIFIED BY 'test';
+CREATE USER 'coffeekong'@localhost IDENTIFIED BY 'test';
+
+flush PRIVILEGES;
+-- reset password
+SET PASSWORD = PASSWORD('test');
+
+GRANT all privileges ON *.* TO 'root'@'%' IDENTIFIED BY 'test' WITH GRANT OPTION;
+
+GRANT all privileges on *.* TO 'coffeekong'@'%' IDENTIFIED BY 'test' WITH GRANT OPTION;
+GRANT all privileges on *.* TO 'coffeekong'@localhost IDENTIFIED BY 'test' WITH grant OPTION;
+
+flush PRIVILEGES;
+SET GLOBAL max_connections=200;
+
+-- CREATE DATABASE
+CREATE DATABASE `coffeekong`
 
 DROP TABLE tbl_user CASCADE CONSTRAINTS;
 
@@ -22,7 +40,7 @@ CREATE TABLE tbl_user(
 	sess_id varchar2(50) default 'none',
 	sess_limit timestamp,
 	CONSTRAINT pk_uemail PRIMARY KEY(u_email)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE tbl_manager  CASCADE CONSTRAINTS;
 
@@ -70,6 +88,7 @@ CREATE TABLE tbl_review(
 	CONSTRAINT fk_r_uemail FOREIGN KEY(u_email) 
 	REFERENCES tbl_user(u_email)
 );
+
 /*
 CREATE TABLE tbl_review(
 	r_id number(5) not null,
@@ -83,7 +102,7 @@ CREATE TABLE tbl_review(
 	REFERENCES tbl_prod(p_id) ON DELETE CASCADE,
 	CONSTRAINT fk_r_uemail FOREIGN KEY(u_email) 
 	REFERENCES tbl_user(u_email) ON DELETE CASCADE
-);
+) ;
 */
 DROP SEQUENCE seq_rid CASCADE CONSTRAINTS;
 

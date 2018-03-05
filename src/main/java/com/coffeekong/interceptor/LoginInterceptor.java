@@ -26,7 +26,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		UserVO uvo = (UserVO) session.getAttribute("login");
 		
 		if (uvo != null) {
-			logger.info("login success ####################");
+			logger.debug("login success ####################");
 
 			if (request.getParameter("useCookie") != null) {
 				Cookie loginCookie = new Cookie("login_id", session.getId());
@@ -58,7 +58,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 			query = "?" + query;
 		}
 		if (req.getMethod().equals("GET")) {
-			logger.info("destination ##################" + (uri + query));
+			logger.debug("destination ##################" + (uri + query));
 			req.getSession().setAttribute("dest", uri + query);
 		}
 	}
