@@ -51,7 +51,7 @@
 		<c:set var="content" value="./user/uOrderDetail.jsp"/>
 	</c:when>
 	<c:when test="${content.equals('uresign')}">
-		<c:set var="content" value="./user/uResign.jsp"/>
+ 		<c:set var="content" value="./user/uResign.jsp"/>
 	</c:when>
 	<c:when test="${content.equals('urcompl')}">
 		<c:set var="content" value="./user/uResignComplete.jsp"/>
@@ -69,7 +69,7 @@
 	<!-- header end-->
 	<!-- content start -->
 		<div id="content">
-			<jsp:include page="${content }"/>
+			<jsp:include page="${content}"/>
 		</div>
 	<!-- content end -->
 	<!-- footer start -->
