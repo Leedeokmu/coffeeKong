@@ -1,11 +1,14 @@
 package com.coffeekong.domain;
 
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
 import java.sql.Date;
 
 @Data
+@Slf4j
 public class ProductVO {
+
 	private int p_id;
 	private String p_category;
 	private String p_name;
