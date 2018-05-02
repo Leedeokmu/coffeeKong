@@ -1,13 +1,12 @@
 package com.coffeekong.service;
 
-import java.util.Date;
-
-import javax.inject.Inject;
-
 import com.coffeekong.domain.MgrVO;
 import com.coffeekong.dto.LoginDTO;
 import com.coffeekong.mapper.MgrMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 
 @Service
 public class MgrServiceImpl implements MgrService{
