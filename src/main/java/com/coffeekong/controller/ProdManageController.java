@@ -28,14 +28,14 @@ public class ProdManageController {
 	private static final Logger logger = LoggerFactory.getLogger(ProdManageController.class);
 	
 	@Autowired
-	private ProductService service;
+	private ProductService productService;
 	@Autowired
 	private ServletContext context;
 	@Autowired
 	private HttpServletRequest request;
 	
 	@RequestMapping(value = "/insert", method = RequestMethod.GET)
-	public String insertGET(@ModelAttribute("cri") SearchCriteria cri, HttpSession session, Model model) throws Exception {
+	public String insertGET(@ModelAttribute("cri") SearchCriteria cri, HttpSession session, Model model) {
 		logger.debug("Product Manage Insert############################");
 		
 		model.addAttribute("content", "pminsert");
@@ -44,7 +44,7 @@ public class ProdManageController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/insert", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
-	public String insertPOST(SearchCriteria cri, ProductVO pvo, MultipartFile file, HttpSession session) throws Exception {
+	public String insertPOST(SearchCriteria cri, ProductVO pvo, MultipartFile file, HttpSession session) throws Exception{
 		logger.debug("Product Manage Insert############################ pvo : " + pvo.toString());
 		logger.debug("originalName: " + file.getOriginalFilename());
 	    logger.debug("size: " + file.getSize());
@@ -56,19 +56,19 @@ public class ProdManageController {
 	    logger.debug("image Url ########################## " + imgUrl);
 	    pvo.setP_img(imgUrl);
 	    
-	    service.insert(pvo);
+	    productService.insert(pvo);
 
 		return "Success";
 	}
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String list(@ModelAttribute("cri") SearchCriteria cri, HttpSession session, Model model) throws Exception {
+	public String list(@ModelAttribute("cri") SearchCriteria cri, HttpSession session, Model model) {
 		logger.debug("Product Manage list############################ cri : " + cri.toString());
 		
-		model.addAttribute("list", service.list(cri));
+		model.addAttribute("list", productService.list(cri));
 		PageMaker pmk = new PageMaker();
 		pmk.setCri(cri);
-		pmk.setTotalCount(service.listCount(cri));
+		pmk.setTotalCount(productService.listCount(cri));
 		model.addAttribute("pmk",pmk);
 		
 		if(cri.getKeyword() == null || cri.getKeyword() == ""){
@@ -84,26 +84,26 @@ public class ProdManageController {
 	}
 	
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
-	public String detail(@ModelAttribute("cri") SearchCriteria cri, int pid, HttpSession session, Model model) throws Exception {
+	public String detail(@ModelAttribute("cri") SearchCriteria cri, int pid, HttpSession session, Model model) {
 		logger.debug("Produt Manage Detail############################ pid: " + pid);
 		
-		model.addAttribute("pvo", service.getByPid(pid));
+		model.addAttribute("pvo", productService.getByPid(pid));
 		model.addAttribute("content", "pmdetail");
 		return "/admin/adminPage";
 	}
 	
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
-	public String update(@ModelAttribute("cri") SearchCriteria cri, int pid, HttpSession session, Model model) throws Exception {
+	public String update(@ModelAttribute("cri") SearchCriteria cri, int pid, HttpSession session, Model model) {
 		logger.debug("Product Manage Update############################ pid : " + pid);
 		
-		model.addAttribute("pvo", service.getByPid(pid));
+		model.addAttribute("pvo", productService.getByPid(pid));
 		model.addAttribute("content", "pmupdate");
 		return "/admin/adminPage";
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/update/save", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
-	public String updateSave(SearchCriteria cri, ProductVO pvo, MultipartFile file, HttpSession session) throws Exception {
+	public String updateSave(SearchCriteria cri, ProductVO pvo, MultipartFile file, HttpSession session) throws  Exception{
 		logger.debug("Product Manage Update Save############################ pvo : " + pvo.toString());
 		
 		if(file != null){
@@ -116,13 +116,13 @@ public class ProdManageController {
 		    logger.debug("image Url ########################## " + imgUrl);
 		    pvo.setP_img(imgUrl);
 		}
-		service.update(pvo);
+		productService.update(pvo);
 		
 		return "Success";
 	}
 	
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	public String delete(SearchCriteria cri, int pid, String p_img, HttpSession session, RedirectAttributes rattr) throws Exception {
+	public String delete(SearchCriteria cri, int pid, String p_img, HttpSession session, RedirectAttributes rattr) {
 		logger.debug("Product Manage delete############################ pid : " + pid + ", p_img : " + p_img);
 		
 		
@@ -130,7 +130,7 @@ public class ProdManageController {
 		logger.debug("path ###############################" + file.getAbsolutePath());
 
 		file.delete();
-		service.delete(pid);
+		productService.delete(pid);
 		
 		rattr.addAttribute("page", cri.getPage());
 	    rattr.addAttribute("perPageNum", cri.getPerPageNum());

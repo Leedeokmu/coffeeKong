@@ -1,26 +1,67 @@
 package com.coffeekong.service;
 
+import com.coffeekong.domain.SearchCriteria;
+import com.coffeekong.domain.UserVO;
+import com.coffeekong.dto.LoginDTO;
+import com.coffeekong.mapper.UserMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import java.util.Date;
 import java.util.List;
 
-import com.coffeekong.domain.SearchCriteria;
-import com.coffeekong.domain.UserVO;
-import com.coffeekong.dto.LoginDTO;
-import com.coffeekong.domain.SearchCriteria;
-import com.coffeekong.domain.UserVO;
-import com.coffeekong.dto.LoginDTO;
+@Service
+public class UserService {
+	private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
+	@Autowired
+	private UserMapper userMapper;
+	
+	public UserVO login(LoginDTO dto) {
+		return userMapper.login(dto);
+	}
 
-public interface UserService {
-	UserVO login(LoginDTO dto) throws Exception;
-	UserVO getUserWithSessionKey(String key) throws Exception;
-	void rmbLogin(String email, String sess_id, Date limit) throws Exception;
-	String checkDuplicate(String email) throws Exception;
-	void register(UserVO uvo) throws Exception;
-	void update(UserVO uvo) throws Exception;
-	String checkUserPw(UserVO uvo) throws Exception;
-	void deleteUser(String email) throws Exception;
-	List<UserVO> list(SearchCriteria cri) throws Exception;
-	int listCount(SearchCriteria cri) throws Exception;
-	UserVO detail(String email) throws Exception;
+	public UserVO getUserWithSessionKey(String key) {
+		return userMapper.getUserWithSessionKey(key);
+	}
+
+	public void rmbLogin(String email, String sess_id, Date limit) {
+		userMapper.rmbLogin(email, sess_id, limit);
+	}
+
+	public String checkDuplicate(String email) {
+		return userMapper.checkId(email);
+	}
+
+	public void register(UserVO uvo) {
+		userMapper.register(uvo);
+	}
+
+	public void update(UserVO uvo) {
+		userMapper.update(uvo);
+	}
+
+	public String checkUserPw(UserVO uvo) {
+		return userMapper.checkUserPw(uvo);
+	}
+
+	public void deleteUser(String email) {
+		userMapper.delete(email);
+		
+	}
+
+	public List<UserVO> list(SearchCriteria cri) {
+		return userMapper.list(cri);
+	}
+
+	public int listCount(SearchCriteria cri) {
+		return userMapper.listCount(cri);
+	}
+
+	public UserVO detail(String email) {
+		return userMapper.detail(email);
+	}
+
 }

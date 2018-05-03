@@ -5,7 +5,10 @@
 	<sql id="search">
 		<if test="searchType != null">
 			<if test="searchType == 'email'.toString()">
-				WHERE lower(u_email) like '%' || #{keyword} || '%'
+				WHERE
+					LOWER(u_email)
+				LIKE
+					CONCAT('%',#{keyword},'%')
 			</if>
 		</if>
 	</sql>
@@ -32,11 +35,14 @@
 			*
 		FROM
 			tbl_user
-		WHERE u_email = #{email} AND u_pwd = #{pw}
+		WHERE
+			u_email = #{email}
+		AND
+			u_pwd = #{pw}
 	</select>
 	
 	<select id="getUserWithSession" parameterType="String" resultType="com.coffeekong.domain.UserVO">
-		<![CDATA[[
+		<![CDATA[
 		SELECT
 			*
 		FROM
@@ -57,7 +63,7 @@
 		INSERT INTO
 			tbl_user(u_email,u_fname,u_lname,u_pwd,sess_limit)
 		VALUES(
-			#{u_email},#{u_fname},#{u_lname},#{u_pwd},sysdate
+			#{u_email},#{u_fname},#{u_lname},#{u_pwd},now()
 		)
 	</insert>
 	
@@ -78,39 +84,24 @@
 		<include refid="search"></include>
 	</select>
 	<select id="list" parameterType="com.coffeekong.domain.SearchCriteria" resultType="com.coffeekong.domain.UserVO">
-		<![CDATA[
-			SELECT 
-				* 
-			FROM (
-				SELECT 
-					ROWNUM RNUM,u_email,u_fname,u_lname,u_pwd,u_point
-				FROM(
-					SELECT 
-						u_email,u_fname,u_lname,u_pwd,u_point 
-					FROM 
-						tbl_user
-		]]>
+		SELECT
+			u_email,u_fname,u_lname,u_pwd,u_point
+		FROM
+			tbl_user
 		<include refid="search"></include>
-		<![CDATA[		
-						
-					ORDER BY
-						u_email
-			))
-			WHERE
-				RNUM > (#{page} -1) * #{perPageNum} and RNUM <= #{page} * #{perPageNum}
- 		]]>
- 		
+		ORDER BY
+			u_email
+		LIMIT
+			(#{page} -1) * #{perPageNum}, #{perPageNum}
 	</select>
 	
 	<update id="update" parameterType="com.coffeekong.domain.UserVO">
-		<![CDATA[
  		UPDATE
  			tbl_user
  		SET
  			u_fname=#{u_fname}, u_lname=#{u_lname}, u_pwd=#{u_pwd}
  		WHERE
  			u_email=#{u_email} 
- 		]]>
 	</update>
 	<delete id="delete" parameterType="String">
 		DELETE

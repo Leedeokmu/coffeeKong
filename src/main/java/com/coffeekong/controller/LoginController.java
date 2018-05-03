@@ -1,10 +1,10 @@
 package com.coffeekong.controller;
 
+import com.coffeekong.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.coffeekong.domain.UserVO;
 import com.coffeekong.dto.LoginDTO;
-import com.coffeekong.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +30,7 @@ public class LoginController {
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 	
 	@Autowired
-	private UserService service;
+	private UserService userService;
 	
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public String loginGET(Model model){
@@ -51,7 +51,7 @@ public class LoginController {
             entity = new ResponseEntity<String>("Fail", HttpStatus.OK);
 		}else{
 			try {
-				UserVO uvo = service.login(dto);
+				UserVO uvo = userService.login(dto);
 				if(uvo == null){
 					entity = new ResponseEntity<String>("Fail", HttpStatus.OK);
 				}else{
@@ -65,7 +65,7 @@ public class LoginController {
 					if(dto.isUseCookie()){
 						int duration = 60 * 60 * 24 * 7;
 						Date limit = new Date(System.currentTimeMillis() + (duration * 1000));
-						service.rmbLogin(uvo.getU_email(), session.getId(), limit);
+						userService.rmbLogin(uvo.getU_email(), session.getId(), limit);
 					}
 					logger.debug("dest #############: "+(String)session.getAttribute("dest"));
 					entity = new ResponseEntity<String>((String)session.getAttribute("dest"), HttpStatus.OK);
@@ -81,7 +81,7 @@ public class LoginController {
 	
 	@RequestMapping(value="/logout", method=RequestMethod.GET)
 	public String logout(HttpServletRequest request,HttpServletResponse response,
-			HttpSession session, RedirectAttributes rttr) throws Exception{ 
+			HttpSession session, RedirectAttributes rttr) {
 		logger.debug("logout #############################");
 		Object status = session.getAttribute("login");
 		if(status != null){
@@ -95,7 +95,7 @@ public class LoginController {
 				cookie.setPath("/");
 				cookie.setMaxAge(0);
 				response.addCookie(cookie);
-				service.rmbLogin(uvo.getU_email(), session.getId(), new Date());
+				userService.rmbLogin(uvo.getU_email(), session.getId(), new Date());
 			}
 		}
 		rttr.addAttribute("content", "");

@@ -2,8 +2,6 @@ package com.coffeekong.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.coffeekong.domain.UserVO;
-import com.coffeekong.dto.LoginDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;

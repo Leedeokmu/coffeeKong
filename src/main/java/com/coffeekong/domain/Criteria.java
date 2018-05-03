@@ -1,12 +1,9 @@
 package com.coffeekong.domain;
 
-import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Criteria {
-	private static final Logger logger = LoggerFactory.getLogger(Criteria.class);
-	
 	private int page;
 	private int perPageNum;
 	

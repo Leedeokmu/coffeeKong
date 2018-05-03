@@ -22,16 +22,16 @@ public class OrderManageController {
 	private static final Logger logger = LoggerFactory.getLogger(OrderManageController.class);
 	
 	@Autowired
-	private OrderService service;
+	private OrderService orderService;
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String list(@ModelAttribute("cri") SearchCriteria cri, HttpSession session, Model model) throws Exception {
+	public String list(@ModelAttribute("cri") SearchCriteria cri, HttpSession session, Model model) {
 		logger.debug("Order Manage list############################ cri : " + cri.toString());
 		
-		model.addAttribute("list", service.list(cri));
+		model.addAttribute("list", orderService.list(cri));
 		PageMaker pmk = new PageMaker();
 		pmk.setCri(cri);
-		pmk.setTotalCount(service.listCount(cri));
+		pmk.setTotalCount(orderService.listCount(cri));
 		model.addAttribute("pmk",pmk);
 		
 		if(cri.getKeyword() == null || cri.getKeyword() == ""){
@@ -47,28 +47,28 @@ public class OrderManageController {
 	}
 	
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
-	public String detail(@ModelAttribute("cri") SearchCriteria cri, int oid, HttpSession session, Model model) throws Exception {
+	public String detail(@ModelAttribute("cri") SearchCriteria cri, int oid, HttpSession session, Model model) {
 		logger.debug("Order Manage Detail############################ oid: " + oid);
 		
-		model.addAttribute("ovo", service.getByOid(oid));
+		model.addAttribute("ovo", orderService.getByOid(oid));
 		model.addAttribute("content", "omdetail");
 		return "/admin/adminPage";
 	}
 	
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
-	public String update(@ModelAttribute("cri") SearchCriteria cri, int oid, HttpSession session, Model model) throws Exception {
+	public String update(@ModelAttribute("cri") SearchCriteria cri, int oid, HttpSession session, Model model) {
 		logger.debug("Order Manage Update############################ oid : " + oid);
 		
-		model.addAttribute("ovo", service.getByOid(oid));
+		model.addAttribute("ovo", orderService.getByOid(oid));
 		model.addAttribute("content", "omupdate");
 		return "/admin/adminPage";
 	}
 	
 	@RequestMapping(value = "/update/save", method = RequestMethod.POST)
-	public String updateSave(SearchCriteria cri, OrderVO ovo, HttpSession session, RedirectAttributes rattr) throws Exception {
+	public String updateSave(SearchCriteria cri, OrderVO ovo, HttpSession session, RedirectAttributes rattr) {
 		logger.debug("Order Manage list############################ ovo : " + ovo.toString());
 		
-		service.update(ovo);
+		orderService.update(ovo);
 		
 		rattr.addAttribute("page", cri.getPage());
 	    rattr.addAttribute("perPageNum", cri.getPerPageNum());
@@ -79,10 +79,10 @@ public class OrderManageController {
 	}
 	
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	public String delete(SearchCriteria cri, int oid, HttpSession session, RedirectAttributes rattr) throws Exception {
+	public String delete(SearchCriteria cri, int oid, HttpSession session, RedirectAttributes rattr) {
 		logger.debug("Order Manage delete############################ oid : " + oid);
 		
-		service.delete(oid);
+		orderService.delete(oid);
 		
 		rattr.addAttribute("page", cri.getPage());
 	    rattr.addAttribute("perPageNum", cri.getPerPageNum());
@@ -93,10 +93,10 @@ public class OrderManageController {
 	}
 	
 	@RequestMapping(value = "/update/state", method = RequestMethod.POST)
-	public String updateState(SearchCriteria cri, int oid, String state, HttpSession session, RedirectAttributes rattr) throws Exception {
+	public String updateState(SearchCriteria cri, int oid, String state, HttpSession session, RedirectAttributes rattr) {
 		logger.debug("Order Manage Update State############################ oid : " + oid + ", state : " + state);
 		
-		service.updateState(oid, state);
+		orderService.updateState(oid, state);
 		
 		rattr.addAttribute("page", cri.getPage());
 	    rattr.addAttribute("perPageNum", cri.getPerPageNum());

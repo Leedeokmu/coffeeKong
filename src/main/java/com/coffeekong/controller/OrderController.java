@@ -20,7 +20,7 @@ public class OrderController {
 	private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
 	
 	@Autowired
-	private OrderService service;
+	private OrderService orderService;
 	
 	@RequestMapping(value="/order", method=RequestMethod.GET)
 	public String orderGET(Model model){
@@ -39,7 +39,7 @@ public class OrderController {
 			String email = ((UserVO)session.getAttribute("login")).getU_email();
 			
 			ovo.setU_email(email);
-			service.insOrder(ovo, list);
+			orderService.insOrder(ovo, list);
 			
 			
 			

@@ -19,7 +19,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
-			ModelAndView modelAndView) throws Exception {
+			ModelAndView modelAndView) {
 
 		HttpSession session = request.getSession();
 
@@ -43,23 +43,22 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 	}
 	
 	@Override
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-			throws Exception {
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler){
 		saveDest(request);
 		return true;
 	}
 	
-	private void saveDest(HttpServletRequest req) {
-		String uri = req.getRequestURI();
-		String query = req.getQueryString();
-		if (query == null || query.equals("null")) {
+	private void saveDest(HttpServletRequest request) {
+		String uri = request.getRequestURI();
+		String query = request.getQueryString();
+		if (query == null || "null".equals(query)){
 			query = "";
 		} else {
 			query = "?" + query;
 		}
-		if (req.getMethod().equals("GET")) {
+		if (request.getMethod().equals("GET")) {
 			logger.debug("destination ##################" + (uri + query));
-			req.getSession().setAttribute("dest", uri + query);
+			request.getSession().setAttribute("dest", uri + query);
 		}
 	}
 }

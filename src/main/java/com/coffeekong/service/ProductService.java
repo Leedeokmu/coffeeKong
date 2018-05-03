@@ -4,19 +4,56 @@ import com.coffeekong.domain.Criteria;
 import com.coffeekong.domain.ProductVO;
 import com.coffeekong.domain.ReviewVO;
 import com.coffeekong.domain.SearchCriteria;
+import com.coffeekong.mapper.ProductMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public interface ProductService {
-	List<ProductVO> listByCategory(String category) throws Exception;
-	ProductVO getByPid(int pid) throws Exception;
-	List<ProductVO> list(SearchCriteria cri) throws Exception;
-	int listCount(SearchCriteria cri) throws Exception;
-	void delete(int pid) throws Exception;
-	void update(ProductVO pvo) throws Exception;
-	void insert(ProductVO pvo) throws Exception;
-	List<ReviewVO> listReview(int pid, Criteria cri) throws Exception;
-	int listReviewCount(int pid) throws Exception;
-	void addReview(ReviewVO rvo) throws Exception;
-	void deleteReview(int rid) throws Exception;
+@Service
+public class ProductService {
+	private static final Logger logger = LoggerFactory.getLogger(ProductService.class);
+
+	@Autowired
+	private ProductMapper productMapper;
+	
+	public List<ProductVO> listByCategory(String category) {
+		return productMapper.listByCategory(category);
+	}
+	public ProductVO getByPid(int pid) {
+		return productMapper.getByPid(pid);
+	}
+	public List<ProductVO> list(SearchCriteria cri) {
+		return productMapper.list(cri);
+	}
+	public int listCount(SearchCriteria cri) {
+		return productMapper.listCount(cri);
+	}
+	
+	@Transactional
+	public void delete(int pid) {
+		productMapper.delete(pid);
+	}
+	public void update(ProductVO pvo) {
+		productMapper.update(pvo);
+	}
+	public void insert(ProductVO pvo) {
+		productMapper.insert(pvo);
+	}
+	public List<ReviewVO> listReview(int pid, Criteria cri) {
+		return productMapper.listReview(pid, cri);
+	}
+	public int listReviewCount(int pid) {
+		return productMapper.listReviewCount(pid);
+	}
+	public void addReview(ReviewVO rvo) {
+		productMapper.addReview(rvo);
+	}
+	public void deleteReview(int rid) {
+		productMapper.deleteReview(rid);
+	}
+	
 }

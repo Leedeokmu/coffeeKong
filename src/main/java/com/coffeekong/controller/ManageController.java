@@ -24,7 +24,7 @@ public class ManageController {
 	private static final Logger logger = LoggerFactory.getLogger(ManageController.class);
 	
 	@Autowired
-	private MgrService service;
+	private MgrService mgrService;
 	
 	@RequestMapping(value="", method=RequestMethod.GET)
 	public String index(Model model, HttpSession session){
@@ -56,7 +56,7 @@ public class ManageController {
             return "redirect:/admin/login";
 		}else{
 			try {
-				MgrVO mvo = service.login(dto);
+				MgrVO mvo = mgrService.login(dto);
 				if(mvo == null){
 					rttr.addFlashAttribute("errmsg", "EMAIL & PASSWORD NOT MATCHED");
 					return "redirect:/manage/login";

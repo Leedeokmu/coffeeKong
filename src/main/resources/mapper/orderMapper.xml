@@ -30,7 +30,10 @@
 	<sql id="searchByEmail">
 		<if test="cri.searchType != null">
 			<if test="cri.searchType == 'prodNm'.toString()">
-				AND lower(p.p_name) like '%' || #{cri.keyword} || '%'
+				AND
+					LOWER(p.p_name)
+				LIKE
+				  	CONCAT('%',#{cri.keyword},'%')
 			</if>
 		</if>
 	</sql>
@@ -38,46 +41,41 @@
 	<sql id="search">
 		<if test="searchType != null">
 			<if test="searchType == 'prodNm'.toString()">
-				WHERE lower(p.p_name) like '%' || #{keyword} || '%'
+				WHERE
+					LOWER(p.p_name)
+				LIKE
+					CONCAT('%',#{keyword},'%')
 			</if>
 			<if test="searchType == 'email'.toString()">
-				WHERE lower(o.u_email) like '%' || #{keyword} || '%'
+				WHERE
+					LOWER(o.u_email)
+				LIKE
+					CONCAT('%',#{keyword},'%')
 			</if>
 		</if>
 	</sql>
 
-	<select id="listByEmail" parameterType="hashmap" resultMap="Order">
-		<![CDATA[
-			SELECT 
-				* 
-			FROM (
-			SELECT 
-				ROWNUM RNUM, o_id,p_name,p_category,p_img,p_id,op_qty,op_sz,op_type,op_price, 
-				o_price,o_rfname,o_rlname,o_phone,o_postcode,o_addr,o_state,o_date
-			FROM (
-			SELECT 
-				o.o_id, p.p_name,p.p_category,p.p_img, op.p_id,op.op_qty,op.op_sz,op.op_type,op.op_price, 
-				o.o_price,o.o_rfname,o.o_rlname,o.o_phone,o.o_postcode,o.o_addr,o.o_state,o.o_date
-			FROM 
-				tbl_order o LEFT OUTER JOIN 
-				(
-					tbl_order_prod op INNER JOIN tbl_prod p
-					ON op.p_id=p.p_id
-				)
-			ON
-				o.o_id = op.o_id 
-			WHERE 
-				o.u_email = #{email}
-		]]>
+	<select id="listByEmail" resultMap="Order">
+		SELECT
+			o.o_id, p.p_name,p.p_category,p.p_img, op.p_id,op.op_qty,op.op_sz,op.op_type,op.op_price,
+			o.o_price,o.o_rfname,o.o_rlname,o.o_phone,o.o_postcode,o.o_addr,o.o_state,o.o_date
+		FROM
+			tbl_order o LEFT OUTER JOIN
+			(
+				tbl_order_prod op INNER JOIN tbl_prod p
+				ON op.p_id=p.p_id
+			)
+		ON
+			o.o_id = op.o_id
+		WHERE
+			o.u_email = #{email}
 			<include refid="searchByEmail"></include>
-		<![CDATA[		
-			ORDER BY 
-				o.o_id))
-			WHERE 
-				RNUM > (#{cri.page} -1) * #{cri.perPageNum} and RNUM <= #{cri.page} * #{cri.perPageNum}
- 		]]>
+		ORDER BY
+			o.o_id
+		LIMIT
+			(#{cri.page} - 1) * #{cri.perPageNum}, #{cri.perPageNum}
 	</select>
-	<select id="listCountByEmail" parameterType="hashmap" resultType="int">
+	<select id="listCountByEmail">
 		SELECT count(*)
 		FROM tbl_order o INNER JOIN 
 			(
@@ -89,33 +87,22 @@
 		<include refid="searchByEmail"></include>
 	</select>
 	<select id="list" parameterType="com.coffeekong.domain.SearchCriteria" resultMap="Order">
-		<![CDATA[
-			SELECT 
-				* 
-			FROM (
-			SELECT 
-				ROWNUM RNUM, o_id,u_email,p_name,p_category,p_img,p_id,op_qty,op_sz,op_type,op_price, 
-				o_price,o_rfname,o_rlname,o_phone,o_postcode,o_addr,o_state,o_date
-			FROM (
-			SELECT 
-				o.o_id, o.u_email,p.p_name,p.p_category,p.p_img, op.p_id,op.op_qty,op.op_sz,op.op_type,op.op_price, 
-				o.o_price,o.o_rfname,o.o_rlname,o.o_phone,o.o_postcode,o.o_addr,o.o_state,o.o_date
-			FROM 
-				tbl_order o LEFT OUTER JOIN 
-				(
-					tbl_order_prod op INNER JOIN tbl_prod p
-					ON op.p_id=p.p_id
-				)
-			ON
-				o.o_id = op.o_id 
-		]]>
-			<include refid="search"></include>
-		<![CDATA[		
-			ORDER BY 
-				o.o_id))
-			WHERE 
-				RNUM > (#{page} -1) * #{perPageNum} and RNUM <= #{page} * #{perPageNum}
- 		]]>
+		SELECT
+			o.o_id, o.u_email,p.p_name,p.p_category,p.p_img, op.p_id,op.op_qty,op.op_sz,op.op_type,op.op_price,
+			o.o_price,o.o_rfname,o.o_rlname,o.o_phone,o.o_postcode,o.o_addr,o.o_state,o.o_date
+		FROM
+			tbl_order o LEFT OUTER JOIN
+			(
+				tbl_order_prod op INNER JOIN tbl_prod p
+				ON op.p_id=p.p_id
+			)
+		ON
+			o.o_id = op.o_id
+		<include refid="search"></include>
+		ORDER BY
+			o.o_id
+		LIMIT
+			(#{page} -1) * #{perPageNum}, #{perPageNum}
 	</select>
 	<select id="listCount" parameterType="com.coffeekong.domain.SearchCriteria" resultType="int">
 		SELECT count(*)
@@ -127,7 +114,7 @@
 		ON o.o_id=op.o_id
 		<include refid="search"></include>
 	</select>
-	<select id="getByOid" parameterType="int" resultMap="Order">
+	<select id="getByOid" resultMap="Order">
 		SELECT 
 			o.o_id, o.u_email,p.p_name,p.p_category,p.p_img, op.p_id,op.op_qty,op.op_sz,op.op_type,op.op_price, 
 			o.o_price,o.o_rfname,o.o_rlname,o.o_phone,o.o_postcode,o.o_addr,o.o_state,o.o_date
@@ -145,25 +132,25 @@
 	
 	<insert id="insOrd" parameterType="com.coffeekong.domain.OrderVO">
 		INSERT INTO
-			tbl_order
+			tbl_order(u_email, o_price, o_rfname, o_rlname, o_phone, o_postcode, o_addr, o_state, o_date)
 		VALUES(
-			seq_oid.nextval,#{u_email}, #{o_price}, #{o_rfname}, 
+			#{u_email}, #{o_price}, #{o_rfname},
 			#{o_rlname}, #{o_phone}, #{o_postcode}, #{o_addr},
 			'waiting payment', sysdate
 		)
 	</insert>
 	<insert id="insOrdProd" parameterType="com.coffeekong.domain.CartVO">
 		INSERT INTO
-			tbl_order_prod
+			tbl_order_prod(o_id, p_id, op_qty, op_sz, op_type, op_price)
 		VALUES(
-			seq_opid.nextval,seq_oid.currval,#{p_id},#{qty}, #{sz}, #{type}, #{sub_price}
+			#{o_id}, #{p_id},#{qty}, #{sz}, #{type}, #{sub_price}
 		)
 	</insert>
 	<insert id="insOrdProdTool" parameterType="com.coffeekong.domain.CartVO">
 		INSERT INTO
 			tbl_order_prod(o_id, p_id, op_qty, op_price)
 		VALUES(
-			seq_opid.nextval,seq_oid.currval,#{vo.p_id},#{vo.qty}, #{vo.sub_price}
+			#{o_id}, #{vo.p_id}, #{vo.qty}, #{vo.sub_price}
 		)
 	</insert>
 	
@@ -175,19 +162,19 @@
 		WHERE
 			o_id=#{o_id}
 	</update>
-	<delete id="deleteOrd" parameterType="int">
-		Delete FROM
+	<delete id="deleteOrd" >
+		DELETE FROM
 			tbl_order
 		WHERE
 			o_id=#{oid}
 	</delete>
-	<delete id="deleteOrdProd" parameterType="int">
-		Delete FROM
+	<delete id="deleteOrdProd" >
+		DELETE FROM
 			tbl_order_prod
 		WHERE
 			o_id=#{oid}
 	</delete>
-	<update id="updateState" parameterType="hashmap">
+	<update id="updateState" >
 		UPDATE
 			tbl_order
 		SET

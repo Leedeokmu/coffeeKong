@@ -17,7 +17,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @Lazy
-@MapperScan(basePackages = "com.coffeekong.mapper", annotationClass = CoffeekongMapper.class, sqlSessionFactoryRef = "sqlSessionFactory")
+@MapperScan(basePackages="com.coffeekong.mapper", annotationClass = CoffeekongMapper.class, sqlSessionFactoryRef = "sqlSessionFactory")
 public class DBConfig {
 
     @Autowired

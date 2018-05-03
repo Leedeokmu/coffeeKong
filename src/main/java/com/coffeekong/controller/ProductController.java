@@ -1,12 +1,12 @@
 package com.coffeekong.controller;
 
+import com.coffeekong.service.ProductService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.coffeekong.domain.Criteria;
 import com.coffeekong.domain.PageMaker;
 import com.coffeekong.domain.ProductVO;
 import com.coffeekong.domain.ReviewVO;
-import com.coffeekong.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,22 +26,22 @@ public class ProductController {
 	private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
 	
 	@Autowired
-	private ProductService service;
+	private ProductService productService;
 	
 	@RequestMapping(value = "/list/{category}", method = RequestMethod.GET)
-	public String list(@PathVariable String category,  Model model) throws Exception {
+	public String list(@PathVariable String category,  Model model) {
 		logger.debug("product list############################ category: " + category);
 		
-		model.addAttribute("list", service.listByCategory(category));
+		model.addAttribute("list", productService.listByCategory(category));
 		model.addAttribute("content", "list");
 		return "/product/product";
 	}
 	
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
-	public String deatil(int pid, HttpSession session,Model model) throws Exception {
+	public String deatil(int pid, HttpSession session,Model model) {
 		logger.debug("product detail############################ pid: " + pid);
 		
-		ProductVO pvo = service.getByPid(pid);
+		ProductVO pvo = productService.getByPid(pid);
 		if(session.getAttribute("viewedList") == null){
 			List<ProductVO> list = new ArrayList<ProductVO>();
 			list.add(pvo);
@@ -82,7 +82,7 @@ public class ProductController {
 		logger.debug("post Review ################### rvo : " + rvo.toString());
 		ResponseEntity<String> entity = null;
 		try {
-			service.addReview(rvo);
+			productService.addReview(rvo);
 	        entity = new ResponseEntity<String>("Success", HttpStatus.OK);
 	    } catch (Exception e) {
 	        e.printStackTrace();
@@ -104,11 +104,11 @@ public class ProductController {
 		      pageMaker.setCri(cri);
 
 		      Map<String, Object> map = new HashMap<>();
-		      List<ReviewVO> list = service.listReview(pid, cri);
+		      List<ReviewVO> list = productService.listReview(pid, cri);
 
 		      map.put("list", list);
 
-		      int replyCount = service.listReviewCount(pid);
+		      int replyCount = productService.listReviewCount(pid);
 		      pageMaker.setTotalCount(replyCount);
 
 		      map.put("pmk", pageMaker);
@@ -129,7 +129,7 @@ public class ProductController {
 		ResponseEntity<String> entity = null;
 		
 		try {
-		      service.deleteReview(rid);
+		      productService.deleteReview(rid);
 		      entity = new ResponseEntity<>("Success", HttpStatus.OK);
 	    } catch (Exception e) {
 		      e.printStackTrace();

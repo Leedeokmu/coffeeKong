@@ -7,7 +7,9 @@
 		FROM
 			tbl_manager
 		WHERE
-			m_email=#{email} AND m_pwd=#{pw}
+			m_email=#{email}
+		AND
+			m_pwd=#{pw}
 	</select>
 	<update id="rmbLogin" parameterType="hashmap">
 		UPDATE

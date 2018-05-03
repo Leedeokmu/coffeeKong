@@ -22,7 +22,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 	private static final Logger logger = LoggerFactory.getLogger(AuthInterceptor.class);
 
 	@Autowired
-	private UserService service;
+	private UserService userService;
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -35,7 +35,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 
 			Cookie login_id = WebUtils.getCookie(request, "login_id");
 			if (login_id != null) {
-				UserVO uvo = service.getUserWithSessionKey(login_id.getValue());
+				UserVO uvo = userService.getUserWithSessionKey(login_id.getValue());
 				logger.debug("UserVO ###################### " + uvo);
 				if (uvo != null) {
 					session.setAttribute("login", uvo);

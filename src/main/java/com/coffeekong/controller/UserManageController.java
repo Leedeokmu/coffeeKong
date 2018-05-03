@@ -23,16 +23,16 @@ public class UserManageController {
 	private static final Logger logger = LoggerFactory.getLogger(UserManageController.class);
 	
 	@Autowired
-	private UserService service;
+	private UserService userService;
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String list(@ModelAttribute("cri") SearchCriteria cri, HttpSession session, Model model) throws Exception {
+	public String list(@ModelAttribute("cri") SearchCriteria cri, HttpSession session, Model model) {
 		logger.debug("User Manage list############################ cri : " + cri.toString());
 		
-		model.addAttribute("list", service.list(cri));
+		model.addAttribute("list", userService.list(cri));
 		PageMaker pmk = new PageMaker();
 		pmk.setCri(cri);
-		pmk.setTotalCount(service.listCount(cri));
+		pmk.setTotalCount(userService.listCount(cri));
 		model.addAttribute("pmk",pmk);
 		
 		if(cri.getKeyword() == null || cri.getKeyword() == ""){
@@ -48,28 +48,28 @@ public class UserManageController {
 	}
 	
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
-	public String detail(@ModelAttribute("cri") SearchCriteria cri, String email, HttpSession session, Model model) throws Exception {
+	public String detail(@ModelAttribute("cri") SearchCriteria cri, String email, HttpSession session, Model model) {
 		logger.debug("User Manage Detail############################ email: " + email);
 		
-		model.addAttribute("uvo", service.detail(email));
+		model.addAttribute("uvo", userService.detail(email));
 		model.addAttribute("content", "umdetail");
 		return "/admin/adminPage";
 	}
 	
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
-	public String update(@ModelAttribute("cri") SearchCriteria cri, @RequestParam String email, HttpSession session, Model model) throws Exception {
+	public String update(@ModelAttribute("cri") SearchCriteria cri, @RequestParam String email, HttpSession session, Model model) {
 		logger.debug("User Manage Update############################ email : " + email);
 		
-		model.addAttribute("uvo", service.detail(email));
+		model.addAttribute("uvo", userService.detail(email));
 		model.addAttribute("content", "umupdate");
 		return "/admin/adminPage";
 	}
 	
 	@RequestMapping(value = "/update/save", method = RequestMethod.POST)
-	public String updateSave(SearchCriteria cri, UserVO uvo, HttpSession session, RedirectAttributes rattr) throws Exception {
+	public String updateSave(SearchCriteria cri, UserVO uvo, HttpSession session, RedirectAttributes rattr) {
 		logger.debug("User Manage list############################ uvo : " + uvo.toString());
 		
-		service.update(uvo);
+		userService.update(uvo);
 		
 		rattr.addAttribute("page", cri.getPage());
 	    rattr.addAttribute("perPageNum", cri.getPerPageNum());
@@ -80,10 +80,10 @@ public class UserManageController {
 	}
 	
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	public String delete(SearchCriteria cri, String email, HttpSession session, RedirectAttributes rattr) throws Exception {
+	public String delete(SearchCriteria cri, String email, HttpSession session, RedirectAttributes rattr) {
 		logger.debug("User Manage delete############################ email : " + email);
 		
-		service.deleteUser(email);
+		userService.deleteUser(email);
 		
 		rattr.addAttribute("page", cri.getPage());
 	    rattr.addAttribute("perPageNum", cri.getPerPageNum());

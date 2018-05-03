@@ -5,10 +5,16 @@
 	<sql id="search">
 		<if test="searchType != null">
 			<if test="searchType == 'prodNm'.toString()">
-				WHERE lower(p_name) like '%' || #{keyword} || '%'
+				WHERE
+					LOWER(p_name)
+				LIKE
+					CONCAT('%',#{keyword},'%')
 			</if>
 			<if test="searchType == 'category'.toString()">
-				WHERE lower(p_category) like '%' || #{keyword} || '%'
+				WHERE
+					LOWER(p_category)
+				LIKE
+					CONCAT('%',#{keyword},'%')
 			</if>
 		</if>
 	</sql>
@@ -17,32 +23,20 @@
 		INSERT INTO
 			tbl_prod
 		VALUES(
-			seq_pid.nextval,#{p_category},#{p_name},#{p_content}, #{p_price}, #{p_mdate}, sysdate, #{p_img}
+			#{p_category},#{p_name},#{p_content}, #{p_price}, #{p_mdate}, sysdate, #{p_img}
 		)
 	</insert>
 	
 	<select id="list" parameterType="com.coffeekong.domain.SearchCriteria" resultType="com.coffeekong.domain.ProductVO">
-		<![CDATA[
-			SELECT 
-				* 
-			FROM (
-				SELECT 
-					ROWNUM RNUM,p_id,p_category,p_name,p_content,p_price,p_mdate,p_rdate,p_img 
-				FROM (
-					SELECT 
-						p_id,p_category,p_name,p_content,p_price,p_mdate,p_rdate,p_img 
-					FROM 
-						tbl_prod
-		]]>
-			<include refid="search"></include>
-		<![CDATA[				 
-					ORDER BY
-						p_rdate desc
-				)
-			)
-			WHERE
-				RNUM > (#{page} -1) * #{perPageNum} and RNUM <= #{page} * #{perPageNum}
-	 	]]>
+		SELECT
+			p_id,p_category,p_name,p_content,p_price,p_mdate,p_rdate,p_img
+		FROM
+			tbl_prod
+		<include refid="search"></include>
+		ORDER BY
+			p_rdate desc
+		LIMIT
+			(#{page} -1) * #{perPageNum}, #{perPageNum}
 	</select>
 	
 	<select id="listCount" parameterType="com.coffeekong.domain.SearchCriteria" resultType="int">
@@ -53,7 +47,7 @@
 		<include refid="search"></include>
 	</select>
 	
-	<select id="listByCategory" parameterType="String" resultType="com.coffeekong.domain.ProductVO">
+	<select id="listByCategory" resultType="com.coffeekong.domain.ProductVO">
 		SELECT
 			*
 		FROM
@@ -61,7 +55,7 @@
 		WHERE
 			p_category=#{category}
 	</select>
-	<select id="getByPid" parameterType="int" resultType="com.coffeekong.domain.ProductVO">
+	<select id="getByPid" resultType="com.coffeekong.domain.ProductVO">
 		SELECT
 			*
 		FROM
@@ -69,43 +63,33 @@
 		WHERE
 			p_id=#{pid}
 	</select>
-	<select id="delete" parameterType="int">
-		delete from
+	<select id="delete">
+		DELETE FROM
 			tbl_prod
-		where
+		WHERE
 		 	p_id=#{pId}
 	</select>
 	<select id="update" parameterType="com.coffeekong.domain.ProductVO">
-		update
+		UPDATE
 			tbl_prod 
-		set
+		SET
 			p_category=#{p_category}, p_name=#{p_name},p_content=#{p_content}, p_price=#{p_price}, p_mdate=#{p_mdate}, p_img=#{p_img}
-		where
+		WHERE
 			p_id=#{p_id}
 	</select>
-	<select id="listReview" parameterType="hashmap" resultType="com.coffeekong.domain.ReviewVO">
-		<![CDATA[
+	<select id="listReview" resultType="com.coffeekong.domain.ReviewVO">
 		SELECT
-			*
-		FROM (
-			SELECT 
-				ROWNUM RNUM, r_id, p_id,u_email, u_name, r_grade, r_content, r_date
-			FROM (
-				SELECT
-					r_id, p_id,u_email, u_name,r_grade, r_content, r_date
-				FROM
-					tbl_review
-				WHERE
-					p_id=#{pid}
-				ORDER BY
-					r_id DESC
-			)
-		) 
+			r_id, p_id,u_email, u_name,r_grade, r_content, r_date
+		FROM
+			tbl_review
 		WHERE
-			RNUM > (#{cri.page} -1) * #{cri.perPageNum} and RNUM <= #{cri.page} * #{cri.perPageNum}
-		]]>
+			p_id=#{pid}
+		ORDER BY
+			r_id DESC
+		LIMIT
+			(#{cri.page} -1) * #{cri.perPageNum}, #{cri.perPageNum}
 	</select>
-	<select id="listReviewCount" parameterType="int" resultType="int">
+	<select id="listReviewCount">
 		SELECT
 			count(r_id)
 		FROM

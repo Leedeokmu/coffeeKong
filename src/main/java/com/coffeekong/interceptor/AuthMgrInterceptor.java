@@ -1,9 +1,7 @@
 package com.coffeekong.interceptor;
 
-import com.coffeekong.service.MgrService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,9 +11,6 @@ import javax.servlet.http.HttpSession;
 public class AuthMgrInterceptor extends HandlerInterceptorAdapter {
 
 	private static final Logger logger = LoggerFactory.getLogger(AuthMgrInterceptor.class);
-
-	@Autowired
-	private MgrService service;
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
