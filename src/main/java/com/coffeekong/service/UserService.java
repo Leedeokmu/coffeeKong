@@ -4,17 +4,16 @@ import com.coffeekong.domain.SearchCriteria;
 import com.coffeekong.domain.UserVO;
 import com.coffeekong.dto.LoginDTO;
 import com.coffeekong.mapper.UserMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
 
+@Slf4j
 @Service
 public class UserService {
-	private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
 	@Autowired
 	private UserMapper userMapper;

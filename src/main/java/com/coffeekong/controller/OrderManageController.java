@@ -4,6 +4,7 @@ import com.coffeekong.domain.OrderVO;
 import com.coffeekong.domain.PageMaker;
 import com.coffeekong.domain.SearchCriteria;
 import com.coffeekong.service.OrderService;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,17 +17,16 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 
+@Slf4j
 @Controller
 @RequestMapping("/manage/order")
 public class OrderManageController {
-	private static final Logger logger = LoggerFactory.getLogger(OrderManageController.class);
-	
 	@Autowired
 	private OrderService orderService;
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(@ModelAttribute("cri") SearchCriteria cri, HttpSession session, Model model) {
-		logger.debug("Order Manage list############################ cri : " + cri.toString());
+		log.debug("Order Manage list############################ cri : " + cri.toString());
 		
 		model.addAttribute("list", orderService.list(cri));
 		PageMaker pmk = new PageMaker();
@@ -40,7 +40,7 @@ public class OrderManageController {
 			model.addAttribute("search", "on");
 		}
 		
-		logger.debug("search ######################## : " + cri.getKeyword());
+		log.debug("search ######################## : " + cri.getKeyword());
 		
 		model.addAttribute("content", "omlist");
 		return "/admin/adminPage";
@@ -48,7 +48,7 @@ public class OrderManageController {
 	
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
 	public String detail(@ModelAttribute("cri") SearchCriteria cri, int oid, HttpSession session, Model model) {
-		logger.debug("Order Manage Detail############################ oid: " + oid);
+		log.debug("Order Manage Detail############################ oid: " + oid);
 		
 		model.addAttribute("ovo", orderService.getByOid(oid));
 		model.addAttribute("content", "omdetail");
@@ -57,7 +57,7 @@ public class OrderManageController {
 	
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
 	public String update(@ModelAttribute("cri") SearchCriteria cri, int oid, HttpSession session, Model model) {
-		logger.debug("Order Manage Update############################ oid : " + oid);
+		log.debug("Order Manage Update############################ oid : " + oid);
 		
 		model.addAttribute("ovo", orderService.getByOid(oid));
 		model.addAttribute("content", "omupdate");
@@ -66,7 +66,7 @@ public class OrderManageController {
 	
 	@RequestMapping(value = "/update/save", method = RequestMethod.POST)
 	public String updateSave(SearchCriteria cri, OrderVO ovo, HttpSession session, RedirectAttributes rattr) {
-		logger.debug("Order Manage list############################ ovo : " + ovo.toString());
+		log.debug("Order Manage list############################ ovo : " + ovo.toString());
 		
 		orderService.update(ovo);
 		
@@ -80,7 +80,7 @@ public class OrderManageController {
 	
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public String delete(SearchCriteria cri, int oid, HttpSession session, RedirectAttributes rattr) {
-		logger.debug("Order Manage delete############################ oid : " + oid);
+		log.debug("Order Manage delete############################ oid : " + oid);
 		
 		orderService.delete(oid);
 		
@@ -94,7 +94,7 @@ public class OrderManageController {
 	
 	@RequestMapping(value = "/update/state", method = RequestMethod.POST)
 	public String updateState(SearchCriteria cri, int oid, String state, HttpSession session, RedirectAttributes rattr) {
-		logger.debug("Order Manage Update State############################ oid : " + oid + ", state : " + state);
+		log.debug("Order Manage Update State############################ oid : " + oid + ", state : " + state);
 		
 		orderService.updateState(oid, state);
 		

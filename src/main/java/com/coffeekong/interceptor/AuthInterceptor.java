@@ -19,8 +19,6 @@ import javax.servlet.http.HttpSession;
 @Component
 public class AuthInterceptor extends HandlerInterceptorAdapter {
 
-	private static final Logger logger = LoggerFactory.getLogger(AuthInterceptor.class);
-
 	@Autowired
 	private UserService userService;
 
@@ -30,13 +28,13 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 
 		HttpSession session = request.getSession();
 		if (session.getAttribute("login") == null) {
-			logger.debug("current user is not logged in");
+			log.debug("current user is not logged in");
 			saveDest(request);
 
 			Cookie login_id = WebUtils.getCookie(request, "login_id");
 			if (login_id != null) {
 				UserVO uvo = userService.getUserWithSessionKey(login_id.getValue());
-				logger.debug("UserVO ###################### " + uvo);
+				log.debug("UserVO ###################### " + uvo);
 				if (uvo != null) {
 					session.setAttribute("login", uvo);
 					return true;
@@ -58,7 +56,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 			query = "?" + query;
 		}
 		if (req.getMethod().equals("GET")) {
-			logger.debug("destination ##################" + (uri + query));
+			log.debug("destination ##################" + (uri + query));
 			req.getSession().setAttribute("dest", uri + query);
 		}
 	}

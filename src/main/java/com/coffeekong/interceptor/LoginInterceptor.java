@@ -6,17 +6,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.coffeekong.domain.UserVO;
+import org.springframework.stereotype.Component;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+@Slf4j
+@Component
 public class LoginInterceptor extends HandlerInterceptorAdapter {
-
-	private static final Logger logger = LoggerFactory.getLogger(LoginInterceptor.class);
-
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) {
@@ -26,7 +27,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		UserVO uvo = (UserVO) session.getAttribute("login");
 		
 		if (uvo != null) {
-			logger.debug("login success ####################");
+			log.debug("login success ####################");
 
 			if (request.getParameter("useCookie") != null) {
 				Cookie loginCookie = new Cookie("login_id", session.getId());
@@ -57,7 +58,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 			query = "?" + query;
 		}
 		if (request.getMethod().equals("GET")) {
-			logger.debug("destination ##################" + (uri + query));
+			log.debug("destination ##################" + (uri + query));
 			request.getSession().setAttribute("dest", uri + query);
 		}
 	}

@@ -1,6 +1,7 @@
 package com.coffeekong.controller;
 
 import com.coffeekong.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.coffeekong.domain.UserVO;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.WebUtils;
 
@@ -25,25 +27,26 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.Date;
 
+@Slf4j
 @Controller
 public class LoginController {
-	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
-	
 	@Autowired
 	private UserService userService;
 	
 	@RequestMapping(value="/login", method=RequestMethod.GET)
-	public String loginGET(Model model){
-		logger.debug("login ##########################");
+	public ModelAndView loginGET(Model model){
+		log.debug("login ##########################");
 	
 		model.addAttribute("content", "login");
-		return "index";
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("index");
+		return mv;
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public ResponseEntity<String> loginPOST (@Valid @RequestBody LoginDTO dto, BindingResult error, HttpSession session ){ 
-		logger.debug("login ########################### dto : " + dto.toString());
+		log.debug("login ########################### dto : " + dto.toString());
 		
 		ResponseEntity<String> entity = null;
 		
@@ -57,7 +60,7 @@ public class LoginController {
 				}else{
 					if (session.getAttribute("login") != null) {
 						
-						logger.debug("clear login session attr #######################");
+						log.debug("clear login session attr #######################");
 						session.removeAttribute("login");
 					}
 					
@@ -67,7 +70,7 @@ public class LoginController {
 						Date limit = new Date(System.currentTimeMillis() + (duration * 1000));
 						userService.rmbLogin(uvo.getU_email(), session.getId(), limit);
 					}
-					logger.debug("dest #############: "+(String)session.getAttribute("dest"));
+					log.debug("dest #############: "+(String)session.getAttribute("dest"));
 					entity = new ResponseEntity<String>((String)session.getAttribute("dest"), HttpStatus.OK);
 				}
 			} catch (Exception e) {
@@ -75,14 +78,14 @@ public class LoginController {
 				entity = new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 			}
 		}
-		logger.debug("entity ############ : "+ entity);
+		log.debug("entity ############ : "+ entity);
 		return entity;
 	}
 	
 	@RequestMapping(value="/logout", method=RequestMethod.GET)
 	public String logout(HttpServletRequest request,HttpServletResponse response,
 			HttpSession session, RedirectAttributes rttr) {
-		logger.debug("logout #############################");
+		log.debug("logout #############################");
 		Object status = session.getAttribute("login");
 		if(status != null){
 			UserVO uvo = (UserVO)status;

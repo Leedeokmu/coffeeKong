@@ -1,6 +1,7 @@
 package com.coffeekong.controller;
 
 import com.coffeekong.service.ProductService;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.coffeekong.domain.Criteria;
@@ -20,17 +21,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+@Slf4j
 @Controller
 @RequestMapping("/product")
 public class ProductController {
-	private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
-	
 	@Autowired
 	private ProductService productService;
 	
 	@RequestMapping(value = "/list/{category}", method = RequestMethod.GET)
 	public String list(@PathVariable String category,  Model model) {
-		logger.debug("product list############################ category: " + category);
+		log.debug("product list############################ category: " + category);
 		
 		model.addAttribute("list", productService.listByCategory(category));
 		model.addAttribute("content", "list");
@@ -39,7 +40,7 @@ public class ProductController {
 	
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
 	public String deatil(int pid, HttpSession session,Model model) {
-		logger.debug("product detail############################ pid: " + pid);
+		log.debug("product detail############################ pid: " + pid);
 		
 		ProductVO pvo = productService.getByPid(pid);
 		if(session.getAttribute("viewedList") == null){
@@ -50,7 +51,7 @@ public class ProductController {
 			List<ProductVO> list = (List<ProductVO>) session.getAttribute("viewedList");
 			Boolean flag = true;
 			for(ProductVO vo: list){
-				logger.debug(vo.toString());
+				log.debug(vo.toString());
 			}
 			
 			for(ProductVO vo : list){
@@ -79,7 +80,7 @@ public class ProductController {
 	@ResponseBody
 	@RequestMapping(value = "/review/post", method = RequestMethod.POST)
 	public ResponseEntity<String> postReview(@RequestBody ReviewVO rvo){
-		logger.debug("post Review ################### rvo : " + rvo.toString());
+		log.debug("post Review ################### rvo : " + rvo.toString());
 		ResponseEntity<String> entity = null;
 		try {
 			productService.addReview(rvo);
@@ -94,7 +95,7 @@ public class ProductController {
 	@ResponseBody
 	@RequestMapping(value = "/review/list/{pid}/{page}", method = RequestMethod.GET)
 	public ResponseEntity<Map<String, Object>> listReview(@PathVariable int pid, @PathVariable int page){
-		logger.debug("list Review ################### pid : " + pid + ", page : " + page);
+		log.debug("list Review ################### pid : " + pid + ", page : " + page);
 		ResponseEntity<Map<String, Object>> entity = null;
 		try {
 		      Criteria cri = new Criteria();
@@ -125,7 +126,7 @@ public class ProductController {
 	@ResponseBody
 	@RequestMapping(value = "/review/delete/{rid}", method = RequestMethod.DELETE)
 	public ResponseEntity<String> deleteReview(@PathVariable int rid){
-		logger.debug("delete Review ################### pid : " + rid);
+		log.debug("delete Review ################### pid : " + rid);
 		ResponseEntity<String> entity = null;
 		
 		try {

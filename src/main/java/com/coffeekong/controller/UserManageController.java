@@ -4,6 +4,7 @@ import com.coffeekong.domain.PageMaker;
 import com.coffeekong.domain.SearchCriteria;
 import com.coffeekong.domain.UserVO;
 import com.coffeekong.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,17 +18,16 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 
+@Slf4j
 @Controller
 @RequestMapping("/manage/user")
 public class UserManageController {
-	private static final Logger logger = LoggerFactory.getLogger(UserManageController.class);
-	
 	@Autowired
 	private UserService userService;
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(@ModelAttribute("cri") SearchCriteria cri, HttpSession session, Model model) {
-		logger.debug("User Manage list############################ cri : " + cri.toString());
+		log.debug("User Manage list############################ cri : " + cri.toString());
 		
 		model.addAttribute("list", userService.list(cri));
 		PageMaker pmk = new PageMaker();
@@ -41,7 +41,7 @@ public class UserManageController {
 			model.addAttribute("search", "on");
 		}
 		
-		logger.debug("search ######################## : " + cri.getKeyword());
+		log.debug("search ######################## : " + cri.getKeyword());
 		
 		model.addAttribute("content", "umlist");
 		return "/admin/adminPage";
@@ -49,7 +49,7 @@ public class UserManageController {
 	
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
 	public String detail(@ModelAttribute("cri") SearchCriteria cri, String email, HttpSession session, Model model) {
-		logger.debug("User Manage Detail############################ email: " + email);
+		log.debug("User Manage Detail############################ email: " + email);
 		
 		model.addAttribute("uvo", userService.detail(email));
 		model.addAttribute("content", "umdetail");
@@ -58,7 +58,7 @@ public class UserManageController {
 	
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
 	public String update(@ModelAttribute("cri") SearchCriteria cri, @RequestParam String email, HttpSession session, Model model) {
-		logger.debug("User Manage Update############################ email : " + email);
+		log.debug("User Manage Update############################ email : " + email);
 		
 		model.addAttribute("uvo", userService.detail(email));
 		model.addAttribute("content", "umupdate");
@@ -67,7 +67,7 @@ public class UserManageController {
 	
 	@RequestMapping(value = "/update/save", method = RequestMethod.POST)
 	public String updateSave(SearchCriteria cri, UserVO uvo, HttpSession session, RedirectAttributes rattr) {
-		logger.debug("User Manage list############################ uvo : " + uvo.toString());
+		log.debug("User Manage list############################ uvo : " + uvo.toString());
 		
 		userService.update(uvo);
 		
@@ -81,7 +81,7 @@ public class UserManageController {
 	
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public String delete(SearchCriteria cri, String email, HttpSession session, RedirectAttributes rattr) {
-		logger.debug("User Manage delete############################ email : " + email);
+		log.debug("User Manage delete############################ email : " + email);
 		
 		userService.deleteUser(email);
 		

@@ -3,6 +3,7 @@ package com.coffeekong.controller;
 import com.coffeekong.domain.MgrVO;
 import com.coffeekong.dto.LoginDTO;
 import com.coffeekong.service.MgrService;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,17 +19,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+@Slf4j
 @Controller
 @RequestMapping("/manage")
 public class ManageController {
-	private static final Logger logger = LoggerFactory.getLogger(ManageController.class);
-	
 	@Autowired
 	private MgrService mgrService;
 	
 	@RequestMapping(value="", method=RequestMethod.GET)
 	public String index(Model model, HttpSession session){
-		logger.debug("manage index ##############################");
+		log.debug("manage index ##############################");
 		
 		if(session.getAttribute("mgr") == null){
 			model.addAttribute("content", "login");
@@ -41,7 +41,7 @@ public class ManageController {
 	
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public String loginGET(Model model){
-		logger.debug("manage login##############################");
+		log.debug("manage login##############################");
 		
 		model.addAttribute("content", "login");
 		return "/admin/adminPage";
@@ -49,7 +49,7 @@ public class ManageController {
 	
 	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public String loginPOST (@Valid LoginDTO dto, BindingResult error, HttpSession session, RedirectAttributes rttr ){
-		logger.debug("manage login ########################### dto : " + dto.toString());
+		log.debug("manage login ########################### dto : " + dto.toString());
 		
 		if(error.hasErrors()){
 			rttr.addAttribute("errmsg", "CHECK THE FORM");
@@ -74,7 +74,7 @@ public class ManageController {
 	@RequestMapping(value="/logout", method=RequestMethod.GET)
 	public String logout(HttpServletRequest request,HttpServletResponse response,
 			HttpSession session, RedirectAttributes rttr) throws Exception{ 
-		logger.debug("mgr logout #############################");
+		log.debug("mgr logout #############################");
 		Object status = session.getAttribute("mgr");
 		if(status != null){
 			session.removeAttribute("mgr");

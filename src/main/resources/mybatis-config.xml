@@ -18,6 +18,6 @@
 		<!-- register type aliases -->
 	</typeAliases>
 	<typeHandlers>
-		<typeHandler javaType="org.joda.time.DateTime" handler="net.bluehole.util.date.DateTimeTypeHandler" />
+
 	</typeHandlers>
 </configuration>

@@ -12,7 +12,7 @@
 </head>
 <c:choose>
 	<c:when test="${content == null || content == '' }">
-		<c:set var="content" value="./index_init.jsp"/>	
+		<c:set var="content" value="./index_init.jsp"/>
 	</c:when>
 	<c:when test="${content.equals('login')}">
 		<c:set var="content" value="./index_init.jsp"/>

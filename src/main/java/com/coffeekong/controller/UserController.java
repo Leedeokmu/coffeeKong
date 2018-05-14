@@ -2,6 +2,7 @@ package com.coffeekong.controller;
 
 import com.coffeekong.service.OrderService;
 import com.coffeekong.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.coffeekong.domain.CartVO;
@@ -20,11 +21,10 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.*;
 
+@Slf4j
 @Controller
 @RequestMapping("/user")
 public class UserController {
-	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
-
 	@Autowired
 	private UserService userService;
 	@Autowired
@@ -32,7 +32,7 @@ public class UserController {
 
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
 	public String updateGET(HttpSession session, Model model) {
-		logger.debug("User Update############################ session name: "
+		log.debug("User Update############################ session name: "
 				+ ((UserVO) session.getAttribute("login")).getU_email());
 
 		model.addAttribute("content", "uupdate");
@@ -41,7 +41,7 @@ public class UserController {
 
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public String updatePOST(@Valid UserVO uvo, BindingResult result, Model model) {
-		logger.debug("User Update############################ uvo: " + uvo.toString());
+		log.debug("User Update############################ uvo: " + uvo.toString());
 
 		if (result.hasErrors()) {
 			return "/user/update";
@@ -54,7 +54,7 @@ public class UserController {
 
 	@RequestMapping(value = "/resign", method = RequestMethod.GET)
 	public String resignGET(HttpSession session, Model model) {
-		logger.debug("User Resign############################ session name: "
+		log.debug("User Resign############################ session name: "
 				+ ((UserVO) session.getAttribute("login")).getU_email());
 
 		model.addAttribute("content", "uresign");
@@ -64,7 +64,7 @@ public class UserController {
 	@ResponseBody
 	@RequestMapping(value = "/resign", method = RequestMethod.POST)
 	public ResponseEntity<String> resignPOST(@RequestBody UserVO uvo) {
-		logger.debug("User Resign############################");
+		log.debug("User Resign############################");
 
 		ResponseEntity<String> entity = null;
 
@@ -85,7 +85,7 @@ public class UserController {
 
 	@RequestMapping(value = "/urcompl", method = RequestMethod.GET)
 	public String resignCompl(HttpSession session, Model model) {
-		logger.debug("User Resign Complete############################");
+		log.debug("User Resign Complete############################");
 
 		model.addAttribute("content", "urcompl");
 		return "/index";
@@ -93,7 +93,7 @@ public class UserController {
 
 	@RequestMapping(value = "/order/list", method = RequestMethod.GET)
 	public String orderList(@ModelAttribute("cri") SearchCriteria cri, HttpSession session, Model model) {
-		logger.debug("User Order############################ cri: " + cri.toString());
+		log.debug("User Order############################ cri: " + cri.toString());
 		
 		if(session.getAttribute("login") != null){
 			String email = ((UserVO)session.getAttribute("login")).getU_email();
@@ -113,14 +113,14 @@ public class UserController {
 			model.addAttribute("search", "on");
 		}
 		
-		logger.debug("search ######################## : " + cri.getKeyword());
+		log.debug("search ######################## : " + cri.getKeyword());
 		model.addAttribute("content", "uolist");
 		return "/index";
 	}
 	
 	@RequestMapping(value = "/order/detail/{oid}", method = RequestMethod.GET)
 	public String orderDetail(@ModelAttribute("cri") SearchCriteria cri, @PathVariable int oid, HttpSession session, Model model) {
-		logger.debug("User Order############################ session name: "
+		log.debug("User Order############################ session name: "
 				+ ((UserVO) session.getAttribute("login")).getU_email());
 		
 		if(session.getAttribute("login") != null){
@@ -137,7 +137,7 @@ public class UserController {
 	@ResponseBody
 	@RequestMapping(value = "/tocart", method = RequestMethod.POST)
 	public ResponseEntity<String> tocart(@RequestBody CartVO cvo, HttpSession session) {
-		logger.debug("User cart############################ cvo : " + cvo.toString());
+		log.debug("User cart############################ cvo : " + cvo.toString());
 
 		ResponseEntity<String> entity = null;
 
@@ -145,10 +145,10 @@ public class UserController {
 			List<CartVO> list = (ArrayList<CartVO>) session.getAttribute("cart");
 
 			if (list != null) {
-				logger.debug("session.cart############################");
-				logger.debug("list############################");
+				log.debug("session.cart############################");
+				log.debug("list############################");
 				for (CartVO vo : list) {
-					logger.debug(vo.toString());
+					log.debug(vo.toString());
 				}
 
 				for (Iterator<CartVO> it = list.iterator(); it.hasNext();) {
@@ -169,7 +169,7 @@ public class UserController {
 			entity = new ResponseEntity<String>("Success", HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.error("tocart", e.getStackTrace());
+			log.error(e.getMessage());
 			entity = new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
 		}
 
@@ -178,7 +178,7 @@ public class UserController {
 	
 	@RequestMapping(value = "/cart", method = RequestMethod.GET)
 	public String cart(HttpSession session, Model model) {
-		logger.debug("User cart list############################");
+		log.debug("User cart list############################");
 
 		model.addAttribute("content", "cart");
 		return "/index";
@@ -187,7 +187,7 @@ public class UserController {
 	@ResponseBody
 	@RequestMapping(value = "/cart/update", method = RequestMethod.POST)
 	public ResponseEntity<String> cartUpdate(@RequestBody CartVO cvo, HttpSession session) {
-		logger.debug("User cart update############################ cvo : " + cvo.toString());
+		log.debug("User cart update############################ cvo : " + cvo.toString());
 
 		ResponseEntity<String> entity = null;
 
@@ -195,9 +195,9 @@ public class UserController {
 			List<CartVO> list = (ArrayList<CartVO>) session.getAttribute("cart");
 
 			if (list != null) {
-				logger.debug("list############################");
+				log.debug("list############################");
 				for (CartVO vo : list) {
-					logger.debug(vo.toString());
+					log.debug(vo.toString());
 				}
 				for (ListIterator<CartVO> it = list.listIterator(); it.hasNext();) {
 					
@@ -225,7 +225,7 @@ public class UserController {
 			entity = new ResponseEntity<String>("Success", HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.error("tocart", e.getStackTrace());
+			log.error(e.getMessage());
 			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
