@@ -6,14 +6,14 @@ import org.slf4j.LoggerFactory;
 
 @Data
 public class OrderProdVO {
-	private int op_id;
-	private int o_id;
-	private int p_id;
-	private String p_name; 		// from product
-	private String p_category; 	// from product
-	private String p_img; 		// from product
-	private int op_qty;
-	private String op_sz;
-	private String op_type;
-	private double op_price;
+	private int opId;
+	private int oId;
+	private int pId;
+	private String pName; 		// from product
+	private String pCategory; 	// from product
+	private String pImg; 		// from product
+	private int opQty;
+	private String opSz;
+	private String opType;
+	private double opPrice;
 }

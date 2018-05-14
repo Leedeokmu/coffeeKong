@@ -55,7 +55,7 @@ public class ProductController {
 			}
 			
 			for(ProductVO vo : list){
-				if(vo.getP_id() == pid){
+				if(vo.getPId() == pid){
 					flag = false;
 				}
 			}
@@ -84,10 +84,10 @@ public class ProductController {
 		ResponseEntity<String> entity = null;
 		try {
 			productService.addReview(rvo);
-	        entity = new ResponseEntity<String>("Success", HttpStatus.OK);
+	        entity = new ResponseEntity<>("Success", HttpStatus.OK);
 	    } catch (Exception e) {
 	        e.printStackTrace();
-	        entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+	        entity = new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 	    }
 		return entity;
 	}

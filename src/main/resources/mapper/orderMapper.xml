@@ -2,31 +2,32 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.coffeekong.mapper.OrderMapper">
 
-	<resultMap type="com.coffeekong.domain.OrderProdVO" id="OrderProd">
-		<result property="o_id" column="o_id"/>
-		<result property="p_id" column="p_id"/>
-		<result property="p_name" column="p_name"/>
-		<result property="p_category" column="p_category"/>
-		<result property="p_img" column="p_img"/>
-		<result property="op_qty" column="op_qty"/>
-		<result property="op_sz" column="op_sz"/>
-		<result property="op_type" column="op_type"/>
-		<result property="op_price" column="op_price"/>
-	</resultMap>
-	<resultMap type="com.coffeekong.domain.OrderVO" id="Order">
-		<id property="o_id" column="o_id"/>
-		<result property="u_email" column="u_email"/>
-		<result property="o_price" column="o_price"/>
-		<result property="o_rfname" column="o_rfname"/>
-		<result property="o_rlname" column="o_rlname"/>
-		<result property="o_phone" column="o_phone"/>
-		<result property="o_postcode" column="o_postcode"/>	
-		<result property="o_addr" column="o_addr"/>
-		<result property="o_state" column="o_state"/>
-		<result property="o_date" column="o_date"/>
+	<resultMap id="Order" type="com.coffeekong.domain.OrderVO" >
+		<id property="oId" column="o_id"/>
+		<result property="uEmail" column="u_email"/>
+		<result property="oPrice" column="o_price"/>
+		<result property="oRfname" column="o_rfname"/>
+		<result property="oRlname" column="o_rlname"/>
+		<result property="oPhone" column="o_phone"/>
+		<result property="oPostcode" column="o_postcode"/>
+		<result property="oAddr" column="o_addr"/>
+		<result property="oState" column="o_state"/>
+		<result property="oDate" column="o_date"/>
 		<collection property="opvo" resultMap="OrderProd" ofType="com.coffeekong.domain.OrderProdVO"/>
 	</resultMap>
-	
+
+	<resultMap id="OrderProd" type="com.coffeekong.domain.OrderProdVO">
+		<result property="oId" column="o_id"/>
+		<result property="pId" column="p_id"/>
+		<result property="pName" column="p_name"/>
+		<result property="pCategory" column="p_category"/>
+		<result property="pImg" column="p_img"/>
+		<result property="opQty" column="op_qty"/>
+		<result property="opSz" column="op_sz"/>
+		<result property="opType" column="op_type"/>
+		<result property="opPrice" column="op_price"/>
+	</resultMap>
+
 	<sql id="searchByEmail">
 		<if test="cri.searchType != null">
 			<if test="cri.searchType == 'prodNm'.toString()">
@@ -60,13 +61,15 @@
 			o.o_id, p.p_name,p.p_category,p.p_img, op.p_id,op.op_qty,op.op_sz,op.op_type,op.op_price,
 			o.o_price,o.o_rfname,o.o_rlname,o.o_phone,o.o_postcode,o.o_addr,o.o_state,o.o_date
 		FROM
-			tbl_order o LEFT OUTER JOIN
-			(
-				tbl_order_prod op INNER JOIN tbl_prod p
-				ON op.p_id=p.p_id
-			)
+			tbl_order o
+		LEFT JOIN
+			tbl_order_prod op
 		ON
 			o.o_id = op.o_id
+		INNER JOIN
+			tbl_prod p
+		ON
+			op.p_id=p.p_id
 		WHERE
 			o.u_email = #{email}
 			<include refid="searchByEmail"></include>
@@ -76,14 +79,19 @@
 			(#{cri.page} - 1) * #{cri.perPageNum}, #{cri.perPageNum}
 	</select>
 	<select id="listCountByEmail">
-		SELECT count(*)
-		FROM tbl_order o INNER JOIN 
-			(
-				tbl_order_prod op INNER JOIN tbl_prod p
-				ON op.p_id=p.p_id
-			)
-		ON o.o_id=op.o_id
-		WHERE o.u_email=#{email} 
+		SELECT
+			count(*)
+		FROM
+			tbl_order o
+		INNER JOIN
+			tbl_order_prod op
+		ON
+			o.o_id=op.o_id
+		INNER JOIN
+			tbl_prod p
+		ON
+			op.p_id=p.p_id
+		WHERE o.u_email=#{email}
 		<include refid="searchByEmail"></include>
 	</select>
 	<select id="list" parameterType="com.coffeekong.domain.SearchCriteria" resultMap="Order">
@@ -91,13 +99,15 @@
 			o.o_id, o.u_email,p.p_name,p.p_category,p.p_img, op.p_id,op.op_qty,op.op_sz,op.op_type,op.op_price,
 			o.o_price,o.o_rfname,o.o_rlname,o.o_phone,o.o_postcode,o.o_addr,o.o_state,o.o_date
 		FROM
-			tbl_order o LEFT OUTER JOIN
-			(
-				tbl_order_prod op INNER JOIN tbl_prod p
-				ON op.p_id=p.p_id
-			)
+			tbl_order o
+		LEFT JOIN
+			tbl_order_prod op
 		ON
 			o.o_id = op.o_id
+		INNER JOIN
+			tbl_prod p
+		ON
+			op.p_id=p.p_id
 		<include refid="search"></include>
 		ORDER BY
 			o.o_id
@@ -119,14 +129,16 @@
 			o.o_id, o.u_email,p.p_name,p.p_category,p.p_img, op.p_id,op.op_qty,op.op_sz,op.op_type,op.op_price, 
 			o.o_price,o.o_rfname,o.o_rlname,o.o_phone,o.o_postcode,o.o_addr,o.o_state,o.o_date
 		FROM 
-			tbl_order o LEFT OUTER JOIN 
-			(
-				tbl_order_prod op INNER JOIN tbl_prod p
-				ON op.p_id=p.p_id
-			)
+			tbl_order o
+		LEFT JOIN
+			tbl_order_prod op
 		ON
-			o.o_id = op.o_id 
-		WHERE 
+			o.o_id = op.o_id
+		INNER JOIN
+			tbl_prod p
+		ON
+			op.p_id=p.p_id
+		WHERE
 			o.o_id = #{oid}
 	</select>
 	

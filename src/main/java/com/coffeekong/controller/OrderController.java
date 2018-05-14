@@ -36,9 +36,9 @@ public class OrderController {
 		List<CartVO> list = (List<CartVO>) session.getAttribute("cart");
 		
 		try {
-			String email = ((UserVO)session.getAttribute("login")).getU_email();
+			String email = ((UserVO)session.getAttribute("login")).getUEmail();
 			
-			ovo.setU_email(email);
+			ovo.setUEmail(email);
 			orderService.insOrder(ovo, list);
 			
 			

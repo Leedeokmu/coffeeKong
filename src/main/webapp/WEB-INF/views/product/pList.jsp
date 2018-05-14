@@ -10,7 +10,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>COFFEE KONG.</title>
 </head>
-<c:set var="basePath" value="${pageContext.request.contextPath }"/>
 <body>
 <div class="container bg-3 text-center">
 <div class="row">
@@ -18,12 +17,12 @@
 		<div class="col-sm-4 all_center" style="margin-bottom:5em">
 		    <div class="imageWrapper">
 			    <div>
-			    	<a href="${vo.p_id}">
-			    		<img src="${vo.p_img }" class="img-responsive thumbnail" style="width:20em;height:20em" alt="Image">
+			    	<a href="${vo.pId}">
+			    		<img src="${vo.pImg }" class="img-responsive thumbnail" style="width:20em;height:20em" alt="Image">
 			    	</a>
-			    	<a href="${vo.p_id}" class="cornerLink">$${vo.p_price }</a>
+			    	<a href="${vo.pId}" class="cornerLink">$${vo.pPrice }</a>
 		    	</div>
-		    	<div class="h_nav" style="font-size:125%"><a href="${vo.p_id}">${vo.p_name}</a></div>
+		    	<div class="h_nav" style="font-size:125%"><a href="${vo.pId}">${vo.pName}</a></div>
 		    </div>
 		    <br><br><br><br>
     	</div>

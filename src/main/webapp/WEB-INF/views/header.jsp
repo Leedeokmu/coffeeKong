@@ -10,10 +10,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>WELCOME, COFFEE KONG</title>
-<link href="/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="/resources/css/style.css" />
-<link rel="stylesheet" href="/resources/css/image.css" />
-<link rel="stylesheet" href="/resources/css/header.css" />
+<link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css" />
+<link rel="stylesheet" href="/assets/css/image.css" />
+<link rel="stylesheet" href="/assets/css/header.css" />
 </head>
 <body>
 	<nav class="navbar navbar-default">
@@ -128,18 +128,18 @@
 														
 												</div>
 												<div class="form-group">
-													<label for="fname">FIRSTNAME</label> <input type="text"
-														name="u_fname" id="u_fname" class="form-control"
+													<label for="uFname">FIRSTNAME</label> <input type="text"
+														name="uFname" id="uFname" class="form-control"
 														placeholder="Enter Your FIRSTNAME" />
 												</div>
 												<div class="form-group">
-													<label for="lname">LASTNAME</label> <input type="text"
-														name="u_lname" id="u_lname" class="form-control"
+													<label for="uLname">LASTNAME</label> <input type="text"
+														name="uLname" id="uLname" class="form-control"
 														placeholder="Enter Your LASTNAME" />
 												</div>
 												<div class="form-group">
-													<label for="pwd">PASSWORD</label> <input type="password"
-														name="u_pwd" id="u_pwd" class="form-control"
+													<label for="uPwd">PASSWORD</label> <input type="password"
+														name="uPwd" id="uPwd" class="form-control"
 														placeholder="Enter Your PASSWORD" />
 												</div>
 												<div class="form-group">
@@ -185,11 +185,11 @@
 	<script src="http://code.jquery.com/jquery-3.1.1.js"
 		integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
 		crossorigin="anonymous"></script>
-	<script src="/resources/bootstrap/js/bootstrap.min.js"></script>
+	<script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
 	<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script>
 	<script src="http://malsup.github.io/min/jquery.form.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/jquery.validation/1.15.0/additional-methods.min.js"></script>
-	<script src="/resources/js/validate.js"></script>
+	<script src="/assets/js/validate.js"></script>
 	<script>
 	$(document).ready(function(){
 	    $(".dropdown").hover(            

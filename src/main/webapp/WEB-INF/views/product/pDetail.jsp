@@ -116,16 +116,16 @@
 					</div>
 					<div class="star-input">
 						<span class="input">
-					    	<input type="radio" name="r_grade" id="p1" value="one"><label for="p1">0.5</label>
-						    <input type="radio" name="r_grade" id="p2" value="two"><label for="p2">1</label>
-						    <input type="radio" name="r_grade" id="p3" value="three"><label for="p3">1.5</label>
-						    <input type="radio" name="r_grade" id="p4" value="four"><label for="p4">2</label>
-						    <input type="radio" name="r_grade" id="p5" value="five"><label for="p5">2.5</label>
-						    <input type="radio" name="r_grade" id="p6" value="six"><label for="p6">3</label>
-						    <input type="radio" name="r_grade" id="p7" value="seven"><label for="p7">3.5</label>
-						    <input type="radio" name="r_grade" id="p8" value="eight"><label for="p8">4</label>
-						    <input type="radio" name="r_grade" id="p9" value="nine"><label for="p9">4.5</label>
-						    <input type="radio" name="r_grade" id="p10" value="ten"><label for="p10">5</label>
+					    	<input type="radio" name="rGrade" id="p1" value="one"><label for="p1">0.5</label>
+						    <input type="radio" name="rGrade" id="p2" value="two"><label for="p2">1</label>
+						    <input type="radio" name="rGrade" id="p3" value="three"><label for="p3">1.5</label>
+						    <input type="radio" name="rGrade" id="p4" value="four"><label for="p4">2</label>
+						    <input type="radio" name="rGrade" id="p5" value="five"><label for="p5">2.5</label>
+						    <input type="radio" name="rGrade" id="p6" value="six"><label for="p6">3</label>
+						    <input type="radio" name="rGrade" id="p7" value="seven"><label for="p7">3.5</label>
+						    <input type="radio" name="rGrade" id="p8" value="eight"><label for="p8">4</label>
+						    <input type="radio" name="rGrade" id="p9" value="nine"><label for="p9">4.5</label>
+						    <input type="radio" name="rGrade" id="p10" value="ten"><label for="p10">5</label>
 						</span>
 						<output for="star-input" style="margin-top:-8px;"></output>
 					</div>

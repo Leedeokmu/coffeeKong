@@ -33,7 +33,7 @@ public class UserController {
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
 	public String updateGET(HttpSession session, Model model) {
 		log.debug("User Update############################ session name: "
-				+ ((UserVO) session.getAttribute("login")).getU_email());
+				+ ((UserVO) session.getAttribute("login")).getUEmail());
 
 		model.addAttribute("content", "uupdate");
 		return "/index";
@@ -55,7 +55,7 @@ public class UserController {
 	@RequestMapping(value = "/resign", method = RequestMethod.GET)
 	public String resignGET(HttpSession session, Model model) {
 		log.debug("User Resign############################ session name: "
-				+ ((UserVO) session.getAttribute("login")).getU_email());
+				+ ((UserVO) session.getAttribute("login")).getUEmail());
 
 		model.addAttribute("content", "uresign");
 		return "/index";
@@ -96,7 +96,7 @@ public class UserController {
 		log.debug("User Order############################ cri: " + cri.toString());
 		
 		if(session.getAttribute("login") != null){
-			String email = ((UserVO)session.getAttribute("login")).getU_email();
+			String email = ((UserVO)session.getAttribute("login")).getUEmail();
 			model.addAttribute("list", orderService.listByEmail(cri, email));
 			PageMaker pmk = new PageMaker();
 			pmk.setCri(cri);
@@ -121,7 +121,7 @@ public class UserController {
 	@RequestMapping(value = "/order/detail/{oid}", method = RequestMethod.GET)
 	public String orderDetail(@ModelAttribute("cri") SearchCriteria cri, @PathVariable int oid, HttpSession session, Model model) {
 		log.debug("User Order############################ session name: "
-				+ ((UserVO) session.getAttribute("login")).getU_email());
+				+ ((UserVO) session.getAttribute("login")).getUEmail());
 		
 		if(session.getAttribute("login") != null){
 			model.addAttribute("ovo", orderService.getByOid(oid));
@@ -153,15 +153,15 @@ public class UserController {
 
 				for (Iterator<CartVO> it = list.iterator(); it.hasNext();) {
 					CartVO vo = it.next();
-					if (vo.getP_id() == cvo.getP_id() && vo.getType().equals(cvo.getType()) && vo.getSz().equals(cvo.getSz())) {
+					if (vo.getPId() == cvo.getPId() && vo.getType().equals(cvo.getType()) && vo.getSz().equals(cvo.getSz())) {
 						it.remove();
 					}
 				}
 			} else {
-				list = new ArrayList<CartVO>();
+				list = new ArrayList<>();
 			}
 			UUID c_num  = UUID.randomUUID();
-			cvo.setC_num(c_num.toString());
+			cvo.setCNum(c_num.toString());
 			
 			list.add(cvo);
 			session.setAttribute("cart", list);
@@ -203,16 +203,16 @@ public class UserController {
 					
 					CartVO vo = list.get(it.nextIndex());
 					
-					if(vo.getP_id() == cvo.getP_id() && vo.getType().equals(cvo.getType()) && vo.getSz().equals(cvo.getSz())){
+					if(vo.getPId() == cvo.getPId() && vo.getType().equals(cvo.getType()) && vo.getSz().equals(cvo.getSz())){
 						entity = new ResponseEntity<String>("Fail", HttpStatus.OK);
 						return entity;
 					}
 					
-					if (vo.getC_num().equals(cvo.getC_num())) {
+					if (vo.getCNum().equals(cvo.getCNum())) {
 						list.get(it.nextIndex()).setQty(cvo.getQty());
 						list.get(it.nextIndex()).setType(cvo.getType());
 						list.get(it.nextIndex()).setSz(cvo.getSz());
-						list.get(it.nextIndex()).setSub_price(cvo.getSub_price());
+						list.get(it.nextIndex()).setSubPrice(cvo.getSubPrice());
 						
 						break;
 					}

@@ -11,16 +11,16 @@ import java.util.Date;
 public class UserVO {
 	@NotEmpty
 	@Email
-	private String u_email;
+	private String uEmail;
 	@NotEmpty
-	private String u_fname;
+	private String uFname;
 	@NotEmpty
-	private String u_lname;
+	private String uLname;
 	@NotEmpty
 	@Size(min=4, message="too short")
-	private String u_pwd;
-	private int u_point;
-	private String sess_id;
-	private Date sess_limit;
+	private String uPwd;
+	private int uPoint;
+	private String sessId;
+	private Date sessLimit;
 
 }

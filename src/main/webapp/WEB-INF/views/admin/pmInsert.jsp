@@ -25,7 +25,7 @@
 		<input type='hidden' name='keyword' value="${cri.keyword}">
 		<div class="row">
 			<div class="col-md-6 all_center" id="imageDiv">
-				<img src="/resources/dist/product/sample.jpg" id="imgsrc" style="width:20em;height:20em"/>
+				<img src="/dist/product/sample.jpg" id="imgsrc" style="width:20em;height:20em"/>
 			</div>
 			
 			<div class="col-md-6">

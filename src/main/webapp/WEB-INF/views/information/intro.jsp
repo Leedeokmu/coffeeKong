@@ -19,7 +19,7 @@
 <body>
 	<div class="container">
 		<div class="intro_img">
-			<img src="/resources/dist/img/happy.jpg" class="img-responsive img-rounded" alt="happy" style="border:1px solid #aaaaaa;width:30%;height:30%"/>
+			<img src="/dist/img/happy.jpg" class="img-responsive img-rounded" alt="happy" style="border:1px solid #aaaaaa;width:30%;height:30%"/>
 		</div>
 		<div class="text-center u_title">
 			<h2>WE ARE THE WORLD!</h2>

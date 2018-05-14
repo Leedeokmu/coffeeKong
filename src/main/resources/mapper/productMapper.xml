@@ -18,6 +18,16 @@
 			</if>
 		</if>
 	</sql>
+	<sql id="columns">
+		p_id,
+		p_category,
+		p_name,
+		p_content,
+		p_price,
+		p_mdate,
+		p_rdate,
+		p_img,
+	</sql>
 
 	<insert id="insert" parameterType="com.coffeekong.domain.ProductVO">
 		INSERT INTO
@@ -89,6 +99,7 @@
 		LIMIT
 			(#{cri.page} -1) * #{cri.perPageNum}, #{cri.perPageNum}
 	</select>
+
 	<select id="listReviewCount">
 		SELECT
 			count(r_id)
@@ -97,20 +108,18 @@
 		WHERE
 			p_id=#{p_id}
 	</select>
+
 	<insert id="addReview" parameterType="com.coffeekong.domain.ReviewVO">
 		INSERT INTO
 			tbl_review
 		VALUES
 			(seq_rid.nextval, #{p_id},#{u_email},#{u_name},#{r_grade},#{r_content},sysdate) 
 	</insert>
+
 	<delete id="deleteReview">
 		DELETE	FROM
 			tbl_review
 		WHERE
 			r_id=#{rid}
 	</delete>
-		
-	
-	
-	
 </mapper>

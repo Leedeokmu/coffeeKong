@@ -28,10 +28,10 @@ public class OrderService{
 		
 		orderMapper.insOrd(vo);
 		for(CartVO cvo : list){
-			if(category.contains(cvo.getP_category())){
-				orderMapper.insOrdProd(cvo, vo.getO_id());
+			if(category.contains(cvo.getPCategory())){
+				orderMapper.insOrdProd(cvo, vo.getOId());
 			}else{
-				orderMapper.insOrdProdTool(cvo, vo.getO_id());
+				orderMapper.insOrdProdTool(cvo, vo.getOId());
 			}
 		}
 	}

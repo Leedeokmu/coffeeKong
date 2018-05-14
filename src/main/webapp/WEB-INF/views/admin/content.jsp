@@ -22,15 +22,15 @@
 			
 			<div class="row hor_center h_nav text-center" style="margin-bottom:5em">
 				<div class="main_menu all_center" 
-				style="background: url('/resources/dist/img/user.jpg') no-repeat;">
+				style="background: url('/dist/img/user.jpg') no-repeat;">
 					<a href="/manage/user/list"><span class="h1">MANAGE USER</span></a>
 				</div>
 				<div class="main_menu all_center" 
-				style="background: url('/resources/dist/img/product.jpg') no-repeat center;">
+				style="background: url('/dist/img/product.jpg') no-repeat center;">
 					<a href="/manage/product/list"><span class="h1">MANAGE PRODUCT</span></a>
 				</div>
 				<div class="main_menu all_center" 
-				style="background: url('/resources/dist/img/order.jpg') no-repeat center;">
+				style="background: url('/dist/img/order.jpg') no-repeat center;">
 					<a href="/manage/order/list"><span class="h1">MANAGE ORDER</span></a>
 				</div>
 			</div>

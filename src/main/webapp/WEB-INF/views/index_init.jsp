@@ -25,19 +25,19 @@
 		    </ol>
 			<div class="carousel-inner" role="listbox">
 				<div class="item active">
-					<img src="/resources/dist/img/coffee-drying.jpg" alt="">
+					<img src="/dist/img/coffee-drying.jpg" alt="">
 				</div>
 				<div class="item">
-					<img src="/resources/dist/img/coffee-beans.jpg" alt="">
+					<img src="/dist/img/coffee-beans.jpg" alt="">
 				</div>
 				<div class="item">
-					<img src="/resources/dist/img/coffee-grind.jpg" alt="">
+					<img src="/dist/img/coffee-grind.jpg" alt="">
 				</div>
 				<div class="item">
-					<img src="/resources/dist/img/coffee-cup.jpg" alt="">
+					<img src="/dist/img/coffee-cup.jpg" alt="">
 				</div>
 				<div class="item">
-					<img src="/resources/dist/img/coffee-ground.jpg" alt="">
+					<img src="/dist/img/coffee-ground.jpg" alt="">
 				</div>
 			</div>
 			<a class="left carousel-control" href="#coffeeCarousel" role="button"
@@ -67,15 +67,15 @@
 		<hr />
 		<div class="row hor_center h_nav">
 			<div class="main_menu all_center" 
-			style="background: url('/resources/dist/img/coffees.jpg') no-repeat;">
+			style="background: url('/dist/img/coffees.jpg') no-repeat;">
 				<a href="/product/list/blends"><span class="h1">COFFEE</span></a>
 			</div>
 			<div class="main_menu all_center" 
-			style="background: url('/resources/dist/img/tools.jpg') no-repeat center;">
+			style="background: url('/dist/img/tools.jpg') no-repeat center;">
 				<a href="/product/list/grinder"><span class="h1">TOOLS</span></a>
 			</div>
 			<div class="main_menu all_center" 
-			style="background: url('/resources/dist/img/coffee_learn.jpg') no-repeat center;">
+			style="background: url('/dist/img/coffee_learn.jpg') no-repeat center;">
 				<a href="/learn"><span class="h1">LEARN</span></a>
 			</div>
 		</div>
@@ -87,12 +87,12 @@
 				<div class="col-sm-3 all_center" style="margin-bottom:5em">
 				    <div class="imageWrapper">
 					    <div>
-					    	<a href="${vo.p_id}">
-					    		<img src="${vo.p_img }" class="img-responsive thumbnail" style="width:15em;height:15em" alt="Image">
+					    	<a href="${vo.pId}">
+					    		<img src="${vo.pImg }" class="img-responsive thumbnail" style="width:15em;height:15em" alt="Image">
 					    	</a>
-					    	<a href="${vo.p_id}" class="cornerLink">$${vo.p_price }</a>
+					    	<a href="${vo.pId}" class="cornerLink">$${vo.pPrice }</a>
 				    	</div>
-				    	<div class="h_nav text-center" style="font-size:125%"><a href="${vo.p_id}">${vo.p_name}</a></div>
+				    	<div class="h_nav text-center" style="font-size:125%"><a href="${vo.pId}">${vo.pName}</a></div>
 				    </div>
 		    	</div>
 			</c:forEach>

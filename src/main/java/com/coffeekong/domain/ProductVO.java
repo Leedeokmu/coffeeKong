@@ -9,13 +9,13 @@ import java.sql.Date;
 @Slf4j
 public class ProductVO {
 
-	private int p_id;
-	private String p_category;
-	private String p_name;
-	private String p_content;
-	private Double p_price;
-	private Date p_mdate;
-	private Date p_rdate;
-	private String p_img;
+	private int pId;
+	private String pCategory;
+	private String pName;
+	private String pContent;
+	private Double pPrice;
+	private Date pMdate;
+	private Date pRdate;
+	private String pImg;
 
 }

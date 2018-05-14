@@ -4,13 +4,13 @@ import lombok.Data;
 
 @Data
 public class CartVO {
-	private String c_num;
-	private int p_id;
-	private String p_name;
-	private String p_category;
-	private String p_img;
-	private Double p_price;
-	private Double sub_price;
+	private String cNum;
+	private int pId;
+	private String pName;
+	private String pCategory;
+	private String pImg;
+	private Double pPrice;
+	private Double subPrice;
 	private int qty;
 	private String type;
 	private String sz;

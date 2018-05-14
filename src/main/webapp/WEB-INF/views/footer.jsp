@@ -17,19 +17,19 @@
 			<div class="col-md-8  f_corp">
 				<ul class="list-inline">
 					<li>
-						<img src="/resources/dist/img/b-corp-seal.png" alt="b-corp-seal"/>
+						<img src="/dist/img/b-corp-seal.png" alt="b-corp-seal"/>
 					</li>
 					<li>
-						<img src="/resources/dist/img/certified-kosher.png" alt="" />
+						<img src="/dist/img/certified-kosher.png" alt="" />
 					</li>
 					<li>
-						<img src="/resources/dist/img/cooperative-coffees.png" alt="" />
+						<img src="/dist/img/cooperative-coffees.png" alt="" />
 					</li>
 					<li>
-						<img src="/resources/dist/img/crs-fair-trade.png" alt="" />
+						<img src="/dist/img/crs-fair-trade.png" alt="" />
 					</li>
 					<li>
-						<img src="/resources/dist/img/shade-grown-friendly-to-birds.png" alt="" />
+						<img src="/dist/img/shade-grown-friendly-to-birds.png" alt="" />
 					</li>
 				</ul>
 			</div>
@@ -37,22 +37,22 @@
 				<ul class="list-inline " >
 					<li>
 						<a id="twitter" class="" href="http://www.twitter.com" target="_blank">
-							<img src="/resources/dist/img/twitter_new.png" alt="" />
+							<img src="/dist/img/twitter_new.png" alt="" />
 						</a>
 					</li>
 					<li>
 						<a id="facebook" class="" href="http://www.facebook.com" target="_blank">
-							<img src="/resources/dist/img/facebook_new.png" alt="" />
+							<img src="/dist/img/facebook_new.png" alt="" />
 						</a>
 					</li>
 					<li>
 						<a id="youtube" class="" href="http://www.youtube.com" target="_blank">
-							<img src="/resources/dist/img/youtube_new.png" alt="" />
+							<img src="/dist/img/youtube_new.png" alt="" />
 						</a>
 					</li>
 					<li>
 						<a id="instagram" class="" href="http://www.instagram.com" target="_blank">
-							<img src="/resources/dist/img/instagram_new.png" alt="" />
+							<img src="/dist/img/instagram_new.png" alt="" />
 						</a>
 					</li>
 				</ul>
