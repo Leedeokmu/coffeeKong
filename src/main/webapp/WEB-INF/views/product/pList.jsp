@@ -13,17 +13,17 @@
 <body>
 <div class="container bg-3 text-center">
 <div class="row">
-	<c:forEach var="vo" items="${list}" varStatus="status">
+	<c:forEach var="product" items="${productList}" varStatus="status">
 		<div class="col-sm-4 all_center" style="margin-bottom:5em">
 		    <div class="imageWrapper">
 			    <div>
-			    	<a href="${vo.pId}">
-			    		<img src="${vo.pImg }" class="img-responsive thumbnail" style="width:20em;height:20em" alt="Image">
+			    	<a href="${product.PId}">
+			    		<img src="${product.PImg}" class="img-responsive thumbnail" style="width:20em;height:20em" alt="Image">
 			    	</a>
-			    	<a href="${vo.pId}" class="cornerLink">$${vo.pPrice }</a>
+			    	<a href="${product.PId}" class="cornerLink">$${product.PPrice}</a>
 		    	</div>
-		    	<div class="h_nav" style="font-size:125%"><a href="${vo.pId}">${vo.pName}</a></div>
-		    </div>
+		    	<div class="h_nav" style="font-size:125%"><a href="${product.PId}">${product.PName}</a></div>
+			</div>
 		    <br><br><br><br>
     	</div>
 	</c:forEach>

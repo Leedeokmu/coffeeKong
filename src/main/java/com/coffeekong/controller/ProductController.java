@@ -32,8 +32,9 @@ public class ProductController {
 	@RequestMapping(value = "/list/{category}", method = RequestMethod.GET)
 	public String list(@PathVariable String category,  Model model) {
 		log.debug("product list############################ category: " + category);
-		
-		model.addAttribute("list", productService.listByCategory(category));
+		List<ProductVO> productList = productService.listByCategory(category);
+
+		model.addAttribute("productList", productList);
 		model.addAttribute("content", "list");
 		return "/product/product";
 	}

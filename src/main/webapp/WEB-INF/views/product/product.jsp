@@ -32,7 +32,7 @@
 <!-- header end-->
 
 <!-- content start -->
-	<div id="content"><jsp:include page="${content }"/></div>
+	<div id="content"><jsp:include page="${content}"/></div>
 <!-- content start -->
 
 <!-- footer start -->

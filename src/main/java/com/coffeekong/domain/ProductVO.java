@@ -9,7 +9,7 @@ import java.sql.Date;
 @Slf4j
 public class ProductVO {
 
-	private int pId;
+	private Integer pId;
 	private String pCategory;
 	private String pName;
 	private String pContent;
