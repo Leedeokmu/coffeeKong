@@ -195,28 +195,22 @@ public class UserController {
 			List<CartVO> list = (ArrayList<CartVO>) session.getAttribute("cart");
 
 			if (list != null) {
-				log.debug("list############################");
-				for (CartVO vo : list) {
-					log.debug(vo.toString());
-				}
-				for (ListIterator<CartVO> it = list.listIterator(); it.hasNext();) {
-					
-					CartVO vo = list.get(it.nextIndex());
-					
-					if(vo.getPId() == cvo.getPId() && vo.getType().equals(cvo.getType()) && vo.getSz().equals(cvo.getSz())){
-						entity = new ResponseEntity<String>("Fail", HttpStatus.OK);
+				for(CartVO vo : list){
+					if(vo.getPId() == cvo.getPId() &&
+							vo.getType().equals(cvo.getType()) &&
+							vo.getSz().equals(cvo.getSz()) &&
+							vo.getQty() == cvo.getQty()
+							){
+						entity = new ResponseEntity<>("Fail", HttpStatus.OK);
 						return entity;
 					}
-					
 					if (vo.getCNum().equals(cvo.getCNum())) {
-						list.get(it.nextIndex()).setQty(cvo.getQty());
-						list.get(it.nextIndex()).setType(cvo.getType());
-						list.get(it.nextIndex()).setSz(cvo.getSz());
-						list.get(it.nextIndex()).setSubPrice(cvo.getSubPrice());
-						
+						vo.setQty(cvo.getQty());
+						vo.setType(cvo.getType());
+						vo.setSz(cvo.getSz());
+						vo.setSubPrice(cvo.getSubPrice());
 						break;
 					}
-					it.next();
 				}
 			}
 			

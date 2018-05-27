@@ -17,7 +17,8 @@
 		<c:when test="${fn:length(cart) > 0 }">
 		<c:forEach var="cvo" items="${cart}" varStatus="index" begin="0" step="1">
 			<form action="/user/cart/update" role="form" name="tocart<c:out value="${index.count}"/>" method="post">
-				<input type="hidden" name="cNum" value="${cvo.CNum }"/>
+				<input type="hidden" name="cnum" value="${cvo.CNum}"/>
+				<input type="hidden" name="pid" value="${cvo.PId}"/>
 				<input type="hidden" name="subPrice" />
 				<input type="hidden" name="qty" />
 				
@@ -57,7 +58,7 @@
 								</c:when>
 							</c:choose>
 							<div class="row">
-								<span class="col-sm-6">QUNETITY</span>
+								<span class="col-sm-6">QUANTITY</span>
 								<span class="col-sm-6"><button type="button" id="minus" class="btn btn-default btn-xs" onClick="decrease(this)">-</button>
 									&nbsp;<span id="qty<c:out value="${index.count }"/>">${cvo.qty}</span>&nbsp;
 								<button type="button" class="btn btn-default btn-xs" id="plus" onClick="increase(this)">+</button></span>
