@@ -33,7 +33,7 @@
 	<script>
 		$('.imageWrapper').on("click", 'a',function(event){
 			event.preventDefault();
-			
+
 			var target = $(this).attr("href");
 			var plistForm = $("#plistForm");
 			plistForm.find("[name='pid']").val(target);

@@ -51,7 +51,12 @@ import java.util.concurrent.ScheduledExecutorService;
 @MultipartConfig(maxFileSize = 10*1024*1024)
 @SpringBootApplication
 public class AppConfig  extends WebMvcConfigurerAdapter {
-	public static void main(String[] args) { SpringApplication.run(AppConfig.class, args); }
+	public static void main(String[] args) {
+//		System.setProperty("spring.devtools.restart.enabled", "false");
+//		System.setProperty("spring.devtools.livereload.enabled", "true");
+		SpringApplication.run(AppConfig.class, args);
+	}
+
 
 	// resource handler 등록
 	@Override

@@ -5,6 +5,7 @@ import com.coffeekong.domain.ProductVO;
 import com.coffeekong.domain.ReviewVO;
 import com.coffeekong.domain.SearchCriteria;
 import com.coffeekong.mapper.ProductMapper;
+import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,8 +44,9 @@ public class ProductService {
 	public void insert(ProductVO pvo) {
 		productMapper.insert(pvo);
 	}
-	public List<ReviewVO> listReview(int pid, Criteria cri) {
-		return productMapper.listReview(pid, cri);
+	public List<ReviewVO> listReview(Integer pid, Criteria cri) {
+	    Integer startIndex = (cri.getPage()-1) * cri.getPerPageNum();
+		return productMapper.listReview(pid, startIndex, cri.getPerPageNum());
 	}
 	public int listReviewCount(int pid) {
 		return productMapper.listReviewCount(pid);

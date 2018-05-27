@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+1<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
@@ -20,74 +20,74 @@
 <body>
 	<div class="container">
 		<form method="POST" action="/user/tocart" name="tocart">
-		<input type="hidden" name="p_id" value="${pvo.p_id}">
-		<input type="hidden" name="p_name" value="${pvo.p_name }">
-		<input type="hidden" name="p_category" value="${pvo.p_category}">
-		<input type="hidden" name="p_img" value="${pvo.p_img }">
-		<input type="hidden" name="p_price" value="${pvo.p_price }">
-		<input type="hidden" name="qty" id="pQty">
-		<input type="hidden" name="sub_price">
-		<div class="row  u_article">
-			<div class="col-md-6 all_center">
-				<img src="${pvo.p_img }"style="width:25em;height:25em"/>
-			</div>
-			
-			<div class="col-md-6">
-				<div class="row">
-					<span class="col-md-6 h3">NAME</span>
-					<span class="col-md-6 h3">${pvo.p_name }</span>
+			<input type="hidden" name="pid" value="${pvo.PId}">
+			<input type="hidden" name="pname" value="${pvo.PName}">
+			<input type="hidden" name="pcategory" value="${pvo.PCategory}">
+			<input type="hidden" name="pimg" value="${pvo.PImg }">
+			<input type="hidden" name="pprice" value="${pvo.PPrice }">
+			<input type="hidden" name="qty" id="pQty">
+			<input type="hidden" name="subPrice">
+			<div class="row  u_article">
+				<div class="col-md-6 all_center">
+					<img src="${pvo.PImg }"style="width:25em;height:25em"/>
 				</div>
-				<div class="row">
-					<span class="col-md-6 h3">PRICE</span>
-					<span class="col-md-6 h3">$${pvo.p_price}</span>
-				</div>
-				<div class="row">
-					<span class="col-md-6 h3">QUANTITY</span>
-					<span class="col-md-6 h3">
-						<button type="button" id="minus" class="btn btn-default btn-sm" onClick="decrease()">-</button>
-							<b class="qty">1</b>
-						<button type="button" id="plus" class="btn btn-default btn-sm" onClick="increase()">+</button>
-					</span>	
-				</div>
-				<div class="row">
-					<span class="col-md-6 h3">TOTAL PRICE</span>
-					<span class="col-md-6 h3">$<b id="total"></b></span>
-				</div>
-				<c:choose>
-				<c:when test="${pvo.p_category eq 'SingleOrigins' || pvo.p_category eq 'Blends' ||pvo.p_category eq 'Decafs' ||pvo.p_category eq 'Light' ||pvo.p_category eq 'Medium' ||pvo.p_category eq 'Dark' ||pvo.p_category eq 'ColdBrew'}">	
+
+				<div class="col-md-6">
 					<div class="row">
-						<span class="col-md-6 h3">SIZE</span>
-						<div class="col-md-6">
-							<select name="sz" class="form-control" onChange="selectEvent(this)">
-							  <option value="0.5kg" selected>0.5kg</option>
-							  <option value="1kg">1kg</option>
-							  <option value="1.5kg">1.5kg</option>
-							  <option value="2kg">2kg</option>
-							</select>
-						</div>
+						<span class="col-md-6 h3">NAME</span>
+						<span class="col-md-6 h3">${pvo.PName }</span>
 					</div>
 					<div class="row">
-						<span class="col-md-6 h3">TYPE</span>
-						<div class="col-md-6">
-							<select name="type" class="form-control">
-							  <option value="Whole bean">Whole bean</option>
-							  <option value="Drip">Drip</option>
-							  <option value="Espresso">Espresso</option>
-							</select>
-						</div>
+						<span class="col-md-6 h3">PRICE</span>
+						<span class="col-md-6 h3">$${pvo.PPrice}</span>
 					</div>
-				</c:when>
-				</c:choose>
-				<br />
-				<div class="row hor_center h_nav">
-					<a href="#" id="buy"><i class="h3">TO CART</i></a>
+					<div class="row">
+						<span class="col-md-6 h3">QUANTITY</span>
+						<span class="col-md-6 h3">
+							<button type="button" id="minus" class="btn btn-default btn-sm" onClick="decrease()">-</button>
+								<b class="qty">1</b>
+							<button type="button" id="plus" class="btn btn-default btn-sm" onClick="increase()">+</button>
+						</span>
+					</div>
+					<div class="row">
+						<span class="col-md-6 h3">TOTAL PRICE</span>
+						<span class="col-md-6 h3">$<b id="total"></b></span>
+					</div>
+					<c:choose>
+					<c:when test="${pvo.PCategory eq 'SingleOrigins' || pvo.PCategory eq 'Blends' ||pvo.PCategory eq 'Decafs' ||pvo.PCategory eq 'Light' ||pvo.PCategory eq 'Medium' ||pvo.PCategory eq 'Dark' ||pvo.PCategory eq 'ColdBrew'}">
+						<div class="row">
+							<span class="col-md-6 h3">SIZE</span>
+							<div class="col-md-6">
+								<select name="sz" class="form-control" onChange="selectEvent(this)">
+								  <option value="0.5kg" selected>0.5kg</option>
+								  <option value="1kg">1kg</option>
+								  <option value="1.5kg">1.5kg</option>
+								  <option value="2kg">2kg</option>
+								</select>
+							</div>
+						</div>
+						<div class="row">
+							<span class="col-md-6 h3">TYPE</span>
+							<div class="col-md-6">
+								<select name="type" class="form-control">
+								  <option value="Whole bean">Whole bean</option>
+								  <option value="Drip">Drip</option>
+								  <option value="Espresso">Espresso</option>
+								</select>
+							</div>
+						</div>
+					</c:when>
+					</c:choose>
+					<br />
+					<div class="row hor_center h_nav">
+						<a href="#" id="buy"><i class="h3">TO CART</i></a>
+					</div>
 				</div>
 			</div>
-		</div>
 		</form>			
 		<div class="row">
 			<hr>
-				<p style="padding:2em">${pvo.p_content}</p>
+				<p style="padding:2em">${pvo.PContent}</p>
 			<hr>
 		</div>
 <!-- 			review section			 -->
@@ -101,31 +101,31 @@
 		</c:when>
 		<c:otherwise>
 			<div class="row jumbotron">
-				<c:set var="name" value="${login.u_lname} ${login.u_fname}"/>
+				<c:set var="name" value="${login.ULname} ${login.UFname}"/>
 				<form action="/product/review/post" method="post" name="reviewPost">
-					<input type="hidden" name="p_id" value="${pvo.p_id }"/>
-					<input type="hidden" name="u_email" value="${login.u_email}"/>
-					<input type="hidden" name="u_name" value="${name}"/>
+					<input type="hidden" name="pid" value="${pvo.PId}"/>
+					<input type="hidden" name="uemail" value="${login.UEmail}"/>
+					<input type="hidden" name="uname" value="${name}"/>
 					
 					<div>
 						<h4><span><b>POST REVIEW</b></span></h4>
 					</div>
 					<div class="form-group">
 						<label for="reviewContent" class="control-label">CONTENT</label>
-						<textarea name="r_content" id="reviewContent" class="form-control" cols="30" rows="3"></textarea>
+						<textarea name="rcontent" id="reviewContent" class="form-control" cols="30" rows="3"></textarea>
 					</div>
 					<div class="star-input">
 						<span class="input">
-					    	<input type="radio" name="rGrade" id="p1" value="one"><label for="p1">0.5</label>
-						    <input type="radio" name="rGrade" id="p2" value="two"><label for="p2">1</label>
-						    <input type="radio" name="rGrade" id="p3" value="three"><label for="p3">1.5</label>
-						    <input type="radio" name="rGrade" id="p4" value="four"><label for="p4">2</label>
-						    <input type="radio" name="rGrade" id="p5" value="five"><label for="p5">2.5</label>
-						    <input type="radio" name="rGrade" id="p6" value="six"><label for="p6">3</label>
-						    <input type="radio" name="rGrade" id="p7" value="seven"><label for="p7">3.5</label>
-						    <input type="radio" name="rGrade" id="p8" value="eight"><label for="p8">4</label>
-						    <input type="radio" name="rGrade" id="p9" value="nine"><label for="p9">4.5</label>
-						    <input type="radio" name="rGrade" id="p10" value="ten"><label for="p10">5</label>
+					    	<input type="radio" name="rgrade" id="p1" value="one"><label for="p1">0.5</label>
+						    <input type="radio" name="rgrade" id="p2" value="two"><label for="p2">1</label>
+						    <input type="radio" name="rgrade" id="p3" value="three"><label for="p3">1.5</label>
+						    <input type="radio" name="rgrade" id="p4" value="four"><label for="p4">2</label>
+						    <input type="radio" name="rgrade" id="p5" value="five"><label for="p5">2.5</label>
+						    <input type="radio" name="rgrade" id="p6" value="six"><label for="p6">3</label>
+						    <input type="radio" name="rgrade" id="p7" value="seven"><label for="p7">3.5</label>
+						    <input type="radio" name="rgrade" id="p8" value="eight"><label for="p8">4</label>
+						    <input type="radio" name="rgrade" id="p9" value="nine"><label for="p9">4.5</label>
+						    <input type="radio" name="rgrade" id="p10" value="ten"><label for="p10">5</label>
 						</span>
 						<output for="star-input" style="margin-top:-8px;"></output>
 					</div>
@@ -171,16 +171,16 @@
 		{{#each .}}
 	         <div class="row reviewLi">
     			<div class="">
-    	    		<span>{{u_name}}</span>&nbsp;&nbsp;&nbsp;<div class='star-rating'><span id={{r_grade}}></span></div>
+    	    		<span>{{uName}}</span>&nbsp;&nbsp;&nbsp;<div class='star-rating'><span id={{rGrade}}></span></div>
     			</div>
-    			<div class="hor_right removeBtn" data-rid={{r_id}}>
-        			{{#eqReviewer u_email }}
+    			<div class="hor_right removeBtn" data-rid={{rId}}>
+        			{{#eqReviewer uEmail}}
         			<a href="#" class="delReviewBtn"><span class="glyphicon glyphicon-remove"></span></a>
         			{{/eqReviewer}}
     			</div>
-    			<div class="">{{r_content}} </div>
+    			<div class="">{{rContent}} </div>
     			<div class="hor_right">
-        			<span>{{prettifyDate r_date}}</span>
+        			<span>{{prettifyDate rDate}}</span>
     			</div>
 				<hr />
 			</div>
@@ -188,7 +188,7 @@
 </script>  
 
 <script type="text/javascript">
-	var p_price="${pvo.p_price}";
+	var p_price="${pvo.PPrice}";
 	var qty=1;
 	var total=0;
 	var type=1;
@@ -227,8 +227,8 @@
 	
 	$('#buy').on("click", function(event){
 		event.preventDefault();
-		$('input[name="qty"]').attr("value",qty);
-		$('input[name="sub_price"]').attr("value",total);
+		$('input[name="qty"]').val(qty);
+		$('input[name="subPrice"]').val(total);
 		
 		var form = $('form[name="tocart"]');
 		var data = form_to_json(form);
@@ -259,12 +259,12 @@
 	$(document).ready(function(){
 		calPrice();
 		
-		var pid = ${pvo.p_id};
+		var pid = ${pvo.PId};
 		var reviewPage = 1;
 		
 		Handlebars.registerHelper("eqReviewer", function(reviewer, block) {
 			var accum = '';
-			if (reviewer == '${login.u_email}') {
+			if (reviewer == '${login.UEmail}') {
 				accum += block.fn();
 			}
 			return accum;
@@ -349,14 +349,14 @@
 		
 		$('form[name="reviewPost"]').validate({
 		    rules: {
-		    	u_email: { required: true },
-		    	r_grade: { required: true },
-		    	r_content: { required: true}
+		    	uemail: { required: true },
+		    	rgrade: { required: true },
+		    	rcontent: { required: true}
 		    },
 		    messages: {
-		    	u_email:{ required:"note that you're not logged in." },
-		    	r_grade: { required: "validate this product" },
-		    	r_content: { required: "REQUIRED"}
+		    	uemail:{ required:"note that you're not logged in." },
+		    	rgrade: { required: "validate this product" },
+		    	rcontent: { required: "REQUIRED"}
 		    },
 		    submitHandler: function (form, event) {
 		    	event.preventDefault();

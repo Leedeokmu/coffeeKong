@@ -16,23 +16,23 @@
 	<c:choose>
 		<c:when test="${fn:length(cart) > 0 }">
 		<c:forEach var="cvo" items="${cart}" varStatus="index" begin="0" step="1">
-			<form action="/user/cart/update" role="form" name="tocart<c:out value="${index.count }"/>" method="post">
-				<input type="hidden" name="c_num" value="${cvo.c_num }"/>
-				<input type="hidden" name="sub_price" />
+			<form action="/user/cart/update" role="form" name="tocart<c:out value="${index.count}"/>" method="post">
+				<input type="hidden" name="cNum" value="${cvo.CNum }"/>
+				<input type="hidden" name="subPrice" />
 				<input type="hidden" name="qty" />
 				
 				<div class="hor_center">
 					<div class="row hor_center" style="width:40em">
 						<div class="col-md-5" style="padding:0px">
-							<img src="${cvo.p_img }" alt="img" style="width:150px;height:150px"/>
+							<img src="${cvo.PImg }" alt="img" style="width:150px;height:150px"/>
 						</div>
 						<div class="col-md-7" >
 							<div class="row">
 								<span class="col-md-6">NAME</span>
-								<span class="col-md-6">${cvo.p_name }</span>
+								<span class="col-md-6">${cvo.PName }</span>
 							</div>
 							<c:choose>
-								<c:when test="${cvo.p_category eq 'SingleOrigins' || cvo.p_category eq 'Blends' ||cvo.p_category eq 'Decafs' ||cvo.p_category eq 'Light' ||cvo.p_category eq 'Medium' ||cvo.p_category eq 'Dark' ||cvo.p_category eq 'ColdBrew'}">
+								<c:when test="${cvo.PCategory eq 'SingleOrigins' || cvo.PCategory eq 'Blends' ||cvo.PCategory eq 'Decafs' ||cvo.PCategory eq 'Light' ||cvo.PCategory eq 'Medium' ||cvo.PCategory eq 'Dark' ||cvo.PCategory eq 'ColdBrew'}">
 								<div class="row">
 									<span class="col-md-6">TYPE</span>
 									<span class="col-md-6 form-group-sm ver_center">
@@ -64,11 +64,11 @@
 							</div>
 							<div class="row">
 								<span class="col-md-6">PRICE</span>
-								<span class="col-md-6">$<strong id="price<c:out value="${index.count }"/>">${cvo.p_price }</strong></span>
+								<span class="col-md-6">$<strong id="price<c:out value="${index.count }"/>">${cvo.PPrice }</strong></span>
 							</div>
 							<div class="row">
 								<span class="col-md-6">SUB PRICE</span>
-								<span class="col-md-6">$<strong class="subprice" id="subprice<c:out value="${index.count }"/>">${cvo.sub_price }</strong></span>
+								<span class="col-md-6">$<strong class="subprice" id="subprice<c:out value="${index.count }"/>">${cvo.subPrice }</strong></span>
 							</div>
 							<div class="row hor_center" style="margin-top:2em">
 								<input type="submit" value="UPDATE CART" class="btn btn-default btn-sm col-md-6 tocart" id="btn<c:out value="${index.count }"/>"/>
@@ -165,7 +165,7 @@
 		var subprice = form.find('#subprice'+num).text();
 		
 		form.find('input[name="qty"]').attr("value",qty);
-		form.find('input[name="sub_price"]').attr("value",subprice);
+		form.find('input[name="subPrice"]').attr("value",subprice);
 		
     	var data = form_to_json(form);
 		

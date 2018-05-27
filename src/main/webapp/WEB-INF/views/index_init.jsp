@@ -87,12 +87,12 @@
 				<div class="col-sm-3 all_center" style="margin-bottom:5em">
 				    <div class="imageWrapper">
 					    <div>
-					    	<a href="${vo.pId}">
-					    		<img src="${vo.pImg }" class="img-responsive thumbnail" style="width:15em;height:15em" alt="Image">
+					    	<a href="${vo.PId}">
+					    		<img src="${vo.PImg }" class="img-responsive thumbnail" style="width:15em;height:15em" alt="Image">
 					    	</a>
-					    	<a href="${vo.pId}" class="cornerLink">$${vo.pPrice }</a>
+					    	<a href="${vo.PId}" class="cornerLink">$${vo.PPrice }</a>
 				    	</div>
-				    	<div class="h_nav text-center" style="font-size:125%"><a href="${vo.pId}">${vo.pName}</a></div>
+				    	<div class="h_nav text-center" style="font-size:125%"><a href="${vo.PId}">${vo.PName}</a></div>
 				    </div>
 		    	</div>
 			</c:forEach>

@@ -97,16 +97,16 @@
 		ORDER BY
 			r_id DESC
 		LIMIT
-			(#{cri.page} -1) * #{cri.perPageNum}, #{cri.perPageNum}
+			#{startIndex}, #{perPageNum}
 	</select>
 
-	<select id="listReviewCount">
+	<select id="listReviewCount" resultType="int">
 		SELECT
 			count(r_id)
 		FROM
 			tbl_review
 		WHERE
-			p_id=#{p_id}
+			p_id=#{pid}
 	</select>
 
 	<insert id="addReview" parameterType="com.coffeekong.domain.ReviewVO">

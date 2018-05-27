@@ -5,6 +5,7 @@ import com.coffeekong.domain.Criteria;
 import com.coffeekong.domain.ProductVO;
 import com.coffeekong.domain.ReviewVO;
 import com.coffeekong.domain.SearchCriteria;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +33,7 @@ public interface ProductMapper {
 
 	void insert(ProductVO pvo);
 
-	List<ReviewVO> listReview(int pid, Criteria cri);
+	List<ReviewVO> listReview(@Param("pid") Integer pid, @Param("startIndex") Integer startIndex, @Param("perPageNum") Integer perPageNum);
 
 	int listReviewCount(int pid);
 	void addReview(ReviewVO rvo) ;
