@@ -122,24 +122,24 @@
 										<div class="modal-body">
 											<form action="/register" name="register" method="POST">
 												<div class="form-group">
-													<label for="email">EMAIL</label> <input type="email"
-														name="u_email" id="u_email" class="form-control"
+													<label for="uEmail">EMAIL</label> <input type="email"
+														name="email" id="uEmail" class="form-control"
 														placeholder="Enter Your EMAIL" />
 														
 												</div>
 												<div class="form-group">
 													<label for="uFname">FIRSTNAME</label> <input type="text"
-														name="uFname" id="uFname" class="form-control"
+														name="fname" id="uFname" class="form-control"
 														placeholder="Enter Your FIRSTNAME" />
 												</div>
 												<div class="form-group">
 													<label for="uLname">LASTNAME</label> <input type="text"
-														name="uLname" id="uLname" class="form-control"
+														name="lname" id="uLname" class="form-control"
 														placeholder="Enter Your LASTNAME" />
 												</div>
 												<div class="form-group">
 													<label for="uPwd">PASSWORD</label> <input type="password"
-														name="uPwd" id="uPwd" class="form-control"
+														name="pwd" id="uPwd" class="form-control"
 														placeholder="Enter Your PASSWORD" />
 												</div>
 												<div class="form-group">

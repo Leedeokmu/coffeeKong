@@ -17,23 +17,23 @@
 		<c:when test="${fn:length(cart) > 0 }">
 		<c:forEach var="cvo" items="${cart}" varStatus="index" begin="0" step="1">
 			<form action="/user/cart/update" role="form" name="tocart<c:out value="${index.count}"/>" method="post">
-				<input type="hidden" name="cnum" value="${cvo.CNum}"/>
-				<input type="hidden" name="pid" value="${cvo.PId}"/>
+				<input type="hidden" name="uuid" value="${cvo.uuid}"/>
+				<input type="hidden" name="productId" value="${cvo.productId}"/>
 				<input type="hidden" name="subPrice" />
 				<input type="hidden" name="qty" />
 				
 				<div class="hor_center">
 					<div class="row hor_center" style="width:40em">
 						<div class="col-md-5" style="padding:0px">
-							<img src="${cvo.PImg }" alt="img" style="width:150px;height:150px"/>
+							<img src="${cvo.img}" alt="img" style="width:150px;height:150px"/>
 						</div>
 						<div class="col-md-7" >
 							<div class="row">
 								<span class="col-md-6">NAME</span>
-								<span class="col-md-6">${cvo.PName }</span>
+								<span class="col-md-6">${cvo.name }</span>
 							</div>
 							<c:choose>
-								<c:when test="${cvo.PCategory eq 'SingleOrigins' || cvo.PCategory eq 'Blends' ||cvo.PCategory eq 'Decafs' ||cvo.PCategory eq 'Light' ||cvo.PCategory eq 'Medium' ||cvo.PCategory eq 'Dark' ||cvo.PCategory eq 'ColdBrew'}">
+								<c:when test="${cvo.category eq 'SingleOrigins' || cvo.category eq 'Blends' ||cvo.category eq 'Decafs' ||cvo.category eq 'Light' ||cvo.category eq 'Medium' ||cvo.category eq 'Dark' ||cvo.category eq 'ColdBrew'}">
 								<div class="row">
 									<span class="col-md-6">TYPE</span>
 									<span class="col-md-6 form-group-sm ver_center">
@@ -60,16 +60,16 @@
 							<div class="row">
 								<span class="col-sm-6">QUANTITY</span>
 								<span class="col-sm-6"><button type="button" id="minus" class="btn btn-default btn-xs" onClick="decrease(this)">-</button>
-									&nbsp;<span id="qty<c:out value="${index.count }"/>">${cvo.qty}</span>&nbsp;
+									&nbsp;<span id="qty<c:out value="${index.count}"/>">${cvo.qty}</span>&nbsp;
 								<button type="button" class="btn btn-default btn-xs" id="plus" onClick="increase(this)">+</button></span>
 							</div>
 							<div class="row">
 								<span class="col-md-6">PRICE</span>
-								<span class="col-md-6">$<strong id="price<c:out value="${index.count }"/>">${cvo.PPrice }</strong></span>
+								<span class="col-md-6">$<strong id="price<c:out value="${index.count }"/>">${cvo.price }</strong></span>
 							</div>
 							<div class="row">
 								<span class="col-md-6">SUB PRICE</span>
-								<span class="col-md-6">$<strong class="subprice" id="subprice<c:out value="${index.count }"/>">${cvo.subPrice }</strong></span>
+								<span class="col-md-6">$<strong class="subprice" id="subprice<c:out value="${index.count}"/>">${cvo.subPrice }</strong></span>
 							</div>
 							<div class="row hor_center" style="margin-top:2em">
 								<input type="submit" value="UPDATE CART" class="btn btn-default btn-sm col-md-6 tocart" id="btn<c:out value="${index.count }"/>"/>
@@ -109,7 +109,7 @@
 	}
 	function calPrice(id){
 		var delim = id.substr(id.length-1);
-		var formName = 'tocart'+delim;
+		var formName = 'tocart' + delim;
 		var form = $('form[name="'+formName+'"]');
 		
 		var price = parseFloat(form.find('#price'+delim).text());

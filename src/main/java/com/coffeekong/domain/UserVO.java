@@ -11,15 +11,15 @@ import java.util.Date;
 public class UserVO {
 	@NotEmpty
 	@Email
-	private String uEmail;
+	private String email;
 	@NotEmpty
-	private String uFname;
+	private String fname;
 	@NotEmpty
-	private String uLname;
+	private String lname;
 	@NotEmpty
 	@Size(min=4, message="too short")
-	private String uPwd;
-	private int uPoint;
+	private String pwd;
+	private int point;
 	private String sessId;
 	private Date sessLimit;
 

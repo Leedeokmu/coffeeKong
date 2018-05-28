@@ -56,7 +56,7 @@ public class ProductController {
 			}
 			
 			for(ProductVO vo : list){
-				if(vo.getPId() == pid){
+				if(vo.getId() == pid){
 					flag = false;
 				}
 			}

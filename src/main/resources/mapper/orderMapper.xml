@@ -4,28 +4,28 @@
 
 	<resultMap id="Order" type="com.coffeekong.domain.OrderVO" >
 		<id property="oId" column="o_id"/>
-		<result property="uEmail" column="u_email"/>
-		<result property="oPrice" column="o_price"/>
-		<result property="oRfname" column="o_rfname"/>
-		<result property="oRlname" column="o_rlname"/>
-		<result property="oPhone" column="o_phone"/>
-		<result property="oPostcode" column="o_postcode"/>
-		<result property="oAddr" column="o_addr"/>
-		<result property="oState" column="o_state"/>
-		<result property="oDate" column="o_date"/>
+		<result property="email" column="u_email"/>
+		<result property="price" column="o_price"/>
+		<result property="fname" column="o_rfname"/>
+		<result property="lname" column="o_rlname"/>
+		<result property="phone" column="o_phone"/>
+		<result property="postcode" column="o_postcode"/>
+		<result property="addr" column="o_addr"/>
+		<result property="state" column="o_state"/>
+		<result property="date" column="o_date"/>
 		<collection property="opvo" resultMap="OrderProd" ofType="com.coffeekong.domain.OrderProdVO"/>
 	</resultMap>
 
 	<resultMap id="OrderProd" type="com.coffeekong.domain.OrderProdVO">
-		<result property="oId" column="o_id"/>
-		<result property="pId" column="p_id"/>
-		<result property="pName" column="p_name"/>
-		<result property="pCategory" column="p_category"/>
-		<result property="pImg" column="p_img"/>
-		<result property="opQty" column="op_qty"/>
-		<result property="opSz" column="op_sz"/>
-		<result property="opType" column="op_type"/>
-		<result property="opPrice" column="op_price"/>
+		<result property="orderId" column="o_id"/>
+		<result property="productId" column="p_id"/>
+		<result property="name" column="p_name"/>
+		<result property="category" column="p_category"/>
+		<result property="img" column="p_img"/>
+		<result property="qty" column="op_qty"/>
+		<result property="sz" column="op_sz"/>
+		<result property="type" column="op_type"/>
+		<result property="price" column="op_price"/>
 	</resultMap>
 
 	<sql id="searchByEmail">

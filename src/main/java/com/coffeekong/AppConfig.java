@@ -1,6 +1,8 @@
 package com.coffeekong;
 
+import com.coffeekong.interceptor.LoginInterceptor;
 import com.coffeekong.utils.MessageUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.PropertiesFactoryBean;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -23,6 +25,7 @@ import org.springframework.web.servlet.HandlerMapping;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -80,6 +83,8 @@ public class AppConfig  extends WebMvcConfigurerAdapter {
 		registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
 		super.addViewControllers(registry);
 	}
+
+
 	// error page 추가 필요 : ServerpProperties 상속하여 구현
 	@Bean
 	public ServerProperties getServerProperteis() { return new ErrorPageCustomization();}

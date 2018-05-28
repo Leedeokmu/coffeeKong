@@ -15,7 +15,7 @@
 	<c:choose>
 	<c:when test="${fn:length(cart) > 0}">
 	<form method="post" action="/order" name="order">
-		<input type="hidden" name="o_price" />
+		<input type="hidden" name="price" />
 		<div class="container">
 			<div class="row">
 				<h3 class="u_title text-center">Product Information</h3>
@@ -24,7 +24,7 @@
 				<div class="hor_center u_article" style="margin-top: 1em">
 					<div class="row hor_center" style="width: 40em">
 						<div class="col-md-4">
-							<img src="${cvo.p_img }" width="150" height="150" alt="product" />
+							<img src="${cvo.img }" width="150" height="150" alt="product" />
 						</div>
 						<div class="col-md-8 text-center">
 							<div class="row">
@@ -32,7 +32,7 @@
 									<span><b>name</b></span>
 								</div>
 								<div class="col-md-8">
-									<span>${cvo.p_name }</span>
+									<span>${cvo.name }</span>
 								</div>
 							</div>
 							<div class="row">
@@ -40,7 +40,7 @@
 									<span><b>subprice</b></span>
 								</div>
 								<div class="col-md-8">
-									<span class="subprice">${cvo.sub_price }</span>
+									<span class="subprice">${cvo.subPrice }</span>
 								</div>
 							</div>
 							<div class="row">
@@ -48,12 +48,12 @@
 									<span><b>quentity</b></span>
 								</div>
 								<div class="col-md-8">
-									<span>${cvo.qty }</span>
+									<span>${cvo.qty}</span>
 								</div>
 							</div>
 							<c:choose>
 								<c:when
-									test="${cvo.p_category eq 'SingleOrigins' || cvo.p_category eq 'Blends' ||cvo.p_category eq 'Decafs' ||cvo.p_category eq 'Light' ||cvo.p_category eq 'Medium' ||cvo.p_category eq 'Dark' ||cvo.p_category eq 'ColdBrew'}">
+									test="${cvo.category eq 'SingleOrigins' || cvo.category eq 'Blends' ||cvo.category eq 'Decafs' ||cvo.category eq 'Light' ||cvo.category eq 'Medium' ||cvo.category eq 'Dark' ||cvo.category eq 'ColdBrew'}">
 									<div class="row">
 										<div class="col-md-4">
 											<span><b>type</b></span>
@@ -89,34 +89,34 @@
 			<div class="row form-horizontal">
 				<label class="control-label col-md-2">receiver</label>
 				<div class="col-md-5"> 
-					<input class="form-control" type="text" name="o_rfname" placeholder="YOUR FIRST NAME" />
+					<input class="form-control" type="text" name="fname" placeholder="YOUR FIRST NAME" />
 				</div>
 				<div class="col-md-5">
-					<input class="form-control" type="text" name="o_rlname" placeholder="YOUR LAST NAME" />
+					<input class="form-control" type="text" name="lname" placeholder="YOUR LAST NAME" />
 				</div>
 			</div>
 			<div class="row form-horizontal">
 				<label class="control-label col-md-2">postcode</label>
 				<div class="col-md-10">
-					<input class="form-control" type="text" name="o_postcode" placeholder="ENTER YOUR POSTCODE"/>
+					<input class="form-control" type="text" name="postcode" placeholder="ENTER YOUR POSTCODE"/>
 				</div>
 			</div>
 			<div class="row form-horizontal">
 				<label class="control-label col-md-2">address</label>
 				<div class="col-md-10">
-					<textarea class="form-control" name="o_addr" cols="30" rows="2"></textarea>
+					<textarea class="form-control" name="addr" cols="30" rows="2"></textarea>
 				</div>
 			</div>
 			<div class="row form-horizontal">
 				<label class="control-label col-md-2">phone</label>
 				<div class="col-md-10">
-					<input class="form-control" type="text" name="o_phone" value="1111111111" placeholder="ENTER YOUR PHONE NUMBER"/>
+					<input class="form-control" type="text" name="phone" value="1111111111" placeholder="ENTER YOUR PHONE NUMBER"/>
 				</div>
 			</div>
 			<hr>
 			<div class="row">
 				<div class="hor_center">
-					<input type="submit" name="sendOrder" class="btn btn-success btn-lg" value="ORDER"/>
+					<input type="submit" id="sendOrder" class="btn btn-success btn-lg" value="ORDER"/>
 				</div>
 			</div>
 		</div>
@@ -138,11 +138,9 @@
 			$('.subprice').each(function(){
 				totalPrice += parseFloat($(this).text());
 			})
-			$('#totalPrice').text('Total Price : $'+totalPrice.toFixed(2));
-			$('input[name="o_price"]').attr('value', totalPrice);
-			
-			
-		})	
+			$('#totalPrice').text('Total Price : $' + totalPrice.toFixed(2));
+			$('input[name="price"]').attr('value', totalPrice);
+		})
 	</script>
 </body>
 </html>

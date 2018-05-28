@@ -15,23 +15,23 @@ import java.util.List;
 
 @Service
 public class OrderService{
-	private static final Logger logger = LoggerFactory.getLogger(OrderService.class);
-
 	@Autowired
 	private OrderMapper orderMapper;
-	
-	@Transactional
-	public void insOrder(OrderVO vo, List<CartVO> list) {
-		ArrayList<String> category = new ArrayList<String>();
+	private static ArrayList<String> category = new ArrayList<>();
+	static{
 		category.add("SingleOrigins");	category.add("Blends");	category.add("Decafs");
 		category.add("Light");	category.add("Medium");  category.add("Dark");	category.add("ColdBrew");
-		
+	}
+
+	@Transactional
+	public void insOrder(OrderVO vo, List<CartVO> list) {
 		orderMapper.insOrd(vo);
+
 		for(CartVO cvo : list){
-			if(category.contains(cvo.getPCategory())){
-				orderMapper.insOrdProd(cvo, vo.getOId());
+			if(category.contains(cvo.getCategory())){
+				orderMapper.insOrdProd(cvo, vo.getId());
 			}else{
-				orderMapper.insOrdProdTool(cvo, vo.getOId());
+				orderMapper.insOrdProdTool(cvo, vo.getId());
 			}
 		}
 	}

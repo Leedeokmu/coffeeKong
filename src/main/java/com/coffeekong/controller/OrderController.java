@@ -36,13 +36,11 @@ public class OrderController {
 		List<CartVO> list = (List<CartVO>) session.getAttribute("cart");
 		
 		try {
-			String email = ((UserVO)session.getAttribute("login")).getUEmail();
+			String email = ((UserVO)session.getAttribute("login")).getEmail();
 			
-			ovo.setUEmail(email);
+			ovo.setEmail(email);
 			orderService.insOrder(ovo, list);
-			
-			
-			
+
 			session.removeAttribute("cart");
 			model.addAttribute("content", "ocompl");
 			return "/index";

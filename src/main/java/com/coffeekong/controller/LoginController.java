@@ -68,7 +68,7 @@ public class LoginController {
 					if(dto.isUseCookie()){
 						int duration = 60 * 60 * 24 * 7;
 						Date limit = new Date(System.currentTimeMillis() + (duration * 1000));
-						userService.rmbLogin(uvo.getUEmail(), session.getId(), limit);
+						userService.rmbLogin(uvo.getEmail(), session.getId(), limit);
 					}
 					log.debug("dest #############: "+(String)session.getAttribute("dest"));
 					entity = new ResponseEntity<String>((String)session.getAttribute("dest"), HttpStatus.OK);
@@ -98,7 +98,7 @@ public class LoginController {
 				cookie.setPath("/");
 				cookie.setMaxAge(0);
 				response.addCookie(cookie);
-				userService.rmbLogin(uvo.getUEmail(), session.getId(), new Date());
+				userService.rmbLogin(uvo.getEmail(), session.getId(), new Date());
 			}
 		}
 		rttr.addAttribute("content", "");

@@ -10,10 +10,10 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 @Data
 public class MgrVO {
-	private String mEmail;
-	private String mFname;
-	private String mLname;
-	private String mPwd;
+	private String email;
+	private String fname;
+	private String lname;
+	private String pwd;
 	private String sessId;
 	private Date sessLimit;
 }

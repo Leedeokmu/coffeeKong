@@ -1,24 +1,24 @@
 $(document).ready(function(){
 	$('form[name="register"]').validate({
 	    rules: {
-	        u_email: { required: true, email:true, remote:{
+	        uemail: { required: true, email:true, remote:{
 		        	type:"post",
 		        	url:"/register/chkId"
 	        	} 
 	        },
-	        u_fname: { required: true },
-	        u_lname: { required: true },
-	        u_pwd: { required: true, minlength:4},
+	        ufname: { required: true },
+	        ulname: { required: true },
+	        upwd: { required: true, minlength:4},
 	        pwdconfirm: { equalTo: "#u_pwd" }
 	    },
 	    messages: {
-	        u_email: {
+	        uemail: {
 	            required: "Check Your Email",
 	            email: "Enter Right Email Form",
 	            remote: "Duplicated. Enter Another Email"
 	        },
-	        u_fname:{ required:"Check Your First Name" },
-	        u_lname:{ required:"Check Your Last Name" },
+	        ufname:{ required:"Check Your First Name" },
+	        ulname:{ required:"Check Your Last Name" },
 	        u_pwd: { required: "Check Your Password" },
 	        pwdconfirm: { equalTo: "Password Not Matched" }
 	    },
@@ -141,14 +141,14 @@ $(document).ready(function(){
 	
 	$('form[name="uupdate"]').validate({
 	    rules: {
-	        u_fname: { required: true },
-	        u_lname: { required: true },
+	        ufname: { required: true },
+	        ulname: { required: true },
 	        u_pwd: { required: true, minlength:4},
 	        pwdconfirm: { equalTo: '[name="u_pwd"]' }
 	    },
 	    messages: {
-	        u_fname:{ required:"REQUIRED" },
-	        u_lname:{ required:"REQUIRED" },
+	        ufname:{ required:"REQUIRED" },
+	        ulname:{ required:"REQUIRED" },
 	        u_pwd: { required: "Check Your Password" },
 	        pwdconfirm: { equalTo: "Password Not Matched" }
 	    },
@@ -159,13 +159,13 @@ $(document).ready(function(){
 	
 	$('form[name="umupdate"]').validate({
 	    rules: {
-	        u_fname: { required: true },
-	        u_lname: { required: true },
+	        ufname: { required: true },
+	        ulname: { required: true },
 	        u_pwd: { required: true, minlength:4}
 	    },
 	    messages: {
-	        u_fname:{ required:"REQUIRED" },
-	        u_lname:{ required:"REQUIRED" },
+	        ufname:{ required:"REQUIRED" },
+	        ulname:{ required:"REQUIRED" },
 	        u_pwd: { required: "Check Your Password" }
 	    },
 	    submitHandler: function (form) {

@@ -20,48 +20,48 @@
 		<hr >
 		<c:choose>
 			<c:when test="${search eq 'off' }">
-			<c:forEach var="ovo" items="${list }">
-				<c:if test="${fn:length(ovo.opvo) > 0 }">
-					<div class="row all_center">
-						<div class="col-md-2 h_nav text-center">${ovo.o_id }<br /><a href="/user/order/detail/${ovo.o_id }${pmk.makeSearch(pmk.cri.page) }" class="h_nav"><span>[ORDER DETAIL]</span></a></div>
-						<div class="col-md-9">
-						<c:forEach var="opvo" items="${ovo.opvo }">	
+				<c:forEach var="ovo" items="${list}">
+					<c:if test="${fn:length(ovo.opvo) > 0 }">
+						<div class="row all_center">
+							<div class="col-md-2 h_nav text-center">${ovo.id }<br /><a href="/user/order/detail/${ovo.id }${pmk.makeSearch(pmk.cri.page) }" class="h_nav"><span>[ORDER DETAIL]</span></a></div>
+							<div class="col-md-9">
+							<c:forEach var="opvo" items="${ovo.opvo}">
+								<div class="row">
+									<div class="col-md-3"><a href="/product/detail${pmk.makeSearch(pmk.cri.page) }&pid=${opvo.productId }"><img src="${opvo.img }" style="width:5em" alt="img" /></a></div>
+									<div class="col-md-3 h_nav"><a href="/product/detail${pmk.makeSearch(pmk.cri.page) }&pid=${opvo.productId }"><span>${opvo.name }</span></a></div>
+									<div class="col-md-3"><span>${opvo.type }</span></div>
+									<div class="col-md-1"><span>${opvo.qty }</span></div>
+									<div class="col-md-2"><span>${opvo.sz}</span></div>
+								</div>
+							</c:forEach>
+							</div>
+							<div class="col-md-1"><span><b>$${ovo.price }</b></span></div>
+						</div>
+						<hr>
+					</c:if>
+				</c:forEach>
+			</c:when>
+			<c:when test="${search eq 'on' }">
+				<c:forEach var="ovo" items="${list }">
+					<c:if test="${fn:length(ovo.opvo) > 0 }">
+					<div class="row ver_center">
+						<div class="col-md-2 h_nav text-center">${ovo.id }<br /><a href="/user/order/detail/${ovo.id }${pmk.makeSearch(pmk.cri.page) }" class="h_nav"><span>[ORDER DETAIL]</span></a></div>
+						<div class="col-md-10">
+						<c:forEach var="opvo" items="${ovo.opvo}">
 							<div class="row">
-								<div class="col-md-3"><a href="/product/detail${pmk.makeSearch(pmk.cri.page) }&pid=${opvo.p_id }"><img src="${opvo.p_img }" style="width:5em" alt="img" /></a></div>
-								<div class="col-md-3 h_nav"><a href="/product/detail${pmk.makeSearch(pmk.cri.page) }&pid=${opvo.p_id }"><span>${opvo.p_name }</span></a></div>
-								<div class="col-md-3"><span>${opvo.op_type }</span></div>
-								<div class="col-md-1"><span>${opvo.op_qty }</span></div>
-								<div class="col-md-2"><span>${opvo.op_sz}</span></div>
+								<div class="col-md-3"><a href="/product/detail${pmk.makeSearch(pmk.cri.page) }&pid=${opvo.productId }"><img src="${opvo.img }" style="width:5em" alt="img" /></a></div>
+								<div class="col-md-3 h_nav"><a href="/product/detail${pmk.makeSearch(pmk.cri.page) }&pid=${opvo.productId }"><span>${opvo.name }</span></a></div>
+								<div class="col-md-2"><span>${opvo.type }</span></div>
+								<div class="col-md-1"><span>${opvo.qty }</span></div>
+								<div class="col-md-2"><span>${opvo.sz}</span></div>
+								<div class="col-md-1"><span><b>$${opvo.price }</b></span></div>
 							</div>
 						</c:forEach>
 						</div>
-						<div class="col-md-1"><span><b>$${ovo.o_price }</b></span></div>
 					</div>
 					<hr>
-				</c:if>
-			</c:forEach>
-			</c:when>
-			<c:when test="${search eq 'on' }">
-			<c:forEach var="ovo" items="${list }">
-				<c:if test="${fn:length(ovo.opvo) > 0 }">
-				<div class="row ver_center">
-					<div class="col-md-2 h_nav text-center">${ovo.o_id }<br /><a href="/user/order/detail/${ovo.o_id }${pmk.makeSearch(pmk.cri.page) }" class="h_nav"><span>[ORDER DETAIL]</span></a></div>
-					<div class="col-md-10">
-					<c:forEach var="opvo" items="${ovo.opvo }">	
-						<div class="row">
-							<div class="col-md-3"><a href="/product/detail${pmk.makeSearch(pmk.cri.page) }&pid=${opvo.p_id }"><img src="${opvo.p_img }" style="width:5em" alt="img" /></a></div>
-							<div class="col-md-3 h_nav"><a href="/product/detail${pmk.makeSearch(pmk.cri.page) }&pid=${opvo.p_id }"><span>${opvo.p_name }</span></a></div>
-							<div class="col-md-2"><span>${opvo.op_type }</span></div>
-							<div class="col-md-1"><span>${opvo.op_qty }</span></div>
-							<div class="col-md-2"><span>${opvo.op_sz}</span></div>
-							<div class="col-md-1"><span><b>$${opvo.op_price }</b></span></div>
-						</div>
-					</c:forEach>
-					</div>
-				</div>
-				<hr>
-				</c:if>
-			</c:forEach>
+					</c:if>
+				</c:forEach>
 			</c:when>
 		</c:choose>
 		<div class="row text-center">
@@ -81,7 +81,7 @@
 		</div>
 		<div class="row hor_center form-inline">
 			<select name="searchType" class="form-control">
-				<option value="nothing" <c:out value="${cri.searchType == null ? 'selnected' : '' }"/>>--------------</option>
+				<option value="nothing" <c:out value="${cri.searchType == null ? 'selected' : '' }"/>>--------------</option>
 				<option value="prodNm" <c:out value="${cri.searchType  eq 'prodNm' ? 'selected' : '' }"/>>Name</option>
 			</select>
 			<input type="search" class="form-control" name="keyword" value="${cri.keyword }">

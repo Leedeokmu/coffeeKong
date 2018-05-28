@@ -17,12 +17,12 @@
 	</div><br />
 	<div class="hor_center">
 		<form action="/user/resign" name="uresign" method="POST">
-			<input type="hidden" name="u_email" value="${login.u_email }"/>
+			<input type="hidden" name="email" value="${login.email }"/>
 			<div>
-				<label for="resign_pw">ENTER YOUR PASSWORD</label>
-				<input type="password" class="form-control" name="u_pwd" />
-				
-			</div><br />
+				<label for="password">ENTER YOUR PASSWORD</label>
+				<input type="password" class="form-control" id="password" name="pwd" />
+			</div>
+			<br>
 			<div class="errmsg" style="min-height:20px"></div>
 			<div class="hor_center">
 				<input type="submit" class="btn btn-warning btn-sm" value="submit"/>
@@ -34,8 +34,6 @@
 	$(document).ready(function(){
 		$('form[name="uresign"]').submit(function(event){
 			event.preventDefault();
-			
-			var form = $('form[name="uresign"]');
 	    	var data = form_to_json(this);
 	    	
 	    	$.ajax({
@@ -49,7 +47,8 @@
 	    		data: JSON.stringify(data),
 	    		success : function(result){
 	    			if(result == "Success"){
-	    				window.location.replace('/user/urcompl');
+	    			    location.href = '/user/urcompl';
+	    				// window.location.replace('/user/urcompl');
 	    			}else if(result == "Fail"){
 	    				$('.errmsg').html('<span>PASSWORD IS INCORRECT.</span>').fadeIn('slow').fadeOut('slow');
 	    			}

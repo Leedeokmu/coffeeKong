@@ -6,12 +6,12 @@ import java.util.Date;
 
 @Data
 public class ReviewVO {
-	private int rId;
-	private int pId;
-	private String uEmail;
-	private String uName;
-	private String rGrade;
-	private String rContent;
-	private Date rDate;
+	private int id;
+	private int productId;
+	private String email;
+	private String name;
+	private String grade;
+	private String content;
+	private Date date;
 
 }

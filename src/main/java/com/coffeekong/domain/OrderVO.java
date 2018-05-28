@@ -7,15 +7,15 @@ import java.util.List;
 
 @Data
 public class OrderVO {
-	private int oId;
-	private String uEmail;
-	private Double oPrice;
-	private String oRfname;
-	private String oRlname;
-	private String oPhone;
-	private String oPostcode;
-	private String oAddr;
-	private String oState;
-	private Date oDate;
+	private int id;
+	private String email;
+	private Double price;
+	private String fname;
+	private String lname;
+	private String phone;
+	private String postcode;
+	private String addr;
+	private String state;
+	private Date date;
 	private List<OrderProdVO> opvo;
 }

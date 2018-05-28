@@ -54,7 +54,7 @@ public class ProdManageController {
 	    String uploadPath = context.getRealPath(relativePath);
 	    String imgUrl = relativePath + FileUploadUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes());
 	    log.debug("image Url ########################## " + imgUrl);
-	    pvo.setPImg(imgUrl);
+	    pvo.setImg(imgUrl);
 	    
 	    productService.insert(pvo);
 
@@ -107,14 +107,14 @@ public class ProdManageController {
 		log.debug("Product Manage Update Save############################ pvo : " + pvo.toString());
 		
 		if(file != null){
-			File uploadedfile = new File(context.getRealPath("/"), pvo.getPImg());
+			File uploadedfile = new File(context.getRealPath("/"), pvo.getImg());
 			uploadedfile.delete();
 			
 		    String relativePath = "/resources/dist/product";
 		    String uploadPath = context.getRealPath(relativePath);
 		    String imgUrl = relativePath + FileUploadUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes());
 		    log.debug("image Url ########################## " + imgUrl);
-		    pvo.setPImg(imgUrl);
+		    pvo.setImg(imgUrl);
 		}
 		productService.update(pvo);
 		

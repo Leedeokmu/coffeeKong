@@ -87,12 +87,12 @@
 				<div class="col-sm-3 all_center" style="margin-bottom:5em">
 				    <div class="imageWrapper">
 					    <div>
-					    	<a href="${vo.PId}">
-					    		<img src="${vo.PImg }" class="img-responsive thumbnail" style="width:15em;height:15em" alt="Image">
+					    	<a href="${vo.id}">
+					    		<img src="${vo.img}" class="img-responsive thumbnail" style="width:15em;height:15em" alt="Image">
 					    	</a>
-					    	<a href="${vo.PId}" class="cornerLink">$${vo.PPrice }</a>
+					    	<a href="${vo.id}" class="cornerLink">$${vo.price}</a>
 				    	</div>
-				    	<div class="h_nav text-center" style="font-size:125%"><a href="${vo.PId}">${vo.PName}</a></div>
+				    	<div class="h_nav text-center" style="font-size:125%"><a href="${vo.id}">${vo.name}</a></div>
 				    </div>
 		    	</div>
 			</c:forEach>
@@ -105,7 +105,7 @@
 			</c:otherwise>
 			</c:choose>
 			<form id="plistForm">
-				<input type="hidden" name="pid"/>
+				<input type="hidden" name="id"/>
 			</form>
 		</div>
 		<hr />
@@ -119,7 +119,7 @@
 			
 			var target = $(this).attr("href");
 			var plistForm = $("#plistForm");
-			plistForm.find("[name='pid']").val(target);
+			plistForm.find("[name='id']").val(target);
 			plistForm.attr("action","/product/detail");
 			plistForm.attr("method", "GET");
 			plistForm.submit();
