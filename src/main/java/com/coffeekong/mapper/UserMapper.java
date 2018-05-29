@@ -19,6 +19,8 @@ import java.util.Map;
 public interface UserMapper{
 	 UserVO login(LoginDTO dto);
 
+	 String checkEmail(String email);
+
 	 UserVO getUserWithSessionKey(String key);
 
 	 void rmbLogin(String email, String sess_id, Date limit);

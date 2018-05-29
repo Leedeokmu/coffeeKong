@@ -25,27 +25,27 @@
 			<c:forEach var="ovo" items="${list }" varStatus="index">
 				<c:if test="${fn:length(ovo.opvo) > 0 }">
 					<div class="row all_center">
-						<div class="col-md-2 h_nav text-center">${ovo.o_id }<br /><a href="/manage/order/detail${pmk.makeSearch(pmk.cri.page) }&oid=${ovo.o_id}" class="h_nav"><span>[ORDER DETAIL]</span></a></div>
-						<div class="col-md-2 h_nav text-center">${ovo.u_email }</div>
+						<div class="col-md-2 h_nav text-center">${ovo.id }<br /><a href="/manage/order/detail${pmk.makeSearch(pmk.cri.page) }&oid=${ovo.id}" class="h_nav"><span>[ORDER DETAIL]</span></a></div>
+						<div class="col-md-2 h_nav text-center">${ovo.email }</div>
 						<div class="col-md-5">
 						<c:forEach var="opvo" items="${ovo.opvo }" >	
 							<div class="row">
-								<div class="col-md-2"><a href="/product/detail${pmk.makeSearch(pmk.cri.page) }&pid=${opvo.p_id }"><img src="${opvo.p_img }" style="width:5em" alt="img" /></a></div>
-								<div class="col-md-4 h_nav"><a href="/product/detail${pmk.makeSearch(pmk.cri.page) }&pid=${opvo.p_id }"><span>${opvo.p_name }</span></a></div>
-								<div class="col-md-3"><span>${opvo.op_type }</span></div>
-								<div class="col-md-1"><span>${opvo.op_qty }</span></div>
-								<div class="col-md-2"><span>${opvo.op_sz}</span></div>
+								<div class="col-md-2"><a href="/product/detail${pmk.makeSearch(pmk.cri.page) }&pid=${opvo.productId }"><img src="${opvo.img }" style="width:5em" alt="img" /></a></div>
+								<div class="col-md-4 h_nav"><a href="/product/detail${pmk.makeSearch(pmk.cri.page) }&pid=${opvo.productId }"><span>${opvo.name }</span></a></div>
+								<div class="col-md-3"><span>${opvo.type }</span></div>
+								<div class="col-md-1"><span>${opvo.qty }</span></div>
+								<div class="col-md-2"><span>${opvo.sz}</span></div>
 							</div>
 						</c:forEach>
 						</div>
-						<div class="col-md-1"><span><b>$${ovo.o_price }</b></span></div>
+						<div class="col-md-1"><span><b>$${ovo.price }</b></span></div>
 						<div class="col-md-2">
 							<span class="form-group-sm ver_center">
 								<select name="state" class="form-control" id="state<c:out value="${index.count }"/>">
-									<option value="waiting payment" <c:out value="${ovo.o_state eq 'waiting payment'? 'selected' : ''}"/>>waiting payment</option>
-									<option value="prepare delivery" <c:out value="${ovo.o_state eq 'prepare delivery'? 'selected' : ''}"/>>prepare delivery</option>
-									<option value="on delivery" <c:out value="${ovo.o_state eq 'on delivery'? 'selected' : ''}"/>>on delivery</option>
-									<option value="delivered" <c:out value="${ovo.o_state eq 'delivered'? 'selected' : ''}"/>>delivered</option>
+									<option value="waiting payment" <c:out value="${ovo.state eq 'waiting payment'? 'selected' : ''}"/>>waiting payment</option>
+									<option value="prepare delivery" <c:out value="${ovo.state eq 'prepare delivery'? 'selected' : ''}"/>>prepare delivery</option>
+									<option value="on delivery" <c:out value="${ovo.state eq 'on delivery'? 'selected' : ''}"/>>on delivery</option>
+									<option value="delivered" <c:out value="${ovo.state eq 'delivered'? 'selected' : ''}"/>>delivered</option>
 								</select>
 							</span>
 							<div class="hor_center" style="margin-top:1em">
@@ -53,7 +53,7 @@
 							</div>
 							<form action="/manage/order/update/state" method="post" name="stateForm<c:out value="${index.count }"/>">
 								<input type="hidden" name="state" value=""/>
-								<input type="hidden" name="oid" value="${ovo.o_id }"/>
+								<input type="hidden" name="oid" value="${ovo.id }"/>
 							</form>
 						</div>
 					</div>
@@ -65,16 +65,16 @@
 			<c:forEach var="ovo" items="${list }" varStatus="index">
 				<c:if test="${fn:length(ovo.opvo) > 0 }">
 				<div class="row ver_center">
-					<div class="col-md-2 h_nav text-center">${ovo.o_id }<br /><a href="/manage/order/detail${pmk.makeSearch(pmk.cri.page) }&oid=${ovo.o_id}" class="h_nav"><span>[ORDER DETAIL]</span></a></div>
-					<div class="col-md-2 h_nav text-center">${ovo.u_email }</div>
+					<div class="col-md-2 h_nav text-center">${ovo.id }<br /><a href="/manage/order/detail${pmk.makeSearch(pmk.cri.page) }&oid=${ovo.id}" class="h_nav"><span>[ORDER DETAIL]</span></a></div>
+					<div class="col-md-2 h_nav text-center">${ovo.email }</div>
 					<div class="col-md-6">
 					<c:forEach var="opvo" items="${ovo.opvo }">	
 						<div class="row">
-							<div class="col-md-2"><a href="/product/detail${pmk.makeSearch(pmk.cri.page) }&pid=${opvo.p_id }"><img src="${opvo.p_img }" style="width:5em" alt="img" /></a></div>
-							<div class="col-md-4 h_nav"><a href="/product/detail${pmk.makeSearch(pmk.cri.page) }&pid=${opvo.p_id }"><span>${opvo.p_name }</span></a></div>
-							<div class="col-md-2"><span>${opvo.op_type }</span></div>
-							<div class="col-md-1"><span>${opvo.op_qty }</span></div>
-							<div class="col-md-1"><span>${opvo.op_sz}</span></div>
+							<div class="col-md-2"><a href="/product/detail${pmk.makeSearch(pmk.cri.page) }&pid=${opvo.productId }"><img src="${opvo.img }" style="width:5em" alt="img" /></a></div>
+							<div class="col-md-4 h_nav"><a href="/product/detail${pmk.makeSearch(pmk.cri.page) }&pid=${opvo.productId }"><span>${opvo.name }</span></a></div>
+							<div class="col-md-2"><span>${opvo.type }</span></div>
+							<div class="col-md-1"><span>${opvo.qty }</span></div>
+							<div class="col-md-1"><span>${opvo.sz}</span></div>
 							<div class="col-md-2"><span><b>$${opvo.op_price }</b></span></div>
 						</div>
 					</c:forEach>
@@ -82,10 +82,10 @@
 					<div class="col-md-2">
 						<div class="form-group-sm">
 							<select name="state" class="form-control" id="state<c:out value="${index.count }"/>">
-								<option value="waiting payment" <c:out value="${ovo.o_state eq 'waiting payment'? 'selected' : ''}"/>>waiting payment</option>
-								<option value="prepare delivery" <c:out value="${ovo.o_state eq 'prepare delivery'? 'selected' : ''}"/>>prepare delivery</option>
-								<option value="on delivery" <c:out value="${ovo.o_state eq 'on delivery'? 'selected' : ''}"/>>on delivery</option>
-								<option value="delivered" <c:out value="${ovo.o_state eq 'delivered'? 'selected' : ''}"/>>delivered</option>
+								<option value="waiting payment" <c:out value="${ovo.state eq 'waiting payment'? 'selected' : ''}"/>>waiting payment</option>
+								<option value="prepare delivery" <c:out value="${ovo.state eq 'prepare delivery'? 'selected' : ''}"/>>prepare delivery</option>
+								<option value="on delivery" <c:out value="${ovo.state eq 'on delivery'? 'selected' : ''}"/>>on delivery</option>
+								<option value="delivered" <c:out value="${ovo.state eq 'delivered'? 'selected' : ''}"/>>delivered</option>
 							</select>
 						</div>
 						<div class="hor_center" style="margin-top:1em">
@@ -93,7 +93,7 @@
 						</div>
 						<form action="/manage/order/update/state" method="post" name="stateForm<c:out value="${index.count }"/>">
 							<input type="hidden" name="state" value=""/>
-							<input type="hidden" name="oid" value="${ovo.o_id }"/>
+							<input type="hidden" name="oid" value="${ovo.id }"/>
 							<input type='hidden' name='page' value="${cri.page}"> 
 							<input type='hidden' name='perPageNum' value="${cri.perPageNum}">
 							<input type='hidden' name='searchType' value="${cri.searchType}">
@@ -140,7 +140,7 @@
 				+"&keyword="+$('input[type="search"]').val().toLowerCase();
 			}
 			
-			$('#searchBtn').on("click", function(event){
+			$('#searchBtn').on("click", function(){
 				search();
 			});
 			$('input[name="keyword"]').on("keyup", function(event) {

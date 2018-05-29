@@ -21,10 +21,10 @@
 		<hr>
 		<c:forEach var="uvo" items="${list }">
 			<div class="row text-center">
-				<div class="col-md-3 h_nav"><a href="/manage/user/detail${pmk.makeSearch(pmk.cri.page) }" class="udBtn">${uvo.u_email }</a></div>
-				<div class="col-md-3">${uvo.u_fname }</div>
-				<div class="col-md-3">${uvo.u_lname }</div>
-				<div class="col-md-3">${uvo.u_point }</div>
+				<div class="col-md-3 h_nav"><a href="/manage/user/detail${pmk.makeSearch(pmk.cri.page) }" class="udBtn">${uvo.email }</a></div>
+				<div class="col-md-3">${uvo.fname }</div>
+				<div class="col-md-3">${uvo.lname }</div>
+				<div class="col-md-3">${uvo.point }</div>
 			</div>
 			<hr />
 		</c:forEach>
@@ -74,7 +74,7 @@
 				
 				var url = $(this).attr('href');
 				url += "&email=" + encodeURI($(this).text());
-				self.location.href = url;
+				location.href = url;
 			})
 		});
 	</script>

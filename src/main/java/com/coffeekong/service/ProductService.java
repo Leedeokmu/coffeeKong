@@ -38,22 +38,21 @@ public class ProductService {
 	public void delete(int pid) {
 		productMapper.delete(pid);
 	}
+
 	public void update(ProductVO pvo) {
 		productMapper.update(pvo);
 	}
+
 	public void insert(ProductVO pvo) {
 		productMapper.insert(pvo);
 	}
-	public List<ReviewVO> listReview(Integer pid, Criteria cri) {
-	    Integer startIndex = (cri.getPage()-1) * cri.getPerPageNum();
-		return productMapper.listReview(pid, startIndex, cri.getPerPageNum());
-	}
-	public int listReviewCount(int pid) {
-		return productMapper.listReviewCount(pid);
-	}
-	public void addReview(ReviewVO rvo) {
-		productMapper.addReview(rvo);
-	}
+
+	public List<ReviewVO> listReview(Integer pid, Criteria cri) { return productMapper.listReview(pid, cri); }
+
+	public int listReviewCount(int pid) { return productMapper.listReviewCount(pid); }
+
+	public void addReview(ReviewVO rvo) { productMapper.addReview(rvo); }
+
 	public void deleteReview(int rid) {
 		productMapper.deleteReview(rid);
 	}

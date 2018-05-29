@@ -6,7 +6,8 @@ import org.slf4j.LoggerFactory;
 public class Criteria {
 	private int page;
 	private int perPageNum;
-	
+	private int startIdx;
+
 	public Criteria(){
 		this.page = 1;
 		this.perPageNum = 10;
@@ -37,6 +38,12 @@ public class Criteria {
 	
 	public int getPageStart(){ // 시작 로우 넘버
 		return (this.page-1)*perPageNum;
+	}
+
+	public int getStartIdx() { return startIdx; }
+
+	public void setStartIdx() {
+		this.startIdx = (page-1) * perPageNum;
 	}
 
 	@Override

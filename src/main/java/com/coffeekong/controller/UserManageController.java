@@ -29,10 +29,11 @@ public class UserManageController {
 	public String list(@ModelAttribute("cri") SearchCriteria cri, HttpSession session, Model model) {
 		log.debug("User Manage list############################ cri : " + cri.toString());
 		
-		model.addAttribute("list", userService.list(cri));
 		PageMaker pmk = new PageMaker();
+		cri.setStartIdx();
 		pmk.setCri(cri);
 		pmk.setTotalCount(userService.listCount(cri));
+		model.addAttribute("list", userService.list(cri));
 		model.addAttribute("pmk",pmk);
 		
 		if(cri.getKeyword() == null || cri.getKeyword() == ""){

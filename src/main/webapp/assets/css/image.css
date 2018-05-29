@@ -99,7 +99,7 @@
     vertical-align: middle;
 }
 .star-rating,.star-rating span { display:inline-block; height:19px; overflow:hidden;
-	background: url("/resources/dist/img/star-rating.png") no-repeat;
+	background: url("/dist/img/star-rating.png") no-repeat;
 }
 .star-rating { 
 	display:inline-block;

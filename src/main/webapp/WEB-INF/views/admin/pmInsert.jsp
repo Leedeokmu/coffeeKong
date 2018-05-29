@@ -19,65 +19,65 @@
 			<hr>
 		</div>
 		<form method="post" name="pminsert" action="/manage/product/insert" enctype="multipart/form-data">
-		<input type='hidden' name='page' value="${cri.page}"> 
-		<input type='hidden' name='perPageNum' value="${cri.perPageNum}">
-		<input type='hidden' name='searchType' value="${cri.searchType}">
-		<input type='hidden' name='keyword' value="${cri.keyword}">
-		<div class="row">
-			<div class="col-md-6 all_center" id="imageDiv">
-				<img src="/dist/product/sample.jpg" id="imgsrc" style="width:20em;height:20em"/>
+			<input type='hidden' name='page' value="${cri.page}">
+			<input type='hidden' name='perPageNum' value="${cri.perPageNum}">
+			<input type='hidden' name='searchType' value="${cri.searchType}">
+			<input type='hidden' name='keyword' value="${cri.keyword}">
+			<div class="row">
+				<div class="col-md-6 all_center" id="imageDiv">
+					<img src="/dist/product/sample.jpg" id="imgsrc" style="width:20em;height:20em"/>
+				</div>
+
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="pmiCategory">Category</label>
+						<select name="category" class="form-control" id="pmiCategory">
+							<optgroup label="COFFEE">
+								<option value="SingleOrigins">Single Origins</option>
+								<option value="Blends">Blends</option>
+								<option value="Decafs">Decafs</option>
+								<option value="Light">Light</option>
+								<option value="Medium">Medium</option>
+								<option value="Dark">Dark</option>
+								<option value="ColdBrew">Cold Brew</option>
+							</optgroup>
+							<optgroup label="TOOLS">
+								<option value="Grinder">Grinder</option>
+								<option value="HomeBrewing">Home brewing</option>
+								<option value="Cups">Cups</option>
+							</optgroup>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="pmiName">Name</label>
+						<input type="text" name="name" id="pmiName" class="form-control"
+						placeholder="Enter Product Name" />
+					</div>
+
+					<div class="form-group">
+						<label for="pmiPrice">Price</label>
+						<input type="text" name="price" id="pmiPrice" class="form-control"
+						placeholder="Enter Price" />
+					</div>
+					<div class="form-group">
+						<label for="pmiMdate">Manufactured</label>
+						<input type="date" name="mdate" id="pmiMdate" class="form-control"/>
+					</div>
+				</div>
 			</div>
-			
-			<div class="col-md-6">
-				<div class="form-group">
-					<label for="pmiCategory">Category</label> 
-					<select name="p_category" class="form-control" id="pmiCategory">
-						<optgroup label="COFFEE">
-					    	<option value="SingleOrigins">Single Origins</option>
-					    	<option value="Blends">Blends</option>
-					    	<option value="Decafs">Decafs</option>
-						    <option value="Light">Light</option>
-						    <option value="Medium">Medium</option>
-						    <option value="Dark">Dark</option>
-						    <option value="ColdBrew">Cold Brew</option>
-					  	</optgroup>
-					  	<optgroup label="TOOLS">
-						    <option value="Grinder">Grinder</option>
-						    <option value="HomeBrewing">Home brewing</option>
-						    <option value="Cups">Cups</option>
-						</optgroup>
-					</select>
-				</div>
-				<div class="form-group">
-					<label for="pmiName">Name</label>
-					<input type="text" name="p_name" id="pmiName" class="form-control" 
-					placeholder="Enter Product Name" /> 
-				</div>
-				
-				<div class="form-group">
-					<label for="pmiPrice">Price</label>
-					<input type="text" name="p_price" id="pmiPrice" class="form-control" 
-					placeholder="Enter Price" /> 
-				</div>
-				<div class="form-group">
-					<label for="pmiMdate">Manufactured</label>
-					<input type="date" name="p_mdate" id="pmiMdate" class="form-control"/> 
+			<div class="form-group">
+				<label for="pmiContent">Content</label>
+				<textarea name="content" id="pmiContent" class="form-control"
+				cols="30" rows="3"></textarea>
+			</div>
+			<hr />
+			<div class="hor_center">
+				<div class="btn-group">
+					<input type="submit" class="btn btn-success" value="ACCEPT">
+					<input type="reset" class="btn btn-default" value="RESET">
+					<a href="javascript:history.go(-1);" class="btn btn-default">BACK</a>
 				</div>
 			</div>
-		</div>
-		<div class="form-group">
-			<label for="pmiContent">Content</label>
-			<textarea name="p_content" id="pmiContent" class="form-control"  
-			cols="30" rows="3"></textarea> 
-		</div>
-		<hr />
-		<div class="hor_center">
-			<div class="btn-group">
-				<input type="submit" class="btn btn-success" value="ACCEPT">
-				<input type="reset" class="btn btn-default" value="RESET">
-				<a href="javascript:history.go(-1);" class="btn btn-default">BACK</a>
-			</div>
-		</div>
 		</form>
 	</div>
 	<form name="afterPmi" action="/manage/product/list">

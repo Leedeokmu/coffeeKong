@@ -1,25 +1,25 @@
 $(document).ready(function(){
 	$('form[name="register"]').validate({
 	    rules: {
-	        uemail: { required: true, email:true, remote:{
+	        email: { required: true, email:true, remote:{
 		        	type:"post",
 		        	url:"/register/chkId"
 	        	} 
 	        },
-	        ufname: { required: true },
-	        ulname: { required: true },
-	        upwd: { required: true, minlength:4},
-	        pwdconfirm: { equalTo: "#u_pwd" }
+	        fname: { required: true },
+	        lname: { required: true },
+	        pwd: { required: true, minlength:4},
+	        pwdconfirm: { equalTo: "#uPwd" }
 	    },
 	    messages: {
-	        uemail: {
+	        email: {
 	            required: "Check Your Email",
 	            email: "Enter Right Email Form",
 	            remote: "Duplicated. Enter Another Email"
 	        },
-	        ufname:{ required:"Check Your First Name" },
-	        ulname:{ required:"Check Your Last Name" },
-	        u_pwd: { required: "Check Your Password" },
+	        fname:{ required:"Check Your First Name" },
+	        lname:{ required:"Check Your Last Name" },
+	        pwd: { required: "Check Your Password" },
 	        pwdconfirm: { equalTo: "Password Not Matched" }
 	    },
 	    submitHandler: function (form) {
@@ -58,11 +58,11 @@ $(document).ready(function(){
 	$('form[name="login"]').validate({
 	    rules: {
 	        email: { required: true, email:true },
-	        pw: { required: true}
+	        pwd: { required: true}
 	    },
 	    messages: {
 	        email: { required: "Check Your Email"},
-	        pw: { required: "Check Your Password" }
+	        pwd: { required: "Check Your Password" }
 	        
 	    },
 	    submitHandler: function(form, event) {
@@ -127,11 +127,11 @@ $(document).ready(function(){
 	$('form[name="mgrlogin"]').validate({
 	    rules: {
 	        email: { required: true, email:true },
-	        pw: { required: true}
+	        pwd: { required: true}
 	    },
 	    messages: {
 	        email: { required: "Check Your Email"},
-	        pw: { required: "Check Your Password" }
+	        pwd: { required: "Check Your Password" }
 	        
 	    },
 	    submitHandler: function(form) {
@@ -141,15 +141,15 @@ $(document).ready(function(){
 	
 	$('form[name="uupdate"]').validate({
 	    rules: {
-	        ufname: { required: true },
-	        ulname: { required: true },
-	        u_pwd: { required: true, minlength:4},
-	        pwdconfirm: { equalTo: '[name="u_pwd"]' }
+	        fname: { required: true },
+	        lname: { required: true },
+	        pwd: { required: true, minlength:4},
+	        pwdconfirm: { equalTo: '[name="pwd"]' }
 	    },
 	    messages: {
-	        ufname:{ required:"REQUIRED" },
-	        ulname:{ required:"REQUIRED" },
-	        u_pwd: { required: "Check Your Password" },
+	        fname:{ required:"REQUIRED" },
+	        lname:{ required:"REQUIRED" },
+	        pwd: { required: "Check Your Password" },
 	        pwdconfirm: { equalTo: "Password Not Matched" }
 	    },
 	    submitHandler: function (form) {
@@ -159,14 +159,14 @@ $(document).ready(function(){
 	
 	$('form[name="umupdate"]').validate({
 	    rules: {
-	        ufname: { required: true },
-	        ulname: { required: true },
-	        u_pwd: { required: true, minlength:4}
+	        fname: { required: true },
+	        lname: { required: true },
+	        pwd: { required: true, minlength:4}
 	    },
 	    messages: {
-	        ufname:{ required:"REQUIRED" },
-	        ulname:{ required:"REQUIRED" },
-	        u_pwd: { required: "Check Your Password" }
+	        fname:{ required:"REQUIRED" },
+	        lname:{ required:"REQUIRED" },
+	        pwd: { required: "Check Your Password" }
 	    },
 	    submitHandler: function (form) {
 	    	form.submit();
@@ -175,20 +175,20 @@ $(document).ready(function(){
 	
 	$('form[name="omupdate"]').validate({
 	    rules: {
-	        o_price: { required: true },
-	        o_rfname: { required: true },
-	        o_rlname: { required: true },
-	        o_phone: { required: true },
-	        o_postcode: { required: true },
-	        o_addr: { required: true }
+	        price: { required: true },
+	        fname: { required: true },
+	        lname: { required: true },
+	        phone: { required: true },
+	        postcode: { required: true },
+	        addr: { required: true }
 	    },
 	    messages: {
-	    	o_price: { required: "REQUIRED" },
-	        o_rfname: { required: "REQUIRED" },
-	        o_rlname: { required: "REQUIRED" },
-	        o_phone: { required: "REQUIRED" },
-	        o_postcode: { required: "REQUIRED" },
-	        o_addr: { required: "REQUIRED" }
+	    	price: { required: "REQUIRED" },
+	        fname: { required: "REQUIRED" },
+	        lname: { required: "REQUIRED" },
+	        phone: { required: "REQUIRED" },
+	        postcode: { required: "REQUIRED" },
+	        addr: { required: "REQUIRED" }
 	    },
 	    submitHandler: function (form) {
 	    	form.submit();
@@ -197,16 +197,16 @@ $(document).ready(function(){
 
 	$('form[name="pminsert"]').validate({
 		rules: {
-	        p_name: { required: true },
-	        p_category: { required: true },
-	        p_price: { required: true },
-	        p_content: { required: true }
+	        name: { required: true },
+	        category: { required: true },
+	        price: { required: true },
+	        content: { required: true }
 	    },
 	    messages: {
-	    	p_name: { required: "REQUIRED" },
-	        p_category: { required: "REQUIRED" },
-	        p_price: { required: "REQUIRED" },
-	        p_content: { required: "REQUIRED" }
+	    	name: { required: "REQUIRED" },
+	        category: { required: "REQUIRED" },
+	        price: { required: "REQUIRED" },
+	        content: { required: "REQUIRED" }
 	    },
 	    submitHandler: function (form,event) {
 	    	event.preventDefault();
@@ -235,16 +235,16 @@ $(document).ready(function(){
 	
 	$('form[name="pmupdate"]').validate({
 		rules: {
-	        p_name: { required: true },
-	        p_category: { required: true },
-	        p_price: { required: true },
-	        p_content: { required: true }
+	        name: { required: true },
+	        category: { required: true },
+	        price: { required: true },
+	        content: { required: true }
 	    },
 	    messages: {
-	    	p_name: { required: "REQUIRED" },
-	        p_category: { required: "REQUIRED" },
-	        p_price: { required: "REQUIRED" },
-	        p_content: { required: "REQUIRED" }
+	    	name: { required: "REQUIRED" },
+	        category: { required: "REQUIRED" },
+	        price: { required: "REQUIRED" },
+	        content: { required: "REQUIRED" }
 	    },
 	    submitHandler: function (form, e) {
 	    	e.preventDefault();
@@ -279,25 +279,24 @@ $(document).ready(function(){
 	
 	$('form[name="order"]').validate({
 	    rules: {
-	    	o_rfname: { required: true },
-	    	o_rlname: { required: true },
-	    	o_postcode: { required: true},
-	    	o_addr: { required: true},
-	    	o_phone: {required: true, phone:true, minlength:10, maxlength:10}
+	    	fname: { required: true },
+	    	lname: { required: true },
+	    	postcode: { required: true},
+	    	addr: { required: true},
+	    	phone: {required: true, phone:true, minlength:10, maxlength:10}
 	    },
 	    messages: {
-	    	o_rfname:{ required:"REQUIRED" },
-	    	o_rlname:{ required:"REQUIRED" },
-	    	o_postcode: { required: "REQUIRED" },
-	    	o_addr : { required: "REQUIRED" },
-	    	o_phone: { required:"REQUIRED", phone: "NUMBER EXCLUDE '-' OR SPACE" }
+	    	fname:{ required:"REQUIRED" },
+	    	lname:{ required:"REQUIRED" },
+	    	postcode: { required: "REQUIRED" },
+	    	addr : { required: "REQUIRED" },
+	    	phone: { required:"REQUIRED", phone: "NUMBER EXCLUDE '-' OR SPACE" }
 	    },
 	    submitHandler: function (form, event) {
 	    	form.submit();
 	    }
 	});
 });
-
 
 function form_to_json (form) {
 	var arr = $(form).serializeArray();

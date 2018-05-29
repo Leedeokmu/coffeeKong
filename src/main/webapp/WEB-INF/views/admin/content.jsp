@@ -17,7 +17,7 @@
 <body>
 	<div class="container">
 	<c:choose>
-		<c:when test="${mgr != null }">
+		<c:when test="${not empty mgr}">
 			<div class="row text-center u_title" style="margin:5em"><h2>WELCOME MASTER</h2></div>
 			
 			<div class="row hor_center h_nav text-center" style="margin-bottom:5em">

@@ -16,19 +16,19 @@
 		<div>
 			<div class="row">
 				<span class="col-md-3">EMAIL</span>
-				<span class="col-md-9">${uvo.u_email }</span>
+				<span class="col-md-9">${uvo.email }</span>
 			</div><hr />
 			<div class="row">
 				<span class="col-md-3">FIRST NAME</span>
-				<span class="col-md-9">${uvo.u_fname }</span>
+				<span class="col-md-9">${uvo.fname }</span>
 			</div><hr />
 			<div class="row">
 				<span class="col-md-3">LAST NAME</span>
-				<span class="col-md-9">${uvo.u_lname }</span>
+				<span class="col-md-9">${uvo.lname }</span>
 			</div><hr />
 			<div class="row">
 				<span class="col-md-3">POINT</span>
-				<span class="col-md-9">${uvo.u_point }</span>
+				<span class="col-md-9">${uvo.point }</span>
 			</div>
 		</div><br />
 		<div>
@@ -60,7 +60,7 @@
 		</div>
 	</div>
 	<form role="form">
-		<input type='hidden' name='email' value="${uvo.u_email}"> 
+		<input type='hidden' name='email' value="${uvo.email}">
 		<input type='hidden' name='page' value="${cri.page}"> 
 		<input type='hidden' name='perPageNum' value="${cri.perPageNum}">
 		<input type='hidden' name='searchType' value="${cri.searchType}">

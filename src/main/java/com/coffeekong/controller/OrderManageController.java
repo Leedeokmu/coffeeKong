@@ -27,11 +27,12 @@ public class OrderManageController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(@ModelAttribute("cri") SearchCriteria cri, HttpSession session, Model model) {
 		log.debug("Order Manage list############################ cri : " + cri.toString());
-		
-		model.addAttribute("list", orderService.list(cri));
+
 		PageMaker pmk = new PageMaker();
+		cri.setStartIdx();
 		pmk.setCri(cri);
 		pmk.setTotalCount(orderService.listCount(cri));
+
 		model.addAttribute("pmk",pmk);
 		
 		if(cri.getKeyword() == null || cri.getKeyword() == ""){
@@ -41,7 +42,8 @@ public class OrderManageController {
 		}
 		
 		log.debug("search ######################## : " + cri.getKeyword());
-		
+
+		model.addAttribute("list", orderService.list(cri));
 		model.addAttribute("content", "omlist");
 		return "/admin/adminPage";
 	}

@@ -37,7 +37,7 @@ public class ProdManageController {
 	@RequestMapping(value = "/insert", method = RequestMethod.GET)
 	public String insertGET(@ModelAttribute("cri") SearchCriteria cri, HttpSession session, Model model) {
 		log.debug("Product Manage Insert############################");
-		
+
 		model.addAttribute("content", "pminsert");
 		return "/admin/adminPage";
 	}
@@ -64,8 +64,8 @@ public class ProdManageController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(@ModelAttribute("cri") SearchCriteria cri, HttpSession session, Model model) {
 		log.debug("Product Manage list############################ cri : " + cri.toString());
-		
-		model.addAttribute("list", productService.list(cri));
+
+		cri.setStartIdx();
 		PageMaker pmk = new PageMaker();
 		pmk.setCri(cri);
 		pmk.setTotalCount(productService.listCount(cri));
@@ -78,8 +78,9 @@ public class ProdManageController {
 		}
 		
 		log.debug("search ######################## : " + cri.getKeyword());
-		
-		model.addAttribute("content", "pmlist"); 
+
+		model.addAttribute("list", productService.list(cri));
+		model.addAttribute("content", "pmlist");
 		return "/admin/adminPage";
 	}
 	

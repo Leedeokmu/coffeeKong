@@ -24,12 +24,12 @@
 		</div><hr />
 		<c:forEach var="pvo" items="${list}">
 			<div class="row ver_center text-center">
-				<div class="col-md-1"><span>${pvo.p_id }</span></div>
-				<div class="col-md-2"><span><a href="/manage/product/detail${pmk.makeSearch(pmk.cri.page) }&pid=${pvo.p_id}"><img src="${pvo.p_img }" alt="img" style="width:5em"/></a></span></div>
-				<div class="col-md-3 h_nav"><span><a href="/manage/product/detail${pmk.makeSearch(pmk.cri.page) }&pid=${pvo.p_id}">${pvo.p_name }</a></span></div>
-				<div class="col-md-2"><span>${pvo.p_category}</span></div>
-				<div class="col-md-2"><span>${pvo.p_price }</span></div>
-				<div class="col-md-2"><span>${pvo.p_rdate }</span></div>
+				<div class="col-md-1"><span>${pvo.id }</span></div>
+				<div class="col-md-2"><span><a href="/manage/product/detail${pmk.makeSearch(pmk.cri.page) }&id=${pvo.id}"><img src="${pvo.img }" alt="img" style="width:5em"/></a></span></div>
+				<div class="col-md-3 h_nav"><span><a href="/manage/product/detail${pmk.makeSearch(pmk.cri.page) }&id=${pvo.id}">${pvo.name }</a></span></div>
+				<div class="col-md-2"><span>${pvo.category}</span></div>
+				<div class="col-md-2"><span>${pvo.price }</span></div>
+				<div class="col-md-2"><span>${pvo.rdate }</span></div>
 			</div>
 			<hr />
 		</c:forEach>
@@ -69,7 +69,7 @@
 			function search(){
 				self.location = "/manage/product/list" +'${pmk.makeQuery(1)}'
 				+"&searchType=" +$('select[name="searchType"]').val()
-				+"&keyword="+$('input[type="search"]').val().toLowerCase();
+				+"&keyword="+$('input[name="keyword"]').val().toLowerCase();
 			}
 			
 			$('#searchBtn').on("click", function(event){

@@ -1,10 +1,9 @@
 package com.coffeekong.dto;
 
-import javax.validation.constraints.NotNull;
-
 import lombok.Data;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Data
 public class LoginDTO {
@@ -12,7 +11,7 @@ public class LoginDTO {
 	@Email
 	private String email;
 	@NotEmpty
-	private String pw;
+	private String pwd;
 	@NotNull
 	private boolean useCookie;
 }

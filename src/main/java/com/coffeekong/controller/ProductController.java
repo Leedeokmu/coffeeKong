@@ -40,7 +40,7 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
-	public String deatil(int pid, HttpSession session,Model model) {
+	public String detail(int pid, HttpSession session,Model model) {
 		log.debug("product detail############################ pid: " + pid);
 		
 		ProductVO pvo = productService.getByPid(pid);
@@ -51,23 +51,13 @@ public class ProductController {
 		}else{
 			List<ProductVO> list = (List<ProductVO>) session.getAttribute("viewedList");
 			Boolean flag = true;
-			for(ProductVO vo: list){
-				log.debug(vo.toString());
-			}
-			
+
 			for(ProductVO vo : list){
 				if(vo.getId() == pid){
 					flag = false;
 				}
 			}
 			if(flag){
-//				for (ListIterator<ProductVO> it = list.listIterator(); it.hasNext();) {
-//					it.remove();
-//
-//					
-//					
-//					it.next();
-//				}
 				list.add(pvo);
 				session.setAttribute("viewedList", list);
 			}
@@ -92,7 +82,7 @@ public class ProductController {
 	    }
 		return entity;
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value = "/review/list/{pid}/{page}", method = RequestMethod.GET)
 	public ResponseEntity<Map<String, Object>> listReview(@PathVariable int pid, @PathVariable int page){
@@ -102,6 +92,7 @@ public class ProductController {
 		      Criteria cri = new Criteria();
 		      cri.setPage(page);
 		      cri.setPerPageNum(5);
+			  cri.setStartIdx();
 		      PageMaker pageMaker = new PageMaker();
 		      pageMaker.setCri(cri);
 
@@ -121,9 +112,9 @@ public class ProductController {
 	      e.printStackTrace();
 	      entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	    }
-		return entity;	
+		return entity;
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value = "/review/delete/{rid}", method = RequestMethod.DELETE)
 	public ResponseEntity<String> deleteReview(@PathVariable int rid){

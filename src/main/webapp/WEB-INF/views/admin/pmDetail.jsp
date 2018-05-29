@@ -19,36 +19,36 @@
 		</div>
 		<div class="row">
 			<div class="col-md-6 all_center" id="imageDiv">
-				<img src="${pvo.p_img }" id="imgsrc" style="width:20em;height:20em"/>
+				<img src="${pvo.img }" id="imgsrc" style="width:20em;height:20em"/>
 			</div>
 			
 			<div class="col-md-6">
 				<div class="form-group">
-					<label for="pmiCategory">Category</label> 
-					<div>${pvo.p_category }</div>
+					<label>Category</label>
+					<div>${pvo.category}</div>
 				</div>
 				<div class="form-group">
-					<label for="pmiName">Name</label>
-					<div>${pvo.p_name }</div>
+					<label>Name</label>
+					<div>${pvo.name}</div>
 				</div>
 				
 				<div class="form-group">
-					<label for="pmiPrice">Price</label>
-					<div>$${pvo.p_price}</div>
+					<label>Price</label>
+					<div>$${pvo.price}</div>
 				</div>
 				<div class="form-group">
-					<label for="pmiMdate">Manufactured</label>
-					<div>${pvo.p_mdate}</div> 
+					<label>Manufactured</label>
+					<div>${pvo.mdate}</div>
 				</div>
 				<div class="form-group">
-					<label for="pmirdate">Registered</label>
-					<div>${pvo.p_rdate}</div> 
+					<label>Registered</label>
+					<div>${pvo.rdate}</div>
 				</div>
 			</div>
 		</div>
 		<div class="form-group text-center">
-			<label for="pmiContent">Content</label>
-			<div>${pvo.p_content }</div>
+			<label>Content</label>
+			<div>${pvo.content}</div>
 		</div>
 		<div>
 			<div class="hor_center">
@@ -82,7 +82,7 @@
 		</div>
 	</div>
 	<form role="form">
-		<input type='hidden' name='pid' value="${pvo.p_id}"> 
+		<input type='hidden' name='id' value="${pvo.id}">
 		<input type='hidden' name='page' value="${cri.page}"> 
 		<input type='hidden' name='perPageNum' value="${cri.perPageNum}"> 
 		<input type='hidden' name='searchType' value="${cri.searchType}"> 
@@ -96,7 +96,7 @@
 			if ($(this).attr("class").indexOf("pmuBtn") > 0) {
 				form.attr("method", "get");
 			} else if ($(this).attr("class").indexOf("pmdBtn") > 0) {
-				form.append('<input type="hidden" name="p_img" value="${pvo.p_img}"/>');
+				form.append('<input type="hidden" name="img" value="${pvo.img}"/>');
 				form.attr("method", "post");
 			}
 

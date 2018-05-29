@@ -23,38 +23,38 @@
 		<c:forEach var="opvo" items="${ovo.opvo }">
 			<div class="row all_center">
 				<div style="margin-right:2em">
-					<img src="${opvo.p_img }" alt="img" class="" style="width:10em"/>
+					<img src="${opvo.img }" alt="img" class="" style="width:10em"/>
 				</div>
 				<div style="width:25em">
 					<div class="row">
 						<span class="col-md-4">NAME</span>
-						<span class="col-md-8">${opvo.p_name }</span>
+						<span class="col-md-8">${opvo.name }</span>
 					</div>
 					<div class="row">
 						<span class="col-md-4">QUENTITY</span>	
-						<span class="col-md-8">${opvo.op_qty}</span>
+						<span class="col-md-8">${opvo.qty}</span>
 					</div>
-					<c:if test="${opvo.p_category eq 'SingleOrigins' || opvo.p_category eq 'Blends' ||
-					opvo.p_category eq 'Decafs' ||opvo.p_category eq 'Light' ||opvo.p_category eq 'Medium' ||
-					opvo.p_category eq 'Dark' ||opvo.p_category eq 'ColdBrew'}">
+					<c:if test="${opvo.category eq 'SingleOrigins' || opvo.category eq 'Blends' ||
+					opvo.category eq 'Decafs' ||opvo.category eq 'Light' ||opvo.category eq 'Medium' ||
+					opvo.category eq 'Dark' ||opvo.category eq 'ColdBrew'}">
 						<div class="row">
 							<span class="col-md-4">TYPE</span>	
-							<span class="col-md-8">${opvo.op_type}</span>
+							<span class="col-md-8">${opvo.type}</span>
 						</div>
 						<div class="row">
 							<span class="col-md-4">SIZE</span>	
-							<span class="col-md-8">${opvo.op_sz}</span>
+							<span class="col-md-8">${opvo.sz}</span>
 						</div>
 					</c:if>
 					<div class="row">
 						<span class="col-md-4">PRICE</span>
-						<span class="col-md-8">$${opvo.op_price }</span>
+						<span class="col-md-8">$${opvo.price}</span>
 					</div>
 				</div>
 			</div>
 		</c:forEach>
 		<div class="row text-right">
-			<span class=""><h4>TOTAL PRICE   <strong>$${ovo.o_price }</strong></h4></span>
+			<span class=""><h4>TOTAL PRICE   <strong>$${ovo.price}</strong></h4></span>
 		</div>
 		<hr />
 		<div class="hor_center">
@@ -64,23 +64,23 @@
 			</div>
 			<div class="row">
 				<span class="col-md-3">RECEIVER</span>				
-				<span class="col-md-9">${ovo.o_rfname }&nbsp;${oVo.o_rlname }</span>
+				<span class="col-md-9">${ovo.fname }&nbsp;${ovo.lname }</span>
 			</div>
 			<div class="row">
 				<span class="col-md-3">PHONE</span>
-				<span class="col-md-9">${ovo.o_phone }</span>
+				<span class="col-md-9">${ovo.phone }</span>
 			</div>
 			<div class="row">
 				<span class="col-md-3">POST CODE</span>
-				<span class="col-md-9">${ovo.o_postcode }&nbsp;&nbsp;&nbsp;</span>
+				<span class="col-md-9">${ovo.postcode }&nbsp;&nbsp;&nbsp;</span>
 			</div>
 			<div class="row">
 				<span class="col-md-3">ADDRESS</span>
-				<span class="col-md-9">${ovo.o_addr }</span>
+				<span class="col-md-9">${ovo.addr }</span>
 			</div>
 			<div class="row">
 				<span class="col-md-3">STATE</span>	
-				<span class="col-md-9">${ovo.o_state }</span>
+				<span class="col-md-9">${ovo.state }</span>
 			</div>
 		</div>
 		</div>
@@ -118,7 +118,7 @@
 		</div>
 	</div>
 	<form role="form">
-		<input type='hidden' name='oid' value="${ovo.o_id}">
+		<input type='hidden' name='oid' value="${ovo.id}">
 		<input type='hidden' name='page' value="${cri.page}"> 
 		<input type='hidden' name='perPageNum' value="${cri.perPageNum}">
 		<input type='hidden' name='searchType' value="${cri.searchType}">

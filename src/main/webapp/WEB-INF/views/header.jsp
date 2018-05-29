@@ -62,7 +62,7 @@
 						<c:when test="${login != null}">
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-									${login.u_email }<span class="caret"></span>
+									${login.email }<span class="caret"></span>
 								</a>
 								<ul class="dropdown-menu" role="menu">
 									<li><a href="/user/update">EDIT MY
@@ -92,9 +92,9 @@
 														class="form-control" name="email" id="email" />
 												</div>
 												<div class="form-group">
-													<label for="pw">PASSWORD</label> <input type="password"
-														class="form-control" name="pw"
-														id="pw"/>
+													<label>PASSWORD</label> <input type="password"
+														class="form-control" name="pwd"
+														id="pwd"/>
 												</div>
 												<div class="form-group">
 													<label for="useCookie">Remember</label>

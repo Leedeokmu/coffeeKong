@@ -97,10 +97,13 @@ public class UserController {
 		
 		if(session.getAttribute("login") != null){
 			String email = ((UserVO)session.getAttribute("login")).getEmail();
-			model.addAttribute("list", orderService.listByEmail(cri, email));
+
 			PageMaker pmk = new PageMaker();
+			cri.setStartIdx();
 			pmk.setCri(cri);
 			pmk.setTotalCount(orderService.listCountByEmail(cri,email));
+
+			model.addAttribute("list", orderService.listByEmail(cri, email));
 			model.addAttribute("pmk",pmk);
 		}else{
 			model.addAttribute("content", "");

@@ -12,44 +12,43 @@
 <body>
 	<div class="a_title text-center"><h3>MODIFY ORDER INFORMATION</h3></div><br />
 	<form action="/manage/order/update/save" method="POST" class="form-horizontal" name="omupdate">
-	<input type="hidden" name="oid" value="${ovo.o_id}"/>
-	<input type='hidden' name='page' value="${cri.page}"> 
+	<input type='hidden' name='page' value="${cri.page}">
 	<input type='hidden' name='perPageNum' value="${cri.perPageNum}">
 	<input type='hidden' name='searchType' value="${cri.searchType}">
 	<input type='hidden' name='keyword' value="${cri.keyword}">
 	<div class="container a_article">
 		<div>
 			<div class="form-group ver_center">
-				<label for="state" class="control-label col-md-3">ORDER ID</label>
-				<div class="col-md-9"><input type="text" class="form-control" name="o_id" value="${ovo.o_id}" readonly/></div>
+				<label class="control-label col-md-3">ORDER ID</label>
+				<div class="col-md-9"><input type="text" class="form-control" name="id" value="${ovo.id}" readonly/></div>
 			</div>
 			<div class="form-group ver_center">
-				<label for="state" class="control-label col-md-3">STATE</label>
-				<div class="col-md-9"><input type="text" class="form-control" name="o_state" value="${ovo.o_state}" readonly/></div>
+				<label class="control-label col-md-3">STATE</label>
+				<div class="col-md-9"><input type="text" class="form-control" name="state" value="${ovo.o_state}" readonly/></div>
 			</div>
 			<div class="form-group ver_center">
-				<label for="price" class="control-label col-md-3">PRICE</label>
-				<div class="col-md-9"><input type="text" class="form-control" name="o_price" value="${ovo.o_price}"/></div>
+				<label class="control-label col-md-3">PRICE</label>
+				<div class="col-md-9"><input type="text" class="form-control" name="price" value="${ovo.o_price}"/></div>
 			</div>
 			<div class="form-group">
-				<label for="omu_rfname" class="control-label col-md-3">FIRST NAME</label>
-				<div class="col-md-9"><input type="text" class="form-control"name="o_rfname" value="${ovo.o_rfname }"/></div>
+				<label class="control-label col-md-3">FIRST NAME</label>
+				<div class="col-md-9"><input type="text" class="form-control"name="fname" value="${ovo.fname }"/></div>
 			</div>
 			<div class="form-group">
-				<label for="omu_lfname" class="control-label col-md-3">LAST NAME</label>
-				<div class="col-md-9"><input type="text" class="form-control"name="o_rlname" value="${ovo.o_rlname }"/></div>
+				<label class="control-label col-md-3">LAST NAME</label>
+				<div class="col-md-9"><input type="text" class="form-control"name="lname" value="${ovo.lname }"/></div>
 			</div>
 			<div class="form-group">
-				<label for="omu_phone" class="control-label col-md-3">PHONE</label>
-				<div class="col-md-9"><input type="text" class="form-control" name="o_phone" value="${ovo.o_phone }"/></div>
+				<label class="control-label col-md-3">PHONE</label>
+				<div class="col-md-9"><input type="text" class="form-control" name="phone" value="${ovo.phone }"/></div>
 			</div>
 			<div class="form-group">
-				<label for="omu_postcode" class="control-label col-md-3">POST CODE</label>
-				<div class="col-md-9"><input type="text" class="form-control"name="o_postcode" value="${ovo.o_postcode }"/></div>
+				<label class="control-label col-md-3">POST CODE</label>
+				<div class="col-md-9"><input type="text" class="form-control"name="postcode" value="${ovo.postcode }"/></div>
 			</div>
 			<div class="form-group">
-				<label for="omu_addr" class="control-label col-md-3">ADDRESS</label>
-				<div class="col-md-9"><textarea name="o_addr" class="form-control" cols="30" rows="2">${ovo.o_addr }</textarea></div>
+				<label class="control-label col-md-3">ADDRESS</label>
+				<div class="col-md-9"><textarea name="addr" class="form-control" cols="30" rows="2">${ovo.addr }</textarea></div>
 			</div>
 		</div>
 		<div class="hor_center">
@@ -61,8 +60,8 @@
 	</div>
 	</form>
 	<form role="form">
-		<input type='hidden' name='oid' value="${ovo.o_id}">
-		<input type='hidden' name='page' value="${cri.page}"> 
+		<input type="hidden" name="id" value="${ovo.id}"/>
+		<input type='hidden' name='page' value="${cri.page}">
 		<input type='hidden' name='perPageNum' value="${cri.perPageNum}">
 		<input type='hidden' name='searchType' value="${cri.searchType}">
 		<input type='hidden' name='keyword' value="${cri.keyword}">

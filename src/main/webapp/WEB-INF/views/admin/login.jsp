@@ -30,10 +30,10 @@
 						</div>
 						<div class="form-group">
 							<label for="loginPw">PASSWORD</label>
-							<input type="password" class="form-control" name="pw" id="loginPw">
+							<input type="password" class="form-control" name="pwd" id="loginPw">
 						</div>
 						
-						<div class="errmsg">${errmsg }</div>
+						<div class="errmsg">${errmsg}</div>
 						<div>
 							<input type="submit" value="LOGIN" class="btn btn-default">&nbsp; 
 							<input type="reset"	class="btn btn-default" value="RESET">

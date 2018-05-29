@@ -80,11 +80,9 @@
 var starRating = function(){
 	  var $star = $(".star-input"),
 	      $result = $star.find("output>b");
-	  $(document)
-	    .on("focusin", ".star-input>.input", function(){
+	  $(document).on("focusin", ".star-input>.input", function(){
 	    $(this).addClass("focus");
-	  })
-	    .on("focusout", ".star-input>.input", function(){
+	  }).on("focusout", ".star-input>.input", function(){
 	    var $this = $(this);
 	    setTimeout(function(){
 	      if($this.find(":focus").length === 0){

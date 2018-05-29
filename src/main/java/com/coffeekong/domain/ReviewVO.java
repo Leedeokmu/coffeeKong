@@ -6,6 +6,7 @@ import java.util.Date;
 
 @Data
 public class ReviewVO {
+
 	private int id;
 	private int productId;
 	private String email;

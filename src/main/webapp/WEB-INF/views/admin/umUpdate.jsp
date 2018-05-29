@@ -13,27 +13,27 @@
 	<div class="a_title text-center"><h2><span>MODIFY USER INFORMATION</span></h2></div><br />
 	<div class="container">
 		<form action="/manage/user/update/save" class="form-horizontal" method="POST" name="umupdate">
-			<input type='hidden' name='u_email' value="${uvo.u_email}"> 
+			<input type='hidden' name='email' value="${uvo.email}">
 			<input type='hidden' name='page' value="${cri.page}"> 
 			<input type='hidden' name='perPageNum' value="${cri.perPageNum}">
 			<input type='hidden' name='searchType' value="${cri.searchType}">
 			<input type='hidden' name='keyword' value="${cri.keyword}">
 			<div>
 				<div class="form-group ver_center">
-					<label for="email" class="control-label col-md-3">EMAIL</label>
-					<div class="col-md-9"><span>${uvo.u_email }</span></div>
+					<label  class="control-label col-md-3">EMAIL</label>
+					<div class="col-md-9"><span>${uvo.email }</span></div>
 				</div>
 				<div class="form-group ver_center">
-					<label for="fname" class="control-label col-md-3">FIRST NAME</label>&nbsp;
-					<div class="col-md-9"><input type="text" name="u_fname" class="form-control" value="${uvo.u_fname }" /></div>
+					<label class="control-label col-md-3">FIRST NAME</label>&nbsp;
+					<div class="col-md-9"><input type="text" name="fname" class="form-control" value="${uvo.fname }" /></div>
 				</div>
 				<div class="form-group ver_center">
-					<label for="lname" class="control-label col-md-3">LAST NAME</label>&nbsp;
-					<div class="col-md-9"><input type="text" name="u_lname" class="form-control" value="${uvo.u_lname }" /></div>
+					<label class="control-label col-md-3">LAST NAME</label>&nbsp;
+					<div class="col-md-9"><input type="text" name="lname" class="form-control" value="${uvo.lname }" /></div>
 				</div>
 				<div class="form-group ver_center">
-					<label for="pw" class="control-label col-md-3">PASSWORD</label>&nbsp;
-					<div class="col-md-9"><input type="password" class="form-control" name="u_pwd" /></div>
+					<label class="control-label col-md-3">PASSWORD</label>&nbsp;
+					<div class="col-md-9"><input type="password" class="form-control" name="pwd" /></div>
 				</div>
 				<div class="hor_center">	
 					<div class="btn-group">
@@ -45,7 +45,7 @@
 		</form>
 	</div>
 	<form name="ulist">
-		<input type='hidden' name='email' value="${uvo.u_email}"> 
+		<input type='hidden' name='email' value="${uvo.email}">
 		<input type='hidden' name='page' value="${cri.page}"> 
 		<input type='hidden' name='perPageNum' value="${cri.perPageNum}">
 		<input type='hidden' name='searchType' value="${cri.searchType}">

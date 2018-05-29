@@ -17,6 +17,6 @@ import java.util.Map;
 public interface MgrMapper {
 
 	MgrVO login(LoginDTO dto);
-	void rmbLogin(String email, String sess_id, Date limit);
+	void rmbLogin(String email, String sessionId, Date limit);
 	
 }

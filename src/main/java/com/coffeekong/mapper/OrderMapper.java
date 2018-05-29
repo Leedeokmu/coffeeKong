@@ -18,17 +18,17 @@ import java.util.List;
 public interface OrderMapper{
 
 	 void insOrd(OrderVO vo);
-	 void insOrdProd(CartVO vo, Integer o_id);
+	 void insOrdProd(CartVO vo, Integer orderId);
 
-	 void insOrdProdTool(CartVO vo, Integer o_id);
+	 void insOrdProdTool(CartVO vo, Integer orderId);
 	 List<OrderVO> listByEmail(SearchCriteria cri, String email);
 	 int listCountByEmail(SearchCriteria cri, String email);
 	
 	 List<OrderVO> list(SearchCriteria cri);
 	 int listCount(SearchCriteria cri);
-	 OrderVO getByOid(int Oid);
+	 OrderVO getByOid(int orderId);
 	 void update(OrderVO ovo);
-	 void deleteOrd(int oid);
-	 void deleteOrdProd(int oid);
-	 void updateState(int oid, String state);
+	 void deleteOrd(int orderId);
+	 void deleteOrdProd(int orderId);
+	 void updateState(int orderId, String state);
 }

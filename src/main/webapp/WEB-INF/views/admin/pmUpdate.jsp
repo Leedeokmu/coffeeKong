@@ -20,59 +20,59 @@
 			<hr>
 		</div>
 		<form method="post" name="pmupdate" action="/manage/product/update/save" enctype="multipart/form-data">
-		<input type='hidden' name='p_id' value="${pvo.p_id}">
-		<input type='hidden' name='p_rdate' value="${pvo.p_rdate}">
-		<input type='hidden' name='p_img' value="${pvo.p_img}">
+		<input type='hidden' name='id' value="${pvo.id}">
+		<input type='hidden' name='rdate' value="${pvo.rdate}">
+		<input type='hidden' name='img' value="${pvo.img}">
 		<input type='hidden' name='page' value="${cri.page}"> 
 		<input type='hidden' name='perPageNum' value="${cri.perPageNum}">
 		<input type='hidden' name='searchType' value="${cri.searchType}">
 		<input type='hidden' name='keyword' value="${cri.keyword}">
 		<div class="row">
 			<div class="col-md-6 all_center" id="imageDiv">
-				<img src="${pvo.p_img }" id="imgsrc" style="width:20em;height:20em"/>
+				<img src="${pvo.img }" id="imgsrc" style="width:20em;height:20em"/>
 			</div>
 			
 			<div class="col-md-6">
 				<div class="form-group">
 					<label for="pmiCategory">Category</label> 
-					<select name="p_category" class="form-control" id="pmiCategory">
+					<select name="category" class="form-control" id="pmiCategory">
 						<optgroup label="COFFEE">
-					    	<option value="SingleOrigins" <c:out value="${pvo.p_category eq 'SingleOrigins'? 'selected': '' }"/>>Single Origins</option>
-					    	<option value="Blends" <c:out value="${pvo.p_category eq 'Blends'? 'selected': '' }"/>>Blends</option>
-					    	<option value="Decafs" <c:out value="${pvo.p_category eq 'Decafs'? 'selected': '' }"/>>Decafs</option>
-						    <option value="Light" <c:out value="${pvo.p_category eq 'Light'? 'selected': '' }"/>>Light</option>
-						    <option value="Medium" <c:out value="${pvo.p_category eq 'Medium'? 'selected': '' }"/>>Medium</option>
-						    <option value="Dark" <c:out value="${pvo.p_category eq 'Dark'? 'selected': '' }"/>>Dark</option>
-						    <option value="ColdBrew" <c:out value="${pvo.p_category eq 'ColdBrew'? 'selected': '' }"/>>Cold Brew</option>
+					    	<option value="SingleOrigins" <c:out value="${pvo.category eq 'SingleOrigins'? 'selected': '' }"/>>Single Origins</option>
+					    	<option value="Blends" <c:out value="${pvo.category eq 'Blends'? 'selected': '' }"/>>Blends</option>
+					    	<option value="Decafs" <c:out value="${pvo.category eq 'Decafs'? 'selected': '' }"/>>Decafs</option>
+						    <option value="Light" <c:out value="${pvo.category eq 'Light'? 'selected': '' }"/>>Light</option>
+						    <option value="Medium" <c:out value="${pvo.category eq 'Medium'? 'selected': '' }"/>>Medium</option>
+						    <option value="Dark" <c:out value="${pvo.category eq 'Dark'? 'selected': '' }"/>>Dark</option>
+						    <option value="ColdBrew" <c:out value="${pvo.category eq 'ColdBrew'? 'selected': '' }"/>>Cold Brew</option>
 					  	</optgroup>
 					  	<optgroup label="TOOLS">
-						    <option value="Grinder" <c:out value="${pvo.p_category eq 'Grinder'? 'selected': '' }"/>>Grinder</option>
-						    <option value="HomeBrewing" <c:out value="${pvo.p_category eq 'HomeBrewing'? 'selected': '' }"/>>Home brewing</option>
-						    <option value="Cups" <c:out value="${pvo.p_category eq 'Cups'? 'selected': '' }"/>>Cups</option>
+						    <option value="Grinder" <c:out value="${pvo.category eq 'Grinder'? 'selected': '' }"/>>Grinder</option>
+						    <option value="HomeBrewing" <c:out value="${pvo.category eq 'HomeBrewing'? 'selected': '' }"/>>Home brewing</option>
+						    <option value="Cups" <c:out value="${pvo.category eq 'Cups'? 'selected': '' }"/>>Cups</option>
 						</optgroup>
 					</select>
 				</div>
 				<div class="form-group">
 					<label for="pmiName">Name</label>
-					<input type="text" name="p_name" id="pmiName" class="form-control" value="${pvo.p_name }" 
+					<input type="text" name="name" id="pmiName" class="form-control" value="${pvo.name }"
 					placeholder="Enter Product Name" /> 
 				</div>
 				
 				<div class="form-group">
 					<label for="pmiPrice">Price</label>
-					<input type="text" name="p_price" id="pmiPrice" class="form-control" value="${pvo.p_price }" 
+					<input type="text" name="price" id="pmiPrice" class="form-control" value="${pvo.price }"
 					placeholder="Enter Price" /> 
 				</div>
 				<div class="form-group">
 					<label for="pmiMdate">Manufactured</label>
-					<input type="date" name="p_mdate" id="pmiMdate" value="${pvo.p_mdate }" class="form-control"/> 
+					<input type="date" name="mdate" id="pmiMdate" value="${pvo.mdate }" class="form-control"/>
 				</div>
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="pmiContent">Content</label>
-			<textarea name="p_content" id="pmiContent" class="form-control"  
-			cols="30" rows="3">${pvo.p_content }</textarea> 
+			<textarea name="content" id="pmiContent" class="form-control"
+			cols="30" rows="3">${pvo.content }</textarea>
 		</div>
 		<hr />
 		<div class="hor_center">
@@ -84,7 +84,7 @@
 		</form>
 	</div>
 	<form name="afterPmu" action="/manage/product/detail">
-		<input type='hidden' name='pid' value="${pvo.p_id}">
+		<input type='hidden' name='id' value="${pvo.id}">
 		<input type='hidden' name='page' value="${cri.page}"> 
 		<input type='hidden' name='perPageNum' value="${cri.perPageNum}">
 		<input type='hidden' name='searchType' value="${cri.searchType}">

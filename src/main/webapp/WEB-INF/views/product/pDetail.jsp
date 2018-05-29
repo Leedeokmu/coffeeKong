@@ -103,7 +103,7 @@
 			<div class="row jumbotron">
 				<c:set var="name" value="${login.lname} ${login.fname}"/>
 				<form action="/product/review/post" method="post" name="reviewPost">
-					<input type="hidden" name="id" value="${pvo.id}"/>
+					<input type="hidden" name="productId" value="${pvo.id}"/>
 					<input type="hidden" name="email" value="${login.email}"/>
 					<input type="hidden" name="name" value="${name}"/>
 					
@@ -170,15 +170,16 @@
 <script id="reviewTemplate" type="text/x-handlebars-template">
 		{{#each .}}
 	         <div class="row reviewLi">
-    			<div class="">
+    			<div>
     	    		<span>{{name}}</span>&nbsp;&nbsp;&nbsp;<div class='star-rating'><span id={{grade}}></span></div>
+					<span>{{grade}}</span>
     			</div>
     			<div class="hor_right removeBtn" data-rid={{id}}>
         			{{#eqReviewer email}}
         			<a href="#" class="delReviewBtn"><span class="glyphicon glyphicon-remove"></span></a>
         			{{/eqReviewer}}
     			</div>
-    			<div class="">{{content}} </div>
+    			<div>{{content}}</div>
     			<div class="hor_right">
         			<span>{{prettifyDate date}}</span>
     			</div>
@@ -259,12 +260,12 @@
 	$(document).ready(function(){
 		calPrice();
 		
-		var pid = ${pvo.PId};
+		var pid = ${pvo.id};
 		var reviewPage = 1;
 		
 		Handlebars.registerHelper("eqReviewer", function(reviewer, block) {
 			var accum = '';
-			if (reviewer == '${login.UEmail}') {
+			if (reviewer == '${login.email}') {
 				accum += block.fn();
 			}
 			return accum;
@@ -282,7 +283,7 @@
 
 			var template = Handlebars.compile(templateObject.html());
 			var html = template(reviewList);
-			$(".reviewLi").remove();
+			// $(".reviewLi").remove();
 			target.append(html);
 		}
 

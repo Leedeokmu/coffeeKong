@@ -17,6 +17,7 @@
 	</resultMap>
 
 	<resultMap id="OrderProd" type="com.coffeekong.domain.OrderProdVO">
+		<id property="id" column="op_id"/>
 		<result property="orderId" column="o_id"/>
 		<result property="productId" column="p_id"/>
 		<result property="name" column="p_name"/>
@@ -45,13 +46,13 @@
 				WHERE
 					LOWER(p.p_name)
 				LIKE
-					CONCAT('%',#{keyword},'%')
+					CONCAT('%',#{cri.keyword},'%')
 			</if>
 			<if test="searchType == 'email'.toString()">
 				WHERE
 					LOWER(o.u_email)
 				LIKE
-					CONCAT('%',#{keyword},'%')
+					CONCAT('%',#{cri.keyword},'%')
 			</if>
 		</if>
 	</sql>
@@ -76,7 +77,7 @@
 		ORDER BY
 			o.o_id
 		LIMIT
-			(#{cri.page} - 1) * #{cri.perPageNum}, #{cri.perPageNum}
+			#{cri.startIdx}, #{cri.perPageNum}
 	</select>
 	<select id="listCountByEmail">
 		SELECT
@@ -112,7 +113,7 @@
 		ORDER BY
 			o.o_id
 		LIMIT
-			(#{page} -1) * #{perPageNum}, #{perPageNum}
+		   #{cri.startIdx}, #{cri.perPageNum}
 	</select>
 	<select id="listCount" parameterType="com.coffeekong.domain.SearchCriteria" resultType="int">
 		SELECT count(*)
@@ -139,30 +140,30 @@
 		ON
 			op.p_id=p.p_id
 		WHERE
-			o.o_id = #{oid}
+			o.o_id = #{orderId}
 	</select>
 	
 	<insert id="insOrd" parameterType="com.coffeekong.domain.OrderVO">
 		INSERT INTO
 			tbl_order(u_email, o_price, o_rfname, o_rlname, o_phone, o_postcode, o_addr, o_state, o_date)
 		VALUES(
-			#{u_email}, #{o_price}, #{o_rfname},
-			#{o_rlname}, #{o_phone}, #{o_postcode}, #{o_addr},
-			'waiting payment', sysdate
+			#{vo.email}, #{vo.price}, #{vo.fname},
+			#{vo.lname}, #{vo.phone}, #{vo.postcode}, #{vo.addr},
+			'waiting payment', now()
 		)
 	</insert>
 	<insert id="insOrdProd" parameterType="com.coffeekong.domain.CartVO">
 		INSERT INTO
 			tbl_order_prod(o_id, p_id, op_qty, op_sz, op_type, op_price)
 		VALUES(
-			#{o_id}, #{p_id},#{qty}, #{sz}, #{type}, #{sub_price}
+			#{orderId}, #{vo.productId},#{vo.qty}, #{vo.sz}, #{vo.type}, #{vo.subPrice}
 		)
 	</insert>
 	<insert id="insOrdProdTool" parameterType="com.coffeekong.domain.CartVO">
 		INSERT INTO
 			tbl_order_prod(o_id, p_id, op_qty, op_price)
 		VALUES(
-			#{o_id}, #{vo.p_id}, #{vo.qty}, #{vo.sub_price}
+			#{orderId}, #{vo.productId}, #{vo.qty}, #{vo.subPrice}
 		)
 	</insert>
 	
@@ -170,21 +171,21 @@
 		UPDATE 
 			tbl_order
 		SET
-			o_price=#{o_price},o_rfname=#{o_rfname}, o_rlname=#{o_rlname}, o_phone=#{o_phone}, o_postcode=#{o_postcode}, o_addr=#{o_addr}
+			o_price=#{ovo.price},o_rfname=#{ovo.fname}, o_rlname=#{ovo.lname}, o_phone=#{ovo.phone}, o_postcode=#{ovo.postcode}, o_addr=#{ovo.addr}
 		WHERE
-			o_id=#{o_id}
+			o_id=#{ovo.id}
 	</update>
 	<delete id="deleteOrd" >
 		DELETE FROM
 			tbl_order
 		WHERE
-			o_id=#{oid}
+			o_id=#{orderId}
 	</delete>
 	<delete id="deleteOrdProd" >
 		DELETE FROM
 			tbl_order_prod
 		WHERE
-			o_id=#{oid}
+			o_id=#{orderId}
 	</delete>
 	<update id="updateState" >
 		UPDATE
@@ -192,7 +193,7 @@
 		SET
 			o_state=#{state}
 		WHERE
-			o_id=#{oid}
+			o_id=#{orderId}
 	</update>
 	
 </mapper>

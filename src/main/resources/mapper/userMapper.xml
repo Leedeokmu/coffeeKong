@@ -8,9 +8,18 @@
 				WHERE
 					LOWER(u_email)
 				LIKE
-					CONCAT('%',#{keyword},'%')
+					CONCAT('%',#{cri.keyword},'%')
 			</if>
 		</if>
+	</sql>
+	<sql id="columns">
+		u_email AS email,
+		u_fname AS fname,
+		u_lname AS lname,
+		u_pwd AS pwd,
+		u_point AS point,
+		sess_id AS sessId,
+		sess_limit AS sessLimit
 	</sql>
 	
 	<select id="checkEmail" resultType="String">
@@ -27,29 +36,29 @@
 		FROM
 			tbl_user
 		WHERE
-			u_email = #{u_email} AND u_pwd = #{u_pwd} 
+			u_email = #{uvo.email} AND u_pwd = #{uvo.pwd}
 	</select>
 	
-	<select id="login" parameterType="hashmap" resultType="com.coffeekong.domain.UserVO">
+	<select id="login" resultType="com.coffeekong.domain.UserVO">
 		SELECT 
-			*
+			<include refid="columns"></include>
 		FROM
 			tbl_user
 		WHERE
 			u_email = #{email}
 		AND
-			u_pwd = #{pw}
+			u_pwd = #{pwd}
 	</select>
 	
 	<select id="getUserWithSession" parameterType="String" resultType="com.coffeekong.domain.UserVO">
-		<![CDATA[
+
 		SELECT
-			*
+			<include refid="columns"></include>
 		FROM
 			tbl_user
 		WHERE
-			sess_id = #{key} and sess_limit > sysdate
-		]]>	
+			sess_id = #{key} and sess_limit <![CDATA[>]]> now()
+
 	</select>
 	<update id="rmbLogin" parameterType="hashmap">
 		UPDATE
@@ -63,14 +72,14 @@
 		INSERT INTO
 			tbl_user(u_email,u_fname,u_lname,u_pwd,sess_limit)
 		VALUES(
-			#{u_email},#{u_fname},#{u_lname},#{u_pwd},now()
+			#{uvo.email},#{uvo.fname},#{uvo.lname},#{uvo.pwd},now()
 		)
 	</insert>
 	
 	
 	<select id="detail" parameterType="String" resultType="com.coffeekong.domain.UserVO">
 		SELECT
-			*
+			<include refid="columns"></include>
 		FROM
 			tbl_user
 		WHERE 
@@ -85,23 +94,23 @@
 	</select>
 	<select id="list" parameterType="com.coffeekong.domain.SearchCriteria" resultType="com.coffeekong.domain.UserVO">
 		SELECT
-			u_email,u_fname,u_lname,u_pwd,u_point
+			<include refid="columns"></include>
 		FROM
 			tbl_user
 		<include refid="search"></include>
 		ORDER BY
 			u_email
 		LIMIT
-			(#{page} -1) * #{perPageNum}, #{perPageNum}
+			#{cri.startIdx}, #{cri.perPageNum}
 	</select>
 	
 	<update id="update" parameterType="com.coffeekong.domain.UserVO">
  		UPDATE
  			tbl_user
  		SET
- 			u_fname=#{u_fname}, u_lname=#{u_lname}, u_pwd=#{u_pwd}
+ 			u_fname=#{uvo.fname}, u_lname=#{uvo.lname}, u_pwd=#{uvo.pwd}
  		WHERE
- 			u_email=#{u_email} 
+ 			u_email=#{uvo.email}
 	</update>
 	<delete id="delete" parameterType="String">
 		DELETE

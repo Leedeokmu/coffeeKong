@@ -21,23 +21,23 @@ public interface ProductMapper {
 
 	List<ProductVO> listByCategory(String category);
 
-	ProductVO getByPid(int pid);
+	ProductVO getByPid(int productId);
 
 	List<ProductVO> list(SearchCriteria cri);
 
 	int listCount(SearchCriteria cri);
 
-	void delete(int pid);
+	void delete(int productId);
 
 	void update(ProductVO pvo);
 
 	void insert(ProductVO pvo);
 
-	List<ReviewVO> listReview(@Param("pid") Integer pid, @Param("startIndex") Integer startIndex, @Param("perPageNum") Integer perPageNum);
+	List<ReviewVO> listReview(@Param("productId") Integer productId, @Param("cri") Criteria cri);
 
-	int listReviewCount(int pid);
-	void addReview(ReviewVO rvo) ;
-	void deleteReview(int rid) ;
+	int listReviewCount(int productId);
+	void addReview(@Param("rvo") ReviewVO rvo) ;
+	void deleteReview(int reviewId) ;
 
 	
 }
