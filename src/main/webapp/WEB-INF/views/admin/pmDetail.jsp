@@ -82,7 +82,7 @@
 		</div>
 	</div>
 	<form role="form">
-		<input type='hidden' name='id' value="${pvo.id}">
+		<input type='hidden' name='pid' value="${pvo.id}">
 		<input type='hidden' name='page' value="${cri.page}"> 
 		<input type='hidden' name='perPageNum' value="${cri.perPageNum}"> 
 		<input type='hidden' name='searchType' value="${cri.searchType}"> 
@@ -96,7 +96,7 @@
 			if ($(this).attr("class").indexOf("pmuBtn") > 0) {
 				form.attr("method", "get");
 			} else if ($(this).attr("class").indexOf("pmdBtn") > 0) {
-				form.append('<input type="hidden" name="img" value="${pvo.img}"/>');
+				form.append('<input type="hidden" name="p_img" value="${pvo.img}"/>');
 				form.attr("method", "post");
 			}
 

@@ -83,7 +83,7 @@
 				<c:choose>
 					<c:when test="${mgr != null}">
 						<ul class="nav navbar-nav navbar-right">
-							<li><a href="#">${mgr.m_email }</a></li>
+							<li><a>${mgr.email}</a></li>
 							<li><a href="/manage/user/list">MANAGE USER</a></li>
 							<li><a href="/manage/product/list">MANAGE PRODUCT</a></li>
 							<li><a href="/manage/order/list">MANAGE ORDER</a></li>
@@ -105,7 +105,7 @@
 	
 	<!-- content start -->
 	<div id="content">
-		<jsp:include page="${content }"/>
+		<jsp:include page="${content}"/>
 	</div>
 	<!-- content end -->
 	

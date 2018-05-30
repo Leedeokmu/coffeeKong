@@ -40,7 +40,9 @@
 }
 .ver_center {
     display: flex;
-    align-items: flex-end;
+	justify-content: center;
+
+	align-items: center;
 }
 .p_list a{
 	text-decoration:none;
@@ -49,10 +51,6 @@
 .p_list a:hover{
 	text-decoration:none;
 	color:#d65728;
-}
-.ver_center {
-    display: flex;
-    align-items: center;
 }
 .hor_center{
 	display:flex;

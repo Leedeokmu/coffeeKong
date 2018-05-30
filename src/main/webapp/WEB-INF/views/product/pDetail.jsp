@@ -20,7 +20,7 @@
 <body>
 	<div class="container">
 		<form method="POST" action="/user/tocart" name="tocart">
-			<input type="hidden" name="id" value="${pvo.id}">
+			<input type="hidden" name="productId" value="${pvo.id}">
 			<input type="hidden" name="name" value="${pvo.name}">
 			<input type="hidden" name="category" value="${pvo.category}">
 			<input type="hidden" name="img" value="${pvo.img}">

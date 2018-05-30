@@ -118,7 +118,7 @@
 		</div>
 	</div>
 	<form role="form">
-		<input type='hidden' name='oid' value="${ovo.id}">
+		<input type='hidden' name='id' value="${ovo.id}">
 		<input type='hidden' name='page' value="${cri.page}"> 
 		<input type='hidden' name='perPageNum' value="${cri.perPageNum}">
 		<input type='hidden' name='searchType' value="${cri.searchType}">

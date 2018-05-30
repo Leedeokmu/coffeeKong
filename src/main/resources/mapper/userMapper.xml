@@ -3,8 +3,8 @@
 <mapper namespace="com.coffeekong.mapper.UserMapper">
 
 	<sql id="search">
-		<if test="searchType != null">
-			<if test="searchType == 'email'.toString()">
+		<if test="cri.searchType != null">
+			<if test="cri.searchType == 'email'.toString()">
 				WHERE
 					LOWER(u_email)
 				LIKE

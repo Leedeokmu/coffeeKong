@@ -50,7 +50,7 @@ public class ProdManageController {
 	    log.debug("size: " + file.getSize());
 	    log.debug("contentType: " + file.getContentType());
 		
-	    String relativePath = "/resources/dist/product";
+	    String relativePath = "/dist/product";
 	    String uploadPath = context.getRealPath(relativePath);
 	    String imgUrl = relativePath + FileUploadUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes());
 	    log.debug("image Url ########################## " + imgUrl);
@@ -111,7 +111,7 @@ public class ProdManageController {
 			File uploadedfile = new File(context.getRealPath("/"), pvo.getImg());
 			uploadedfile.delete();
 			
-		    String relativePath = "/resources/dist/product";
+		    String relativePath = "/dist/product";
 		    String uploadPath = context.getRealPath(relativePath);
 		    String imgUrl = relativePath + FileUploadUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes());
 		    log.debug("image Url ########################## " + imgUrl);
@@ -138,6 +138,6 @@ public class ProdManageController {
 	    rattr.addAttribute("searchType", cri.getSearchType());
 	    rattr.addAttribute("keyword", cri.getKeyword());
 		
-		return "redirect: /manage/product/list";
+		return "redirect:/manage/product/list";
 	}
 }

@@ -16,7 +16,7 @@
 		<c:forEach var="opvo" items="${ovo.opvo }">
 			<div class="row all_center">
 				<div style="margin-right:2em">
-					<img src="${opvo.img }" alt="img" class="" style="width:10em"/>
+					<img src="${opvo.img}" alt="img" class="" style="width:10em"/>
 				</div>
 				<div style="width:25em">
 					<div class="row">
@@ -94,7 +94,7 @@
 			form.attr("method", "get");
 			form.attr("action", "/user/order/list");
 			form.submit();
-		});
+		};
 	</script>
 </body>
 </html>

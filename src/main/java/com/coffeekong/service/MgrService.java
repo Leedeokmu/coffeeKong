@@ -19,7 +19,7 @@ public class MgrService {
 	}
 
 	public void rmbLogin(String email, String sess_id, Date limit) {
-		
+		mgrMapper.rmbLogin(email, sess_id, limit);
 	}
 	
 }

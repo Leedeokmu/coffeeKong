@@ -4,6 +4,7 @@ import com.coffeekong.annotation.mapper.CoffeekongMapper;
 import com.coffeekong.domain.SearchCriteria;
 import com.coffeekong.domain.UserVO;
 import com.coffeekong.dto.LoginDTO;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,25 +20,25 @@ import java.util.Map;
 public interface UserMapper{
 	 UserVO login(LoginDTO dto);
 
-	 String checkEmail(String email);
+	 String checkEmail(@Param("email")String email);
 
-	 UserVO getUserWithSessionKey(String key);
+	 UserVO getUserWithSessionKey(@Param("key")String key);
 
-	 void rmbLogin(String email, String sess_id, Date limit);
+	 void rmbLogin(@Param("email")String email,@Param("sess_id") String sess_id, @Param("limit")Date limit);
 
-	 String checkId(String email);
+	 String checkId(@Param("email")String email);
 
-	 void register(UserVO uvo);
+	 void register(@Param("uvo")UserVO uvo);
 
-	 void update(UserVO uvo);
+	 void update(@Param("uvo")UserVO uvo);
 
-	 String checkUserPw(UserVO uvo);
+	 String checkUserPw(@Param("uvo")UserVO uvo);
 
-	 void delete(String email);
+	 void delete(@Param("email")String email);
 
-	 List<UserVO> list(SearchCriteria cri);
+	 List<UserVO> list(@Param("cri") SearchCriteria cri);
 
-	 int listCount(SearchCriteria cri);
+	 int listCount(@Param("cri") SearchCriteria cri);
 
-	 UserVO detail(String email);
+	 UserVO detail(@Param("email") String email);
 }

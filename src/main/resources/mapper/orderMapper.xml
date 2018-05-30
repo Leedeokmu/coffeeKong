@@ -3,7 +3,7 @@
 <mapper namespace="com.coffeekong.mapper.OrderMapper">
 
 	<resultMap id="Order" type="com.coffeekong.domain.OrderVO" >
-		<id property="oId" column="o_id"/>
+		<id property="id" column="o_id"/>
 		<result property="email" column="u_email"/>
 		<result property="price" column="o_price"/>
 		<result property="fname" column="o_rfname"/>
@@ -41,14 +41,14 @@
 	</sql>
 	
 	<sql id="search">
-		<if test="searchType != null">
-			<if test="searchType == 'prodNm'.toString()">
+		<if test="cri.searchType != null">
+			<if test="cri.searchType == 'prodNm'.toString()">
 				WHERE
 					LOWER(p.p_name)
 				LIKE
 					CONCAT('%',#{cri.keyword},'%')
 			</if>
-			<if test="searchType == 'email'.toString()">
+			<if test="cri.searchType == 'email'.toString()">
 				WHERE
 					LOWER(o.u_email)
 				LIKE
@@ -79,7 +79,7 @@
 		LIMIT
 			#{cri.startIdx}, #{cri.perPageNum}
 	</select>
-	<select id="listCountByEmail">
+	<select id="listCountByEmail" resultType="int">
 		SELECT
 			count(*)
 		FROM
@@ -143,7 +143,8 @@
 			o.o_id = #{orderId}
 	</select>
 	
-	<insert id="insOrd" parameterType="com.coffeekong.domain.OrderVO">
+	<insert id="insOrd" parameterType="com.coffeekong.domain.OrderVO"
+	useGeneratedKeys="true" keyProperty="vo.id" keyColumn="o_id">
 		INSERT INTO
 			tbl_order(u_email, o_price, o_rfname, o_rlname, o_phone, o_postcode, o_addr, o_state, o_date)
 		VALUES(

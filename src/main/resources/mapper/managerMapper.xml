@@ -20,7 +20,7 @@
 		AND
 			m_pwd=#{dto.pwd}
 	</select>
-	<update id="rmbLogin" parameterType="hashmap">
+	<update id="rmbLogin">
 		UPDATE
 			tbl_manager
 		SET

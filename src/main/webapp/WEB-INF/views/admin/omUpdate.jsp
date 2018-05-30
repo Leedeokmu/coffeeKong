@@ -24,11 +24,11 @@
 			</div>
 			<div class="form-group ver_center">
 				<label class="control-label col-md-3">STATE</label>
-				<div class="col-md-9"><input type="text" class="form-control" name="state" value="${ovo.o_state}" readonly/></div>
+				<div class="col-md-9"><input type="text" class="form-control" name="state" value="${ovo.state}" readonly/></div>
 			</div>
 			<div class="form-group ver_center">
 				<label class="control-label col-md-3">PRICE</label>
-				<div class="col-md-9"><input type="text" class="form-control" name="price" value="${ovo.o_price}"/></div>
+				<div class="col-md-9"><input type="text" class="form-control" name="price" value="${ovo.price}"/></div>
 			</div>
 			<div class="form-group">
 				<label class="control-label col-md-3">FIRST NAME</label>

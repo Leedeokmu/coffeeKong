@@ -84,7 +84,7 @@
 		</form>
 	</div>
 	<form name="afterPmu" action="/manage/product/detail">
-		<input type='hidden' name='id' value="${pvo.id}">
+		<input type='hidden' name='pid' value="${pvo.id}">
 		<input type='hidden' name='page' value="${cri.page}"> 
 		<input type='hidden' name='perPageNum' value="${cri.perPageNum}">
 		<input type='hidden' name='searchType' value="${cri.searchType}">

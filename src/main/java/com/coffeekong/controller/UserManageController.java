@@ -77,7 +77,7 @@ public class UserManageController {
 	    rattr.addAttribute("searchType", cri.getSearchType());
 	    rattr.addAttribute("keyword", cri.getKeyword());
 		
-		return "redirect: /manage/user/list";
+		return "redirect:/manage/user/list";
 	}
 	
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
@@ -91,6 +91,6 @@ public class UserManageController {
 	    rattr.addAttribute("searchType", cri.getSearchType());
 	    rattr.addAttribute("keyword", cri.getKeyword());
 		
-		return "redirect: /manage/user/list";
+		return "redirect:/manage/user/list";
 	}
 }

@@ -19,25 +19,25 @@ import java.util.Map;
 @CoffeekongMapper
 public interface ProductMapper {
 
-	List<ProductVO> listByCategory(String category);
+	List<ProductVO> listByCategory(@Param("category")String category);
 
-	ProductVO getByPid(int productId);
+	ProductVO getByPid(@Param("productId")int productId);
 
-	List<ProductVO> list(SearchCriteria cri);
+	List<ProductVO> list(@Param("cri")SearchCriteria cri);
 
-	int listCount(SearchCriteria cri);
+	int listCount(@Param("cri")SearchCriteria cri);
 
-	void delete(int productId);
+	void delete(@Param("productId")int productId);
 
-	void update(ProductVO pvo);
+	void update(@Param("pvo")ProductVO pvo);
 
-	void insert(ProductVO pvo);
+	void insert(@Param("pvo")ProductVO pvo);
 
 	List<ReviewVO> listReview(@Param("productId") Integer productId, @Param("cri") Criteria cri);
 
-	int listReviewCount(int productId);
+	int listReviewCount(@Param("productId")int productId);
 	void addReview(@Param("rvo") ReviewVO rvo) ;
-	void deleteReview(int reviewId) ;
+	void deleteReview(@Param("reviewId")int reviewId) ;
 
 	
 }

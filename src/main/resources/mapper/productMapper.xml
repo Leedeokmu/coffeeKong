@@ -3,14 +3,14 @@
 <mapper namespace="com.coffeekong.mapper.ProductMapper">
 	
 	<sql id="search">
-		<if test="searchType != null">
-			<if test="searchType == 'prodNm'.toString()">
+		<if test="cri.searchType != null">
+			<if test="cri.searchType == 'prodNm'.toString()">
 				WHERE
 					LOWER(p_name)
 				LIKE
 					CONCAT('%',#{cri.keyword},'%')
 			</if>
-			<if test="searchType == 'category'.toString()">
+			<if test="cri.searchType == 'category'.toString()">
 				WHERE
 					LOWER(p_category)
 				LIKE
@@ -31,7 +31,7 @@
 
 	<insert id="insert" parameterType="com.coffeekong.domain.ProductVO">
 		INSERT INTO
-			tbl_prod
+			tbl_prod(p_category, p_name, p_content, p_price, p_mdate, p_rdate, p_img)
 		VALUES(
 			#{pvo.category},#{pvo.name},#{pvo.content}, #{pvo.price}, #{pvo.mdate}, now(), #{pvo.img}
 		)
@@ -49,7 +49,7 @@
 			#{cri.startIdx}, #{cri.perPageNum}
 	</select>
 	
-	<select id="listCount" parameterType="com.coffeekong.domain.SearchCriteria">
+	<select id="listCount" parameterType="com.coffeekong.domain.SearchCriteria" resultType="int">
 		SELECT 
 			count(*)
 		FROM
@@ -88,6 +88,7 @@
 			p_id=#{pvo.id}
 	</update>
 	<select id="listReview" resultType="com.coffeekong.domain.ReviewVO">
+
 		SELECT
 			r_id AS id,
 			p_id AS productId,

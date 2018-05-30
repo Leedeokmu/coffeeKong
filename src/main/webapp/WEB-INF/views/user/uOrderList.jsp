@@ -12,18 +12,20 @@
 </head>
 <body>
 	<div class="container-fluid" style="margin-left:30px;margin-right:30px">
-	<div class="u_title hor_center"><h2>YOUR ORDERS</h2></div><br />
-		<div class="row hor_center">
-				<div class="col-md-2" class="text-center"><span>ORDER NO</span></div>
-				<div class="col-md-10" class="text-center"><span>PRODUCT INFORMATION</span></div>
+	<div class="u_title hor_center"><h2>YOUR ORDERS</h2></div>
+		<br>
+		<br>
+		<div class="row text-center ">
+				<div class="col-md-2"><b>ORDER NO</b></div>
+				<div class="col-md-10"><b>PRODUCT INFORMATION</b></div>
 		</div>
-		<hr >
+		<hr>
 		<c:choose>
 			<c:when test="${search eq 'off' }">
 				<c:forEach var="ovo" items="${list}">
 					<c:if test="${fn:length(ovo.opvo) > 0 }">
 						<div class="row all_center">
-							<div class="col-md-2 h_nav text-center">${ovo.id }<br /><a href="/user/order/detail/${ovo.id }${pmk.makeSearch(pmk.cri.page) }" class="h_nav"><span>[ORDER DETAIL]</span></a></div>
+							<div class="col-md-2 h_nav text-center">${ovo.id }<br /><a href="/user/order/detail/${ovo.id}${pmk.makeSearch(pmk.cri.page)}" class="h_nav"><span>[ORDER DETAIL]</span></a></div>
 							<div class="col-md-9">
 							<c:forEach var="opvo" items="${ovo.opvo}">
 								<div class="row">

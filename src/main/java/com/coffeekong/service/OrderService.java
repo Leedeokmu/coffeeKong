@@ -4,8 +4,6 @@ import com.coffeekong.domain.CartVO;
 import com.coffeekong.domain.OrderVO;
 import com.coffeekong.domain.SearchCriteria;
 import com.coffeekong.mapper.OrderMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +23,7 @@ public class OrderService{
 
 	@Transactional
 	public void insOrder(OrderVO vo, List<CartVO> list) {
-		orderMapper.insOrd(vo);
+		Integer key = orderMapper.insOrd(vo);
 
 		for(CartVO cvo : list){
 			if(category.contains(cvo.getCategory())){
@@ -61,7 +59,7 @@ public class OrderService{
 	}
 
 	@Transactional
-	public void delete(int oid) {
+	public void delete(Integer oid) {
 		orderMapper.deleteOrdProd(oid);
 		orderMapper.deleteOrd(oid);
 	}

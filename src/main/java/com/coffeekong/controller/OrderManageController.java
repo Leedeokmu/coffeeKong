@@ -58,10 +58,10 @@ public class OrderManageController {
 	}
 	
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
-	public String update(@ModelAttribute("cri") SearchCriteria cri, int oid, HttpSession session, Model model) {
-		log.debug("Order Manage Update############################ oid : " + oid);
+	public String update(@ModelAttribute("cri") SearchCriteria cri, int id, HttpSession session, Model model) {
+		log.debug("Order Manage Update############################ oid : " + id);
 		
-		model.addAttribute("ovo", orderService.getByOid(oid));
+		model.addAttribute("ovo", orderService.getByOid(id));
 		model.addAttribute("content", "omupdate");
 		return "/admin/adminPage";
 	}
@@ -77,21 +77,21 @@ public class OrderManageController {
 	    rattr.addAttribute("searchType", cri.getSearchType());
 	    rattr.addAttribute("keyword", cri.getKeyword());
 		
-		return "redirect: /manage/order/list";
+		return "redirect:/manage/order/list";
 	}
 	
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	public String delete(SearchCriteria cri, int oid, HttpSession session, RedirectAttributes rattr) {
-		log.debug("Order Manage delete############################ oid : " + oid);
+	public String delete(SearchCriteria cri, Integer id, HttpSession session, RedirectAttributes rattr) {
+		log.debug("Order Manage delete############################ oid : " + id);
 		
-		orderService.delete(oid);
+		orderService.delete(id);
 		
 		rattr.addAttribute("page", cri.getPage());
 	    rattr.addAttribute("perPageNum", cri.getPerPageNum());
 	    rattr.addAttribute("searchType", cri.getSearchType());
 	    rattr.addAttribute("keyword", cri.getKeyword());
 		
-		return "redirect: /manage/order/list";
+		return "redirect:/manage/order/list";
 	}
 	
 	@RequestMapping(value = "/update/state", method = RequestMethod.POST)
@@ -105,7 +105,7 @@ public class OrderManageController {
 	    rattr.addAttribute("searchType", cri.getSearchType());
 	    rattr.addAttribute("keyword", cri.getKeyword());
 		
-		return "redirect: /manage/order/list";
+		return "redirect:/manage/order/list";
 	}
 
 }

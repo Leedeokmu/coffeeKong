@@ -11,8 +11,9 @@
 </head>
 <body>
 	<div class="container-fluid a_article">
-		<div class="a_title text-center"><h2>PRODUCT LIST</h2></div><br /><br />
-		
+		<div class="a_title text-center"><h2>PRODUCT LIST</h2></div>
+		<br>
+		<br>
 		<div class="row text-center">
 			<div class="col-md-1"><span>ID</span></div>
 			<div class="col-md-2"><span></span></div>
@@ -20,21 +21,21 @@
 			<div class="col-md-2"><span>CATEGORY</span></div>
 			<div class="col-md-2"><span>PRICE</span></div>
 			<div class="col-md-2"><span>REGISTERED</span></div>
-			
-		</div><hr />
+		</div>
+		<hr>
 		<c:forEach var="pvo" items="${list}">
-			<div class="row ver_center text-center">
-				<div class="col-md-1"><span>${pvo.id }</span></div>
-				<div class="col-md-2"><span><a href="/manage/product/detail${pmk.makeSearch(pmk.cri.page) }&id=${pvo.id}"><img src="${pvo.img }" alt="img" style="width:5em"/></a></span></div>
-				<div class="col-md-3 h_nav"><span><a href="/manage/product/detail${pmk.makeSearch(pmk.cri.page) }&id=${pvo.id}">${pvo.name }</a></span></div>
+			<div class="row text-center">
+				<div class="col-md-1"><span>${pvo.id}</span></div>
+				<div class="col-md-2"><span><a href="/manage/product/detail${pmk.makeSearch(pmk.cri.page) }&pid=${pvo.id}"><img src="${pvo.img }" alt="img" style="width:5em"/></a></span></div>
+				<div class="col-md-3 h_nav"><span><a href="/manage/product/detail${pmk.makeSearch(pmk.cri.page) }&pid=${pvo.id}">${pvo.name }</a></span></div>
 				<div class="col-md-2"><span>${pvo.category}</span></div>
 				<div class="col-md-2"><span>${pvo.price }</span></div>
 				<div class="col-md-2"><span>${pvo.rdate }</span></div>
 			</div>
-			<hr />
+			<hr>
 		</c:forEach>
 		<div class="row hor_right h_nav" >
-			<h3><a href="/manage/product/insert${pmk.makeSearch(pmk.cri.page) }" class="">INSERT PRODUCT</a></h3>
+			<h3><a href="/manage/product/insert${pmk.makeSearch(pmk.cri.page)}" class="">INSERT PRODUCT</a></h3>
 		</div>
 		<hr />
 		<div class="row text-center">
