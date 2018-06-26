@@ -71,7 +71,7 @@ public class TestClass {
                     i++;
                 }
             }
-            curTime = curTime.plusMinutes(1);
+            curTime = curTime.plusHours(1);
 
         }
     }
