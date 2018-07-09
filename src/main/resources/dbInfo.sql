@@ -8,7 +8,6 @@
 	
 	CONN projectspr/oracle;
 */
-
 -- UPDATE user SET authentication_string=password('test') WHERE user ='root';
 set password = password('test');
 
