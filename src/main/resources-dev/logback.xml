@@ -12,9 +12,9 @@ See here for more details: http://gordondickens.com/wordpress/2013/03/27/sawing-
         </encoder>
     </appender>
     <appender name="rolling" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>../logs/coffeekong.log</file>
+        <file>./logs/coffeekong.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>../logs/coffeekong.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>./logs/coffeekong.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <maxFileSize>100MB</maxFileSize>
             </timeBasedFileNamingAndTriggeringPolicy>
