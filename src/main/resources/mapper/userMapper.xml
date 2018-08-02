@@ -60,7 +60,7 @@
 			sess_id = #{key} and sess_limit <![CDATA[>]]> now()
 
 	</select>
-	<update id="rmbLogin" parameterType="hashmap">
+	<update id="rmbLogin" parameterType="java.util.HashMap">
 		UPDATE
 			tbl_user
 		SET
