@@ -1,11 +1,9 @@
 package com.coffeekong.controller;
 
-import com.coffeekong.domain.MgrVO;
 import com.coffeekong.dto.LoginDTO;
+import com.coffeekong.model.Manager;
 import com.coffeekong.service.MgrService;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -56,7 +54,7 @@ public class ManageController {
             return "redirect:/admin/login";
 		}else{
 			try {
-				MgrVO mvo = mgrService.login(dto);
+				Manager mvo = mgrService.login(dto);
 				if(mvo == null){
 					rttr.addFlashAttribute("errmsg", "EMAIL & PASSWORD NOT MATCHED");
 					return "redirect:/manage/login";

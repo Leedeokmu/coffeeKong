@@ -1,12 +1,10 @@
 package com.coffeekong.controller;
 
 import com.coffeekong.domain.CartVO;
-import com.coffeekong.domain.OrderVO;
-import com.coffeekong.domain.UserVO;
+import com.coffeekong.model.Order;
+import com.coffeekong.model.User;
 import com.coffeekong.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,12 +29,12 @@ public class OrderController {
 	}
 	
 	@RequestMapping(value="/order", method=RequestMethod.POST)
-	public String orderPOST(OrderVO ovo, HttpSession session, Model model){
+	public String orderPOST(Order ovo, HttpSession session, Model model){
 		log.debug("order post ################################### OrderVO : "+ovo.toString());
 		List<CartVO> list = (List<CartVO>) session.getAttribute("cart");
 		
 		try {
-			String email = ((UserVO)session.getAttribute("login")).getEmail();
+			String email = ((User)session.getAttribute("login")).getEmail();
 			
 			ovo.setEmail(email);
 			orderService.insOrder(ovo, list);

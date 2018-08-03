@@ -3,10 +3,13 @@ package com.coffeekong.model;
 import lombok.Data;
 import lombok.Getter;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
 
-@Getter
+@Data
 @Entity
 @Table(name = "tbl_manager")
 public class Manager {

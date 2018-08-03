@@ -1,7 +1,8 @@
 package com.coffeekong.controller;
 
-import com.coffeekong.domain.UserVO;
+import com.coffeekong.model.User;
 import com.coffeekong.service.UserService;
+import com.coffeekong.utils.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,17 +26,17 @@ public class RegisterController {
 	
 	@ResponseBody
 	@RequestMapping(value="/register", method=RequestMethod.POST)
-	public ResponseEntity<String> register(@RequestBody @Valid UserVO uvo, BindingResult result) {
+	public ResponseEntity<String> register(@RequestBody @Valid User uvo, BindingResult result) {
 		log.debug("register ########################### uvo : " + uvo.toString());
 		
 		ResponseEntity<String> entity = null;
 		
 		if(result.hasErrors()){
-			entity = new ResponseEntity<String>("Fail", HttpStatus.OK);
+			entity = new ResponseEntity<>("Fail", HttpStatus.OK);
 			
 		}else{
 			userService.register(uvo);
-			entity = new ResponseEntity<String>("Success", HttpStatus.OK);
+			entity = new ResponseEntity<>("Success", HttpStatus.OK);
 		}
 		
 		return entity;
@@ -51,22 +52,20 @@ public class RegisterController {
 	
 	@ResponseBody
 	@RequestMapping(value="/register/chkId", method=RequestMethod.POST)
-	public ResponseEntity<String> chkId( String u_email){
+	public Response chkId( String u_email){
 		log.debug("chkId ########################### email : " + u_email);
-		ResponseEntity<String> entity = null;
-		
+
+		Response response = new Response();
 		try {
-			String email = userService.checkDuplicate(u_email);
-			if(email != null){
-				entity = new ResponseEntity<String>("false", HttpStatus.OK);
+			User user = userService.checkDuplicate(u_email);
+			if(user != null){
+				response.setReturnMessage("false");
 			}else{
-				entity = new ResponseEntity<String>("true", HttpStatus.OK);
+				response.setReturnMessage("true");
 			}
-			
 		} catch (Exception e) {
 			e.printStackTrace();
-			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		return entity;
+		return response;
 	}
 }

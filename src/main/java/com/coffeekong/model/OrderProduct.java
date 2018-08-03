@@ -11,7 +11,7 @@ public class OrderProduct {
 
     @Id
     @Column(name="op_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name="o_id")
@@ -35,6 +35,9 @@ public class OrderProduct {
 
     @Column(name="op_price")
     private double price;
+
+    @ManyToOne
+    private Order order;
 
 }
 

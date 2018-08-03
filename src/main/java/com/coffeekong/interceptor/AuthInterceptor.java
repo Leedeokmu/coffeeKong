@@ -1,10 +1,8 @@
 package com.coffeekong.interceptor;
 
-import com.coffeekong.domain.UserVO;
+import com.coffeekong.model.User;
 import com.coffeekong.service.UserService;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -33,7 +31,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 
 			Cookie login_id = WebUtils.getCookie(request, "login_id");
 			if (login_id != null) {
-				UserVO uvo = userService.getUserWithSessionKey(login_id.getValue());
+				User uvo = userService.getUserWithSession(login_id.getValue());
 				log.debug("UserVO ###################### " + uvo);
 				if (uvo != null) {
 					session.setAttribute("login", uvo);

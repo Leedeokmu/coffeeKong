@@ -10,8 +10,8 @@ public class ErrorPageCustomization extends ServerProperties {
     public void customize(ConfigurableEmbeddedServletContainer container) {
 
         super.customize(container);
-        container.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/error/404"));
-        container.addErrorPages(new ErrorPage(HttpStatus.INTERNAL_SERVER_ERROR, "/error/500"));
-        container.addErrorPages(new ErrorPage("/error/error"));
+        container.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/WEB-INF/views/error/404.jsp"));
+        container.addErrorPages(new ErrorPage(HttpStatus.INTERNAL_SERVER_ERROR, "/WEB-INF/views/error/500.jsp"));
+        container.addErrorPages(new ErrorPage("/WEB-INF/views/error/error.jsp"));
     }
 }

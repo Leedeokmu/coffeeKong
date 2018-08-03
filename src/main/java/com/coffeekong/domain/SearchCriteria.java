@@ -1,23 +1,14 @@
 package com.coffeekong.domain;
 
-public class SearchCriteria extends Criteria{
+import lombok.Data;
+import org.springframework.data.domain.PageRequest;
+
+import java.awt.print.Pageable;
+
+@Data
+public class SearchCriteria extends PageRequest {
 
 	private String searchType;
 	private String keyword;
 
-	public String getSearchType() {
-		return searchType;
-	}
-
-	public void setSearchType(String searchType) {
-		this.searchType = searchType;
-	}
-
-	public String getKeyword() {
-		return keyword;
-	}
-
-	public void setKeyword(String keyword) {
-		this.keyword = keyword;
-	}
 }

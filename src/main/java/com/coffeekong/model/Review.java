@@ -1,6 +1,7 @@
 package com.coffeekong.model;
 
 import lombok.Data;
+import org.joda.time.DateTime;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -12,7 +13,7 @@ public class Review {
 
     @Id
     @Column(name="r_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name="p_id")
@@ -31,5 +32,5 @@ public class Review {
     private String content;
 
     @Column(name="r_date")
-    private Date date;
+    private DateTime date;
 }

@@ -1,15 +1,15 @@
 package com.coffeekong.controller;
 
+import com.coffeekong.domain.CartVO;
+import com.coffeekong.domain.SearchCriteria;
+import com.coffeekong.model.Order;
+import com.coffeekong.model.User;
 import com.coffeekong.service.OrderService;
 import com.coffeekong.service.UserService;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import com.coffeekong.domain.CartVO;
-import com.coffeekong.domain.PageMaker;
-import com.coffeekong.domain.SearchCriteria;
-import com.coffeekong.domain.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -19,7 +19,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.UUID;
 
 @Slf4j
 @Controller
@@ -30,17 +33,17 @@ public class UserController {
 	@Autowired
 	private OrderService orderService;
 
-	@RequestMapping(value = "/update", method = RequestMethod.GET)
+	@GetMapping(value = "update")
 	public String updateGET(HttpSession session, Model model) {
 		log.debug("User Update############################ session name: "
-				+ ((UserVO) session.getAttribute("login")).getEmail());
+				+ ((User) session.getAttribute("login")).getEmail());
 
 		model.addAttribute("content", "uupdate");
 		return "/index";
 	}
 
-	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public String updatePOST(@Valid UserVO uvo, BindingResult result, Model model) {
+	@PostMapping(value = "update")
+	public String updatePOST(@Valid User uvo, BindingResult result, Model model) {
 		log.debug("User Update############################ uvo: " + uvo.toString());
 
 		if (result.hasErrors()) {
@@ -55,7 +58,7 @@ public class UserController {
 	@RequestMapping(value = "/resign", method = RequestMethod.GET)
 	public String resignGET(HttpSession session, Model model) {
 		log.debug("User Resign############################ session name: "
-				+ ((UserVO) session.getAttribute("login")).getEmail());
+				+ ((User) session.getAttribute("login")).getEmail());
 
 		model.addAttribute("content", "uresign");
 		return "/index";
@@ -63,22 +66,21 @@ public class UserController {
 
 	@ResponseBody
 	@RequestMapping(value = "/resign", method = RequestMethod.POST)
-	public ResponseEntity<String> resignPOST(@RequestBody UserVO uvo) {
+	public ResponseEntity<String> resignPOST(@RequestBody User uvo) {
 		log.debug("User Resign############################");
 
 		ResponseEntity<String> entity = null;
-
 		try {
-			String email = userService.checkUserPw(uvo);
-			if (email != null) {
-				userService.deleteUser(email);
-				entity = new ResponseEntity<String>("Success", HttpStatus.OK);
+			User user = userService.checkUserPw(uvo);
+			if (user != null) {
+				userService.deleteUser(user.getEmail());
+				entity = new ResponseEntity<>("Success", HttpStatus.OK);
 			} else {
-				entity = new ResponseEntity<String>("Fail", HttpStatus.OK);
+				entity = new ResponseEntity<>("Fail", HttpStatus.OK);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+			entity = new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 		return entity;
 	}
@@ -92,19 +94,14 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/order/list", method = RequestMethod.GET)
-	public String orderList(@ModelAttribute("cri") SearchCriteria cri, HttpSession session, Model model) {
+	public String orderList(@ModelAttribute("cri") SearchCriteria cri, @ModelAttribute("pageable") Pageable pageable, HttpSession session, Model model) {
 		log.debug("User Order############################ cri: " + cri.toString());
-		
+
 		if(session.getAttribute("login") != null){
-			String email = ((UserVO)session.getAttribute("login")).getEmail();
+			String email = ((User)session.getAttribute("login")).getEmail();
 
-			PageMaker pmk = new PageMaker();
-			cri.setStartIdx();
-			pmk.setCri(cri);
-			pmk.setTotalCount(orderService.listCountByEmail(cri,email));
-
-			model.addAttribute("list", orderService.listByEmail(cri, email));
-			model.addAttribute("pmk",pmk);
+			Page<Order> orderList = orderService.listByEmail(cri, email);
+			model.addAttribute("list", orderList);
 		}else{
 			model.addAttribute("content", "");
 			return "/index";
@@ -124,7 +121,7 @@ public class UserController {
 	@RequestMapping(value = "/order/detail/{oid}", method = RequestMethod.GET)
 	public String orderDetail(@ModelAttribute("cri") SearchCriteria cri, @PathVariable int oid, HttpSession session, Model model) {
 		log.debug("User Order############################ session name: "
-				+ ((UserVO) session.getAttribute("login")).getEmail());
+				+ ((User) session.getAttribute("login")).getEmail());
 		
 		if(session.getAttribute("login") != null){
 			model.addAttribute("ovo", orderService.getByOid(oid));

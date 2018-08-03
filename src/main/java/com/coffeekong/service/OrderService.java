@@ -1,71 +1,71 @@
 package com.coffeekong.service;
 
 import com.coffeekong.domain.CartVO;
-import com.coffeekong.domain.OrderVO;
 import com.coffeekong.domain.SearchCriteria;
-import com.coffeekong.mapper.OrderMapper;
+import com.coffeekong.model.Order;
+import com.coffeekong.model.OrderProduct;
+import com.coffeekong.repository.OrderProductRepository;
+import com.coffeekong.repository.OrderRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class OrderService{
-	@Autowired
-	private OrderMapper orderMapper;
-	private static ArrayList<String> category = new ArrayList<>();
-	static{
-		category.add("SingleOrigins");	category.add("Blends");	category.add("Decafs");
-		category.add("Light");	category.add("Medium");  category.add("Dark");	category.add("ColdBrew");
-	}
+@Slf4j
+public class OrderService {
+    @Autowired
+    private OrderRepository orderRepository;
+    @Autowired
+    private OrderProductRepository orderProductRepository;
 
-	@Transactional
-	public void insOrder(OrderVO vo, List<CartVO> list) {
-		Integer key = orderMapper.insOrd(vo);
+    @Transactional
+    public void insOrder(Order vo, List<CartVO> list) {
+        Order order = orderRepository.save(vo);
 
-		for(CartVO cvo : list){
-			if(category.contains(cvo.getCategory())){
-				orderMapper.insOrdProd(cvo, vo.getId());
-			}else{
-				orderMapper.insOrdProdTool(cvo, vo.getId());
-			}
-		}
-	}
+        for (CartVO cvo : list) {
+            OrderProduct op = new OrderProduct();
+            op.setOrderId(order.getId());
+            op.setProductId(cvo.getProductId());
+            op.setQty(cvo.getQty());
+            op.setSz(cvo.getSz());
+            op.setType(cvo.getType());
+            op.setPrice(cvo.getSubPrice());
 
-	public List<OrderVO> listByEmail(SearchCriteria cri, String email) {
-		return orderMapper.listByEmail(cri, email);
-	}
+            orderProductRepository.save(op);
+        }
+    }
 
-	public int listCountByEmail(SearchCriteria cri, String email)  {
-		return orderMapper.listCountByEmail(cri, email);
-	}
+    public Page<Order> listByEmail(SearchCriteria cri, String email) {
+        return orderRepository.findAllBySearchTypeAndKeywordAndEmail(cri.getSearchType(), cri.getKeyword(), email, cri);
+    }
 
-	public List<OrderVO> list(SearchCriteria cri) {
-		return orderMapper.list(cri);
-	}
+    public Page<Order> list(SearchCriteria cri) {
+        return orderRepository.findAllBySearchTypeAndKeyword(cri.getSearchType(), cri.getKeyword(), cri);
+    }
 
-	public int listCount(SearchCriteria cri) {
-		return orderMapper.listCount(cri);
-	}
+    public Order getByOid(int Oid) {
+        return orderRepository.getOne(Oid);
+    }
 
-	public OrderVO getByOid(int Oid) {
-		return orderMapper.getByOid(Oid);
-	}
+    public Order update(Order order) {
+        return orderRepository.save(order);
+    }
 
-	public void update(OrderVO ovo) {
-		orderMapper.update(ovo);
-	}
+    @Transactional
+    public void delete(Integer oid) {
+        orderRepository.delete(oid);
+        orderProductRepository.deleteByOrderId(oid);
+    }
 
-	@Transactional
-	public void delete(Integer oid) {
-		orderMapper.deleteOrdProd(oid);
-		orderMapper.deleteOrd(oid);
-	}
+    public void updateState(int oid, String state) {
+        Order order = orderRepository.getOne(oid);
+        order.setState(state);
+        orderRepository.save(order);
+    }
 
-	public void updateState(int oid, String state) {
-		orderMapper.updateState(oid, state);
-	}
-	
 }

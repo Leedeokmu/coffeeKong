@@ -1,11 +1,10 @@
 package com.coffeekong.controller;
 
+import com.coffeekong.dto.LoginDTO;
+import com.coffeekong.model.User;
 import com.coffeekong.service.UserService;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import com.coffeekong.domain.UserVO;
-import com.coffeekong.dto.LoginDTO;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +24,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.Date;
 
 @Slf4j
 @Controller
@@ -51,12 +49,12 @@ public class LoginController {
 		ResponseEntity<String> entity = null;
 		
 		if(error.hasErrors()){
-            entity = new ResponseEntity<String>("Fail", HttpStatus.OK);
+            entity = new ResponseEntity<>("Fail", HttpStatus.OK);
 		}else{
 			try {
-				UserVO uvo = userService.login(dto);
+				User uvo = userService.login(dto);
 				if(uvo == null){
-					entity = new ResponseEntity<String>("Fail", HttpStatus.OK);
+					entity = new ResponseEntity<>("Fail", HttpStatus.OK);
 				}else{
 					if (session.getAttribute("login") != null) {
 						
@@ -67,7 +65,7 @@ public class LoginController {
 					session.setAttribute("login", uvo);
 					if(dto.isUseCookie()){
 						int duration = 60 * 60 * 24 * 7;
-						Date limit = new Date(System.currentTimeMillis() + (duration * 1000));
+						DateTime limit = new DateTime(System.currentTimeMillis() + (duration * 1000));
 						userService.rmbLogin(uvo.getEmail(), session.getId(), limit);
 					}
 					log.debug("dest #############: "+session.getAttribute("dest"));
@@ -86,10 +84,8 @@ public class LoginController {
 	public String logout(HttpServletRequest request,HttpServletResponse response,
 			HttpSession session, RedirectAttributes rttr) {
 		log.debug("logout #############################");
-		Object status = session.getAttribute("login");
-		if(status != null){
-			UserVO uvo = (UserVO)status;
-			
+		User user = (User)session.getAttribute("login");
+		if(user != null){
 			session.removeAttribute("login");
 			session.invalidate();
 			
@@ -98,7 +94,7 @@ public class LoginController {
 				cookie.setPath("/");
 				cookie.setMaxAge(0);
 				response.addCookie(cookie);
-				userService.rmbLogin(uvo.getEmail(), session.getId(), new Date());
+				userService.rmbLogin(user.getEmail(), session.getId(), DateTime.now());
 			}
 		}
 		rttr.addAttribute("content", "");
