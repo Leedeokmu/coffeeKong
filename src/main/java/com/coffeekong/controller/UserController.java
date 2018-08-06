@@ -14,11 +14,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -43,12 +41,9 @@ public class UserController {
 	}
 
 	@PostMapping(value = "update")
-	public String updatePOST(@Valid User uvo, BindingResult result, Model model) {
+	public String updatePOST(User uvo, Model model) {
 		log.debug("User Update############################ uvo: " + uvo.toString());
 
-		if (result.hasErrors()) {
-			return "/user/update";
-		}
 		userService.update(uvo);
 		model.addAttribute("content", "uucompl");
 
@@ -100,7 +95,7 @@ public class UserController {
 		if(session.getAttribute("login") != null){
 			String email = ((User)session.getAttribute("login")).getEmail();
 
-			Page<Order> orderList = orderService.listByEmail(cri, email);
+			Page<Order> orderList = orderService.listByEmail(cri, pageable, email);
 			model.addAttribute("list", orderList);
 		}else{
 			model.addAttribute("content", "");
@@ -119,7 +114,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/order/detail/{oid}", method = RequestMethod.GET)
-	public String orderDetail(@ModelAttribute("cri") SearchCriteria cri, @PathVariable int oid, HttpSession session, Model model) {
+	public String orderDetail(@ModelAttribute("cri") SearchCriteria cri, @ModelAttribute("pageable") Pageable pageable, @PathVariable int oid, HttpSession session, Model model) {
 		log.debug("User Order############################ session name: "
 				+ ((User) session.getAttribute("login")).getEmail());
 		
@@ -139,8 +134,7 @@ public class UserController {
 	public ResponseEntity<String> tocart(@RequestBody CartVO cvo, HttpSession session) {
 		log.debug("User cart############################ cvo : " + cvo.toString());
 
-		ResponseEntity<String> entity = null;
-
+		ResponseEntity<String> entity;
 		try {
 			List<CartVO> list = (ArrayList<CartVO>) session.getAttribute("cart");
 
@@ -166,11 +160,11 @@ public class UserController {
 			list.add(cvo);
 			session.setAttribute("cart", list);
 
-			entity = new ResponseEntity<String>("Success", HttpStatus.OK);
+			entity = new ResponseEntity<>("Success", HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error(e.getMessage());
-			entity = new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
 		return entity;
@@ -190,7 +184,6 @@ public class UserController {
 		log.debug("User cart update############################ cvo : " + cvo.toString());
 
 		ResponseEntity<String> entity = null;
-
 		try {
 			List<CartVO> list = (ArrayList<CartVO>) session.getAttribute("cart");
 
@@ -213,10 +206,8 @@ public class UserController {
 					}
 				}
 			}
-			
 			session.setAttribute("cart", list);
-
-			entity = new ResponseEntity<String>("Success", HttpStatus.OK);
+			entity = new ResponseEntity<>("Success", HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error(e.getMessage());

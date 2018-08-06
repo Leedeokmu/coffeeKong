@@ -56,5 +56,5 @@ public class UserService {
 
 	public User detail(String email) { return userRepository.getOne(email); }
 
-	public Page<User> list(SearchCriteria cri) { return userRepository.findAllBySearchTypeAndKeyword(cri.getSearchType(), cri.getKeyword(), cri); }
+	public Page<User> list(SearchCriteria cri, Pageable pageable) { return userRepository.findAllBySearchTypeAndKeyword(cri.getSearchType(), cri.getKeyword(), pageable); }
 }

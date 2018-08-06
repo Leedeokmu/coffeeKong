@@ -1,12 +1,9 @@
 package com.coffeekong.domain;
 
 import lombok.Data;
-import org.springframework.data.domain.PageRequest;
-
-import java.awt.print.Pageable;
 
 @Data
-public class SearchCriteria extends PageRequest {
+public class SearchCriteria {
 
 	private String searchType;
 	private String keyword;
