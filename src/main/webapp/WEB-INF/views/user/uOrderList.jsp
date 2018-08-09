@@ -44,15 +44,15 @@
 				</c:forEach>
 			</c:when>
 			<c:when test="${search eq 'on' }">
-				<c:forEach var="ovo" items="${list }">
+				<c:forEach var="ovo" items="${list.content}">
 					<c:if test="${fn:length(ovo.opvo) > 0 }">
 					<div class="row ver_center">
-						<div class="col-md-2 h_nav text-center">${ovo.id }<br /><a href="/user/order/detail/${ovo.id }${pmk.makeSearch(pmk.cri.page) }" class="h_nav"><span>[ORDER DETAIL]</span></a></div>
+						<div class="col-md-2 h_nav text-center">${ovo.id}<br /><a href="/user/order/detail/${ovo.id}?searchType=${cri.searchType}&keyword=${cri.keyword}&page=${list.page}&size=${list.size}" class="h_nav"><span>[ORDER DETAIL]</span></a></div>
 						<div class="col-md-10">
 						<c:forEach var="opvo" items="${ovo.opvo}">
 							<div class="row">
-								<div class="col-md-3"><a href="/product/detail${pmk.makeSearch(pmk.cri.page) }&pid=${opvo.productId }"><img src="${opvo.img }" style="width:5em" alt="img" /></a></div>
-								<div class="col-md-3 h_nav"><a href="/product/detail${pmk.makeSearch(pmk.cri.page) }&pid=${opvo.productId }"><span>${opvo.name }</span></a></div>
+								<div class="col-md-3"><a href="/product/detail?pid=${opvo.productId }"><img src="${opvo.img }" style="width:5em" alt="img" /></a></div>
+								<div class="col-md-3 h_nav"><a href="/product/detail?pid=${opvo.productId }"><span>${opvo.name }</span></a></div>
 								<div class="col-md-2"><span>${opvo.type }</span></div>
 								<div class="col-md-1"><span>${opvo.qty }</span></div>
 								<div class="col-md-2"><span>${opvo.sz}</span></div>
@@ -68,16 +68,16 @@
 		</c:choose>
 		<div class="row text-center">
 			<ul class="pagination">
-				<c:if test ="${pmk.prev }">
-					<li><a href="/user/order/list${pmk.makeSearch(pmk.startPage - 1) }">&laquo;</a></li>
+				<c:if test ="${list.hasPrevious() }">
+					<li><a href="/user/order/list?searchType=${cri.searchType}&keyword=${cri.keyword}&page=${list.number-1}&size=${list.size}">&laquo;</a></li>
 				</c:if>
-				<c:forEach begin="${pmk.startPage }" end="${pmk.endPage }" var="idx">
+				<c:forEach begin="${list.first }" end="${list.totalPages}" var="idx">
 					<li <c:out value="${pmk.cri.page == idx? 'class=active' : '' }"/>>
 						<a href="/user/order/list${pmk.makeSearch(idx)}">${idx }</a>
 					</li>
 				</c:forEach>
-				<c:if test ="${pmk.next && pmk.endPage > 0}">
-					<li><a href="/user/order/list${pmk.makeSearch(pmk.endPage + 1) }">&raquo;</a></li>
+				<c:if test ="${list.hasNext()}">
+					<li><a href="/user/order/list?searchType=${cri.searchType}&keyword=${cri.keyword}&page=${list.number+1}&size=${list.size}">&raquo;</a></li>
 				</c:if>
 			</ul>
 		</div>
