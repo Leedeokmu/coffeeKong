@@ -48,6 +48,7 @@ import java.util.concurrent.ScheduledExecutorService;
 		@PropertySource(name = "application", value = "classpath:application.properties"),
 		@PropertySource(value="file:${properties_file}", ignoreResourceNotFound = true)
 })
+@EnableJpaRepositories(basePackages = "com.coffeekong.repository")
 @MultipartConfig(maxFileSize = 10*1024*1024)
 @SpringBootApplication
 public class AppConfig  extends WebMvcConfigurerAdapter {

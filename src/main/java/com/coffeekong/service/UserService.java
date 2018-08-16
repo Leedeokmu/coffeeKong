@@ -1,11 +1,10 @@
 package com.coffeekong.service;
 
 import com.coffeekong.domain.SearchCriteria;
+import com.coffeekong.domain.UserVO;
 import com.coffeekong.dto.LoginDTO;
-import com.coffeekong.model.User;
-import com.coffeekong.repository.UserRepository;
+import com.coffeekong.mapper.UserMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,21 +14,19 @@ import java.util.List;
 @Slf4j
 @Service
 public class UserService {
-	@Autowired
-	private UserRepository userRepository;
 
-	public User login(LoginDTO dto) {
-		return userRepository.findByEmailAndAndPwd(dto.getEmail(), dto.getPwd());
+	@Autowired
+	private UserMapper userMapper;
+	
+	public UserVO login(LoginDTO dto) {
+		return userMapper.login(dto);
 	}
 
-	public User getUserWithSession(String key) {
-		return userRepository.findBySessIdAndAndSessLimitAfter(key, DateTime.now());
+	public UserVO getUserWithSessionKey(String key) {
+		return userMapper.getUserWithSessionKey(key);
 	}
 
 	public void rmbLogin(String email, String sess_id, Date limit) {
-		User user = new User();
-		user.set
-		userRepository.save
 		userMapper.rmbLogin(email, sess_id, limit);
 	}
 
@@ -37,15 +34,15 @@ public class UserService {
 		return userMapper.checkId(email);
 	}
 
-	public void register(User uvo) {
+	public void register(UserVO uvo) {
 		userMapper.register(uvo);
 	}
 
-	public void update(User uvo) {
+	public void update(UserVO uvo) {
 		userMapper.update(uvo);
 	}
 
-	public String checkUserPw(User uvo) {
+	public String checkUserPw(UserVO uvo) {
 		return userMapper.checkUserPw(uvo);
 	}
 
@@ -54,7 +51,7 @@ public class UserService {
 		
 	}
 
-	public List<User> list(SearchCriteria cri) {
+	public List<UserVO> list(SearchCriteria cri) {
 		return userMapper.list(cri);
 	}
 
@@ -62,7 +59,7 @@ public class UserService {
 		return userMapper.listCount(cri);
 	}
 
-	public User detail(String email) {
+	public UserVO detail(String email) {
 		return userMapper.detail(email);
 	}
 
