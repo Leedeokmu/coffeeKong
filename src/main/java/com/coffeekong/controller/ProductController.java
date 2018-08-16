@@ -1,7 +1,5 @@
 package com.coffeekong.controller;
 
-import com.coffeekong.domain.Criteria;
-import com.coffeekong.domain.PageMaker;
 import com.coffeekong.model.Product;
 import com.coffeekong.model.Review;
 import com.coffeekong.service.ProductService;
@@ -62,12 +60,12 @@ public class ProductController {
 				session.setAttribute("viewedList", list);
 			}
 		}
-
+		
 		model.addAttribute("pvo", pvo);
 		model.addAttribute("content", "detail");
 		return "/product/product";
 	}
-
+	
 	@ResponseBody
 	@RequestMapping(value = "/review/post", method = RequestMethod.POST)
 	public ResponseEntity<String> postReview(@RequestBody Review rvo){
@@ -89,18 +87,11 @@ public class ProductController {
 		log.debug("list Review ################### pid : " + pid + ", page : " + page);
 		ResponseEntity<Map<String, Object>> entity = null;
 		try {
-			Criteria cri = new Criteria();
-			cri.setPage(page);
-			cri.setPerPageNum(5);
-			cri.setStartIdx();
-			PageMaker pageMaker = new PageMaker();
-			pageMaker.setCri(cri);
 			PageRequest pageRequest = new PageRequest(page, 5);
 
 			Map<String, Object> map = new HashMap<>();
 		    Page<Review> list = productService.listReview(pid, pageRequest);
 
-		    map.put("pmk", pageMaker);
 		    map.put("list", list);
 		    entity = new ResponseEntity<>(map, HttpStatus.OK);
 
