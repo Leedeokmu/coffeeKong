@@ -12,7 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.util.List;
 
@@ -41,12 +40,12 @@ public class OrderService {
         }
     }
 
-    public Page<Order> listByEmail(SearchCriteria cri, Pageable pageable, String email) {
-        return orderRepository.findAllBySearchTypeAndKeywordAndEmail(cri.getSearchType(), cri.getKeyword(), email, pageable);
+    public Page<Order> listByEmail(SearchCriteria cri, String email) {
+        return orderRepository.findAllBySearchTypeAndKeywordAndEmail(cri.getSearchType(), cri.getKeyword(), email, cri);
     }
 
-    public Page<Order> list(SearchCriteria cri, Pageable pageable) {
-        return orderRepository.findAllBySearchTypeAndKeyword(cri.getSearchType(), cri.getKeyword(), pageable);
+    public Page<Order> list(SearchCriteria cri) {
+        return orderRepository.findAllBySearchTypeAndKeyword(cri.getSearchType(), cri.getKeyword(), cri);
     }
 
     public Order getByOid(int Oid) {

@@ -6,7 +6,6 @@ import com.coffeekong.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,7 +21,7 @@ public class OrderManageController {
 	private OrderService orderService;
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String list(@ModelAttribute("cri") SearchCriteria cri, @ModelAttribute("pageable") Pageable pageable, Model model) {
+	public String list(@ModelAttribute("cri") SearchCriteria cri, Model model) {
 		log.debug("Order Manage list############################ cri : " + cri.toString());
 
 		if(cri.getKeyword() == null || cri.getKeyword() == ""){
@@ -33,14 +32,14 @@ public class OrderManageController {
 		
 		log.debug("search ######################## : " + cri.getKeyword());
 
-		Page<Order> orderList = orderService.list(cri, pageable);
+		Page<Order> orderList = orderService.list(cri);
 		model.addAttribute("list", orderList);
 		model.addAttribute("content", "omlist");
 		return "/admin/adminPage";
 	}
 	
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
-	public String detail(@ModelAttribute("cri") SearchCriteria cri,@ModelAttribute("pageable") Pageable pageable, int oid, Model model) {
+	public String detail(@ModelAttribute("cri") SearchCriteria cri, int oid, Model model) {
 		log.debug("Order Manage Detail############################ oid: " + oid);
 		
 		model.addAttribute("ovo", orderService.getByOid(oid));
@@ -49,7 +48,7 @@ public class OrderManageController {
 	}
 	
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
-	public String update(@ModelAttribute("cri") SearchCriteria cri,@ModelAttribute("pageable") Pageable pageable, int id, Model model) {
+	public String update(@ModelAttribute("cri") SearchCriteria cri, int id, Model model) {
 		log.debug("Order Manage Update############################ oid : " + id);
 		
 		model.addAttribute("ovo", orderService.getByOid(id));
@@ -58,7 +57,7 @@ public class OrderManageController {
 	}
 	
 	@RequestMapping(value = "/update/save", method = RequestMethod.POST)
-	public String updateSave(@ModelAttribute("cri") SearchCriteria cri,@ModelAttribute("pageable") Pageable pageable, Order ovo, RedirectAttributes rattr) {
+	public String updateSave(@ModelAttribute("cri") SearchCriteria cri, Order ovo, RedirectAttributes rattr) {
 		log.debug("Order Manage list############################ ovo : " + ovo.toString());
 		
 		Order order = orderService.update(ovo);
@@ -67,7 +66,7 @@ public class OrderManageController {
 	}
 	
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	public String delete(@ModelAttribute("cri") SearchCriteria cri,@ModelAttribute("pageable") Pageable pageable, Integer id, RedirectAttributes rattr) {
+	public String delete(@ModelAttribute("cri") SearchCriteria cri, Integer id, RedirectAttributes rattr) {
 		log.debug("Order Manage delete############################ oid : " + id);
 		
 		orderService.delete(id);
@@ -76,7 +75,7 @@ public class OrderManageController {
 	}
 	
 	@RequestMapping(value = "/update/state", method = RequestMethod.POST)
-	public String updateState(@ModelAttribute("cri") SearchCriteria cri,@ModelAttribute("pageable") Pageable pageable, int oid, String state, RedirectAttributes rattr) {
+	public String updateState(@ModelAttribute("cri") SearchCriteria cri, int oid, String state, RedirectAttributes rattr) {
 		log.debug("Order Manage Update State############################ oid : " + oid + ", state : " + state);
 		
 		orderService.updateState(oid, state);

@@ -1,5 +1,6 @@
 package com.coffeekong.controller;
 
+import com.coffeekong.domain.PageMaker;
 import com.coffeekong.domain.SearchCriteria;
 import com.coffeekong.model.Product;
 import com.coffeekong.service.ProductService;
@@ -7,7 +8,6 @@ import com.coffeekong.utils.FileUploadUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -34,7 +34,7 @@ public class ProdManageController {
 	private HttpServletRequest request;
 	
 	@RequestMapping(value = "/insert", method = RequestMethod.GET)
-	public String insertGET(@ModelAttribute("cri") SearchCriteria cri, @ModelAttribute("pageable") Pageable pageable, HttpSession session, Model model) {
+	public String insertGET(@ModelAttribute("cri") SearchCriteria cri, HttpSession session, Model model) {
 		log.debug("Product Manage Insert############################");
 
 		model.addAttribute("content", "pminsert");
@@ -43,7 +43,7 @@ public class ProdManageController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/insert", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
-	public String insertPOST(@ModelAttribute("cri") SearchCriteria cri,@ModelAttribute("pageable") Pageable pageable, Product pvo, MultipartFile file) throws Exception{
+	public String insertPOST(@ModelAttribute("cri") SearchCriteria cri, Product pvo, MultipartFile file, HttpSession session) throws Exception{
 		log.debug("Product Manage Insert############################ pvo : " + pvo.toString());
 		log.debug("originalName: " + file.getOriginalFilename());
 	    log.debug("size: " + file.getSize());
@@ -61,7 +61,7 @@ public class ProdManageController {
 	}
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String list(@ModelAttribute("cri") SearchCriteria cri,@ModelAttribute("pageable") Pageable pageable, Model model) {
+	public String list(@ModelAttribute("cri") SearchCriteria cri, Model model) {
 		log.debug("Product Manage list############################ cri : " + cri.toString());
 
 		if(cri.getKeyword() == null || cri.getKeyword() == ""){
@@ -72,14 +72,14 @@ public class ProdManageController {
 		
 		log.debug("search ######################## : " + cri.getKeyword());
 
-		Page<Product> productList = productService.list(cri, pageable);
+		Page<Product> productList = productService.list(cri);
 		model.addAttribute("list", productList);
 		model.addAttribute("content", "pmlist");
 		return "/admin/adminPage";
 	}
 	
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
-	public String detail(@ModelAttribute("cri") SearchCriteria cri,@ModelAttribute("pageable") Pageable pageable, int pid, HttpSession session, Model model) {
+	public String detail(@ModelAttribute("cri") SearchCriteria cri, int pid, HttpSession session, Model model) {
 		log.debug("Produt Manage Detail############################ pid: " + pid);
 		
 		model.addAttribute("pvo", productService.getByPid(pid));
@@ -88,7 +88,7 @@ public class ProdManageController {
 	}
 	
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
-	public String update(@ModelAttribute("cri") SearchCriteria cri,@ModelAttribute("pageable") Pageable pageable, int pid, HttpSession session, Model model) {
+	public String update(@ModelAttribute("cri") SearchCriteria cri, int pid, HttpSession session, Model model) {
 		log.debug("Product Manage Update############################ pid : " + pid);
 		
 		model.addAttribute("pvo", productService.getByPid(pid));
@@ -98,7 +98,7 @@ public class ProdManageController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/update/save", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
-	public String updateSave(@ModelAttribute("cri") SearchCriteria cri,@ModelAttribute("pageable") Pageable pageable, Product pvo, MultipartFile file, HttpSession session) throws  Exception{
+	public String updateSave(@ModelAttribute("cri") SearchCriteria cri, Product pvo, MultipartFile file, HttpSession session) throws  Exception{
 		log.debug("Product Manage Update Save############################ pvo : " + pvo.toString());
 		
 		if(file != null){

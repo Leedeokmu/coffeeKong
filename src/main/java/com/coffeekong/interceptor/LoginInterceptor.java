@@ -1,6 +1,6 @@
 package com.coffeekong.interceptor;
 
-import com.coffeekong.model.User;
+import com.coffeekong.domain.UserVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,7 +20,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 
 		HttpSession session = request.getSession();
 
-		User uvo = (User) session.getAttribute("login");
+		UserVO uvo = (UserVO) session.getAttribute("login");
 		
 		if (uvo != null) {
 			log.debug("login success ####################");

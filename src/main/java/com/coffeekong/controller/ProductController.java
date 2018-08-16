@@ -1,5 +1,7 @@
 package com.coffeekong.controller;
 
+import com.coffeekong.domain.Criteria;
+import com.coffeekong.domain.PageMaker;
 import com.coffeekong.model.Product;
 import com.coffeekong.model.Review;
 import com.coffeekong.service.ProductService;
@@ -43,7 +45,7 @@ public class ProductController {
 		
 		Product pvo = productService.getByPid(pid);
 		if(session.getAttribute("viewedList") == null){
-			List<Product> list = new ArrayList<>();
+			List<Product> list = new ArrayList<Product>();
 			list.add(pvo);
 			session.setAttribute("viewedList", list);
 		}else{
@@ -107,7 +109,7 @@ public class ProductController {
 	public ResponseEntity<String> deleteReview(@PathVariable int rid){
 		log.debug("delete Review ################### pid : " + rid);
 		ResponseEntity<String> entity = null;
-
+		
 		try {
 		      productService.deleteReview(rid);
 		      entity = new ResponseEntity<>("Success", HttpStatus.OK);

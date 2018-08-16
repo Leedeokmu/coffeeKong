@@ -25,10 +25,10 @@ public class UserManageController {
 	private UserService userService;
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String list(@ModelAttribute("cri") SearchCriteria cri, @ModelAttribute("pageable") Pageable pageable, Model model) {
+	public String list(@ModelAttribute("cri") SearchCriteria cri, Model model) {
 		log.debug("User Manage list############################ cri : " + cri.toString());
 
-		Page<User> userList = userService.list(cri, pageable);
+		Page<User> userList = userService.list(cri);
 		model.addAttribute("list", userList);
 
 		if(cri.getKeyword() == null || cri.getKeyword() == ""){
@@ -53,7 +53,7 @@ public class UserManageController {
 	}
 	
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
-	public String update(@ModelAttribute("cri") SearchCriteria cri, @ModelAttribute("pageable") Pageable pageable, @RequestParam String email, HttpSession session, Model model) {
+	public String update(@ModelAttribute("cri") SearchCriteria cri, @RequestParam String email, HttpSession session, Model model) {
 		log.debug("User Manage Update############################ email : " + email);
 		
 		model.addAttribute("uvo", userService.detail(email));
@@ -62,7 +62,7 @@ public class UserManageController {
 	}
 	
 	@RequestMapping(value = "/update/save", method = RequestMethod.POST)
-	public String updateSave(@ModelAttribute("cri") SearchCriteria cri, @ModelAttribute("pageable") Pageable pageable, User uvo, RedirectAttributes rattr) {
+	public String updateSave(@ModelAttribute("cri") SearchCriteria cri, User uvo, RedirectAttributes rattr) {
 		log.debug("User Manage list############################ uvo : " + uvo.toString());
 		User user = userService.update(uvo);
 		
@@ -72,7 +72,7 @@ public class UserManageController {
 	}
 	
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	public String delete(@ModelAttribute("cri") SearchCriteria cri, @ModelAttribute("pageable") Pageable pageable, String email, HttpSession session, RedirectAttributes rattr) {
+	public String delete(@ModelAttribute("cri") SearchCriteria cri, String email, HttpSession session, RedirectAttributes rattr) {
 		log.debug("User Manage delete############################ email : " + email);
 		
 		userService.deleteUser(email);

@@ -24,8 +24,8 @@ public class ProductService {
 	private ReviewRepositry reviewRepositry;
 
 	// product
-	public Page<Product> list(SearchCriteria cri, Pageable pageable) {
-		return productRepository.findAllBySearchTypeAndKeyword(cri.getSearchType(), cri.getKeyword(), pageable);
+	public Page<Product> list(SearchCriteria cri) {
+		return productRepository.findAllBySearchTypeAndKeyword(cri.getSearchType(), cri.getKeyword(), cri);
 	}
 
 	public List<Product> listByCategory(String category) { return productRepository.findByCategory(category); }
