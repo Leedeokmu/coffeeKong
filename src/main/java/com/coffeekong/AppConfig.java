@@ -1,6 +1,8 @@
 package com.coffeekong;
 
+import com.coffeekong.interceptor.LoginInterceptor;
 import com.coffeekong.utils.MessageUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.PropertiesFactoryBean;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -24,6 +26,7 @@ import org.springframework.web.servlet.HandlerMapping;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -41,14 +44,13 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
 @Configuration
-@EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class, SessionAutoConfiguration.class})
 @EnableScheduling
 @EnableAspectJAutoProxy(proxyTargetClass=true)
 @PropertySources({
 		@PropertySource(name = "application", value = "classpath:application.properties"),
 		@PropertySource(value="file:${properties_file}", ignoreResourceNotFound = true)
 })
-@EnableJpaRepositories(basePackages = "com.coffeekong.repository")
+@EnableJpaRepositories(basePackages = "com.coffeekong.mapper")
 @MultipartConfig(maxFileSize = 10*1024*1024)
 @SpringBootApplication
 public class AppConfig  extends WebMvcConfigurerAdapter {
