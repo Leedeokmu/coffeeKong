@@ -1,12 +1,13 @@
 package com.coffeekong.controller;
 
+import com.coffeekong.domain.PageMaker;
 import com.coffeekong.domain.SearchCriteria;
-import com.coffeekong.model.User;
+import com.coffeekong.domain.UserVO;
 import com.coffeekong.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -25,12 +26,16 @@ public class UserManageController {
 	private UserService userService;
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String list(@ModelAttribute("cri") SearchCriteria cri, Model model) {
+	public String list(@ModelAttribute("cri") SearchCriteria cri, HttpSession session, Model model) {
 		log.debug("User Manage list############################ cri : " + cri.toString());
-
-		Page<User> userList = userService.list(cri);
-		model.addAttribute("list", userList);
-
+		
+		PageMaker pmk = new PageMaker();
+		cri.setStartIdx();
+		pmk.setCri(cri);
+		pmk.setTotalCount(userService.listCount(cri));
+		model.addAttribute("list", userService.list(cri));
+		model.addAttribute("pmk",pmk);
+		
 		if(cri.getKeyword() == null || cri.getKeyword() == ""){
 			model.addAttribute("search", "off");
 		}else{
@@ -44,7 +49,7 @@ public class UserManageController {
 	}
 	
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
-	public String detail(@ModelAttribute("cri") SearchCriteria cri, @ModelAttribute("pageable") Pageable pageable, String email, HttpSession session, Model model) {
+	public String detail(@ModelAttribute("cri") SearchCriteria cri, String email, HttpSession session, Model model) {
 		log.debug("User Manage Detail############################ email: " + email);
 		
 		model.addAttribute("uvo", userService.detail(email));
@@ -62,20 +67,29 @@ public class UserManageController {
 	}
 	
 	@RequestMapping(value = "/update/save", method = RequestMethod.POST)
-	public String updateSave(@ModelAttribute("cri") SearchCriteria cri, User uvo, RedirectAttributes rattr) {
+	public String updateSave(SearchCriteria cri, UserVO uvo, HttpSession session, RedirectAttributes rattr) {
 		log.debug("User Manage list############################ uvo : " + uvo.toString());
-		User user = userService.update(uvo);
 		
-	    rattr.addAttribute("user", user);
-
+		userService.update(uvo);
+		
+		rattr.addAttribute("page", cri.getPage());
+	    rattr.addAttribute("perPageNum", cri.getPerPageNum());
+	    rattr.addAttribute("searchType", cri.getSearchType());
+	    rattr.addAttribute("keyword", cri.getKeyword());
+		
 		return "redirect:/manage/user/list";
 	}
 	
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	public String delete(@ModelAttribute("cri") SearchCriteria cri, String email, HttpSession session, RedirectAttributes rattr) {
+	public String delete(SearchCriteria cri, String email, HttpSession session, RedirectAttributes rattr) {
 		log.debug("User Manage delete############################ email : " + email);
 		
 		userService.deleteUser(email);
+		
+		rattr.addAttribute("page", cri.getPage());
+	    rattr.addAttribute("perPageNum", cri.getPerPageNum());
+	    rattr.addAttribute("searchType", cri.getSearchType());
+	    rattr.addAttribute("keyword", cri.getKeyword());
 		
 		return "redirect:/manage/user/list";
 	}

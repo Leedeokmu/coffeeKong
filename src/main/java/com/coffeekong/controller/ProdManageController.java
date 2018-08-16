@@ -1,13 +1,14 @@
 package com.coffeekong.controller;
 
 import com.coffeekong.domain.PageMaker;
+import com.coffeekong.domain.ProductVO;
 import com.coffeekong.domain.SearchCriteria;
-import com.coffeekong.model.Product;
 import com.coffeekong.service.ProductService;
 import com.coffeekong.utils.FileUploadUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -43,7 +44,7 @@ public class ProdManageController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/insert", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
-	public String insertPOST(@ModelAttribute("cri") SearchCriteria cri, Product pvo, MultipartFile file, HttpSession session) throws Exception{
+	public String insertPOST(SearchCriteria cri, ProductVO pvo, MultipartFile file, HttpSession session) throws Exception{
 		log.debug("Product Manage Insert############################ pvo : " + pvo.toString());
 		log.debug("originalName: " + file.getOriginalFilename());
 	    log.debug("size: " + file.getSize());
@@ -61,9 +62,15 @@ public class ProdManageController {
 	}
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String list(@ModelAttribute("cri") SearchCriteria cri, Model model) {
+	public String list(@ModelAttribute("cri") SearchCriteria cri, HttpSession session, Model model) {
 		log.debug("Product Manage list############################ cri : " + cri.toString());
 
+		cri.setStartIdx();
+		PageMaker pmk = new PageMaker();
+		pmk.setCri(cri);
+		pmk.setTotalCount(productService.listCount(cri));
+		model.addAttribute("pmk",pmk);
+		
 		if(cri.getKeyword() == null || cri.getKeyword() == ""){
 			model.addAttribute("search", "off");
 		}else{
@@ -72,8 +79,7 @@ public class ProdManageController {
 		
 		log.debug("search ######################## : " + cri.getKeyword());
 
-		Page<Product> productList = productService.list(cri);
-		model.addAttribute("list", productList);
+		model.addAttribute("list", productService.list(cri));
 		model.addAttribute("content", "pmlist");
 		return "/admin/adminPage";
 	}
@@ -98,7 +104,7 @@ public class ProdManageController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/update/save", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
-	public String updateSave(@ModelAttribute("cri") SearchCriteria cri, Product pvo, MultipartFile file, HttpSession session) throws  Exception{
+	public String updateSave(SearchCriteria cri, ProductVO pvo, MultipartFile file, HttpSession session) throws  Exception{
 		log.debug("Product Manage Update Save############################ pvo : " + pvo.toString());
 		
 		if(file != null){
@@ -120,10 +126,17 @@ public class ProdManageController {
 	public String delete(SearchCriteria cri, int pid, String p_img, HttpSession session, RedirectAttributes rattr) {
 		log.debug("Product Manage delete############################ pid : " + pid + ", p_img : " + p_img);
 		
+		
 		File file = new File(context.getRealPath("/"), p_img);
 		log.debug("path ###############################" + file.getAbsolutePath());
+
 		file.delete();
 		productService.delete(pid);
+		
+		rattr.addAttribute("page", cri.getPage());
+	    rattr.addAttribute("perPageNum", cri.getPerPageNum());
+	    rattr.addAttribute("searchType", cri.getSearchType());
+	    rattr.addAttribute("keyword", cri.getKeyword());
 		
 		return "redirect:/manage/product/list";
 	}

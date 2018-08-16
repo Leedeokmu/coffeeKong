@@ -1,10 +1,11 @@
 package com.coffeekong.model;
 
+import com.coffeekong.domain.OrderProdVO;
 import lombok.Data;
+import lombok.Getter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -46,6 +47,6 @@ public class Order {
 
     @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "o_id", referencedColumnName = "o_id")
-    private Collection<OrderProduct> opvo = new ArrayList<>();
+    private List<OrderProduct> opvo = new ArrayList<>();
 
 }

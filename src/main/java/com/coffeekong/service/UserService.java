@@ -7,10 +7,9 @@ import com.coffeekong.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -27,34 +26,44 @@ public class UserService {
 		return userRepository.findBySessIdAndAndSessLimitAfter(key, DateTime.now());
 	}
 
-	public User rmbLogin(String email, String sess_id, DateTime limit) {
-		User user = userRepository.getOne(email);
-		user.setSessId(sess_id);
-		user.setSessLimit(limit);
-		return userRepository.save(user);
+	public void rmbLogin(String email, String sess_id, Date limit) {
+		User user = new User();
+		user.set
+		userRepository.save
+		userMapper.rmbLogin(email, sess_id, limit);
 	}
 
-	public User checkDuplicate(String email) {
-		return userRepository.getOne(email);
+	public String checkDuplicate(String email) {
+		return userMapper.checkId(email);
 	}
 
-	public User register(User user) {
-		return userRepository.save(user);
+	public void register(User uvo) {
+		userMapper.register(uvo);
 	}
 
-	public User update(User updatedUser) {
-		return userRepository.save(updatedUser);
+	public void update(User uvo) {
+		userMapper.update(uvo);
 	}
 
-	public User checkUserPw(User user) {
-		return userRepository.getOne(user.getEmail());
+	public String checkUserPw(User uvo) {
+		return userMapper.checkUserPw(uvo);
 	}
 
 	public void deleteUser(String email) {
-		userRepository.delete(email);
+		userMapper.delete(email);
+		
 	}
 
-	public User detail(String email) { return userRepository.getOne(email); }
+	public List<User> list(SearchCriteria cri) {
+		return userMapper.list(cri);
+	}
 
-	public Page<User> list(SearchCriteria cri) { return userRepository.findAllBySearchTypeAndKeyword(cri.getSearchType(), cri.getKeyword(), cri); }
+	public int listCount(SearchCriteria cri) {
+		return userMapper.listCount(cri);
+	}
+
+	public User detail(String email) {
+		return userMapper.detail(email);
+	}
+
 }
