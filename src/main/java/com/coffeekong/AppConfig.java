@@ -16,7 +16,6 @@ import org.springframework.context.annotation.*;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.core.Ordered;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.http.MediaType;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -44,13 +43,14 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
 @Configuration
+@EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class, SessionAutoConfiguration.class})
 @EnableScheduling
+@ComponentScan(basePackages = "com.coffeekong")
 @EnableAspectJAutoProxy(proxyTargetClass=true)
 @PropertySources({
 		@PropertySource(name = "application", value = "classpath:application.properties"),
 		@PropertySource(value="file:${properties_file}", ignoreResourceNotFound = true)
 })
-@EnableJpaRepositories(basePackages = "com.coffeekong.mapper")
 @MultipartConfig(maxFileSize = 10*1024*1024)
 @SpringBootApplication
 public class AppConfig  extends WebMvcConfigurerAdapter {
