@@ -14,47 +14,14 @@
 	<c:when test="${content == null || content == '' }">
 		<c:set var="content" value="./index_init.jsp"/>
 	</c:when>
-	<c:when test="${content.equals('login')}">
-		<c:set var="content" value="./index_init.jsp"/>
+	<c:when test="${content.equals('umList')}">
+		<c:set var="content" value="./user/umList.jsp"/>
 	</c:when>
-	<c:when test="${content.equals('intro')}">
-		<c:set var="content" value="./information/intro.jsp"/>
+	<c:when test="${content.equals('umDetail')}">
+		<c:set var="content" value="./user/umDetail.jsp"/>
 	</c:when>
-	<c:when test="${content.equals('location')}">
-		<c:set var="content" value="./information/location.jsp"/>
-	</c:when>
-	<c:when test="${content.equals('contact')}">
-		<c:set var="content" value="./information/contact.jsp"/>
-	</c:when>
-	<c:when test="${content.equals('regCompl')}">
-		<c:set var="content" value="./user/regCompl.jsp"/>
-	</c:when>
-	<c:when test="${content.equals('cart')}">
-		<c:set var="content" value="./user/cart.jsp"/>
-	</c:when>
-	<c:when test="${content.equals('order') }">
-		<c:set var="content" value="./user/order.jsp" />
-	</c:when>
-	<c:when test="${content.equals('ocompl') }">
-		<c:set var="content" value="./user/orderComplete.jsp" />
-	</c:when>
-	<c:when test="${content.equals('uupdate')}">
-		<c:set var="content" value="./user/uUpdate.jsp"/>
-	</c:when>
-	<c:when test="${content.equals('uucompl')}">
-		<c:set var="content" value="./user/uUpdateComplete.jsp"/>
-	</c:when>
-	<c:when test="${content.equals('uolist')}">
-		<c:set var="content" value="./user/uOrderList.jsp"/>
-	</c:when>
-	<c:when test="${content.equals('uodetail')}">
-		<c:set var="content" value="./user/uOrderDetail.jsp"/>
-	</c:when>
-	<c:when test="${content.equals('uresign')}">
- 		<c:set var="content" value="./user/uResign.jsp"/>
-	</c:when>
-	<c:when test="${content.equals('urcompl')}">
-		<c:set var="content" value="./user/uResignComplete.jsp"/>
+	<c:when test="${content.equals('umUpdate')}">
+		<c:set var="content" value="./user/umUpdate.jsp"/>
 	</c:when>
 	<c:otherwise>
 		<c:set var="content" value="./content.jsp"/>

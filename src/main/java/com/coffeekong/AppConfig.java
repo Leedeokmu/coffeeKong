@@ -1,18 +1,15 @@
 package com.coffeekong;
 
-import com.coffeekong.interceptor.LoginInterceptor;
 import com.coffeekong.utils.MessageUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.PropertiesFactoryBean;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.session.SessionAutoConfiguration;
-import org.springframework.boot.autoconfigure.web.ServerProperties;
-import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.MessageSource;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.core.Ordered;
 import org.springframework.core.io.ClassPathResource;
@@ -25,10 +22,9 @@ import org.springframework.web.servlet.HandlerMapping;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.ViewResolver;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
@@ -36,30 +32,20 @@ import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
-import javax.servlet.MultipartConfigElement;
 import javax.servlet.annotation.MultipartConfig;
 import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
 @Configuration
-@EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class, SessionAutoConfiguration.class})
 @EnableScheduling
-@ComponentScan(basePackages = "com.coffeekong")
 @EnableAspectJAutoProxy(proxyTargetClass=true)
-@PropertySources({
-		@PropertySource(name = "application", value = "classpath:application.properties"),
-		@PropertySource(value="file:${properties_file}", ignoreResourceNotFound = true)
-})
 @MultipartConfig(maxFileSize = 10*1024*1024)
-@SpringBootApplication
-public class AppConfig  extends WebMvcConfigurerAdapter {
+@SpringBootApplication(scanBasePackages = "com.coffeekong", exclude={DataSourceAutoConfiguration.class, SessionAutoConfiguration.class} )
+public class AppConfig  implements WebMvcConfigurer {
 	public static void main(String[] args) {
-//		System.setProperty("spring.devtools.restart.enabled", "false");
-//		System.setProperty("spring.devtools.livereload.enabled", "true");
 		SpringApplication.run(AppConfig.class, args);
 	}
-
 
 	// resource handler 등록
 	@Override
@@ -81,13 +67,8 @@ public class AppConfig  extends WebMvcConfigurerAdapter {
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addViewController("/").setViewName("redirect:/index");
 		registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
-		super.addViewControllers(registry);
 	}
 
-
-	// error page 추가 필요 : ServerpProperties 상속하여 구현
-	@Bean
-	public ServerProperties getServerProperteis() { return new ErrorPageCustomization();}
 //	// 핸들러 매핑 추가
 	@Bean
 	public HandlerMapping handlerMapping(){
@@ -122,16 +103,6 @@ public class AppConfig  extends WebMvcConfigurerAdapter {
 		LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
 		localeChangeInterceptor.setParamName("lang");
 		return localeChangeInterceptor;
-	}
-	// multipart 세팅
-
-	@Bean
-	public MultipartConfigElement multipartConfigElement(){
-		MultipartConfigFactory factory = new MultipartConfigFactory();
-
-		factory.setMaxFileSize(1024 * 1024 * 5);
-		factory.setMaxRequestSize(1024 * 1024 * 5);
-		return factory.createMultipartConfig();
 	}
 
 	@Bean

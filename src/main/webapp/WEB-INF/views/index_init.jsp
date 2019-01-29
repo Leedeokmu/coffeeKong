@@ -80,39 +80,7 @@
 			</div>
 		</div>
 		<hr />
-		<div class="row">
-			<c:choose>
-			<c:when test="${fn:length(viewedList) > 0 }">
-			<c:forEach var="vo" items="${viewedList}" varStatus="status" begin="0" end="7" step="1">
-				<div class="col-sm-3 all_center" style="margin-bottom:5em">
-				    <div class="imageWrapper">
-					    <div>
-					    	<a href="${vo.id}">
-					    		<img src="${vo.img}" class="img-responsive thumbnail" style="width:15em;height:15em" alt="Image">
-					    	</a>
-					    	<a href="${vo.id}" class="cornerLink">$${vo.price}</a>
-				    	</div>
-				    	<div class="h_nav text-center" style="font-size:125%"><a href="${vo.id}">${vo.name}</a></div>
-				    </div>
-		    	</div>
-			</c:forEach>
-			</c:when>
-			<c:otherwise>
-				<div class="h2 u_article text-center">
-					<span>Welcome CoffeeKong! What you see is what you get.</span>
-				</div>
-				
-			</c:otherwise>
-			</c:choose>
-			<form id="plistForm">
-				<input type="hidden" name="id"/>
-			</form>
-		</div>
-		<hr />
 	</div>
-	<c:if test="${content eq 'login' && login == null}">
-		<script>$('#loginModal').modal();</script>
-	</c:if>
 	<script>
 		$('.imageWrapper').on("click", 'a',function(event){
 			event.preventDefault();
