@@ -2,20 +2,20 @@ package com.coffeekong.model;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Data
 @Entity
-@Table(name="tbl_user")
+@Table(name="tbl_user", uniqueConstraints = @UniqueConstraint(columnNames = "u_email"))
 public class User {
 
     @Id
-    @Column(name="u_email")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+
     @NotNull
+    @Column(name="u_email")
     private String email;
 
     @Column(name="u_fname")

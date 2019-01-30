@@ -19,7 +19,7 @@
 			<div class="col-md-3"><span>POINT</span></div>
 		</div>
 		<hr>
-		<c:forEach var="uvo" items="${list }">
+		<c:forEach var="uvo" items="${list}">
 			<div class="row text-center">
 				<div class="col-md-3 h_nav"><a href="/manage/user/detail${pmk.makeSearch(pmk.cri.page) }" class="udBtn">${uvo.email }</a></div>
 				<div class="col-md-3">${uvo.fname }</div>
@@ -45,7 +45,7 @@
 		</div>
 		<div class="row hor_center form-inline">
 			<select name="searchType" class="form-control">
-				<option value="nothing" <c:out value="${cri.searchType == null ? 'selnected' : '' }"/>>--------------</option>
+				<option value="" <c:out value="${cri.searchType == null ? 'selected' : '' }"/>>--------------</option>
 				<option value="email" <c:out value="${cri.searchType  eq 'email' ? 'selected' : '' }"/>>Email</option>
 			</select>
 			<input type="search" class="form-control" name="keyword" value="${cri.keyword }">

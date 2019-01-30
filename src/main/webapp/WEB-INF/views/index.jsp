@@ -14,17 +14,17 @@
 	<c:when test="${content == null || content == '' }">
 		<c:set var="content" value="./index_init.jsp"/>
 	</c:when>
-	<c:when test="${content.equals('umList')}">
+	<c:when test="${content.equals('user-list')}">
 		<c:set var="content" value="./user/umList.jsp"/>
 	</c:when>
-	<c:when test="${content.equals('umDetail')}">
+	<c:when test="${content.equals('user-detail')}">
 		<c:set var="content" value="./user/umDetail.jsp"/>
 	</c:when>
-	<c:when test="${content.equals('umUpdate')}">
+	<c:when test="${content.equals('user-update')}">
 		<c:set var="content" value="./user/umUpdate.jsp"/>
 	</c:when>
 	<c:otherwise>
-		<c:set var="content" value="./content.jsp"/>
+		<c:set var="content" value="./index_init.jsp"/>
 	</c:otherwise>
 </c:choose>
 <body>
