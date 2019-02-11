@@ -16,7 +16,8 @@ public class CreateUserService {
         return userRepository.save(user);
     }
 
-    public User update(User updatedUser) {
+    public User update(Long userId, User updatedUser) {
+        updatedUser.setId(userId);
         return userRepository.save(updatedUser);
     }
 

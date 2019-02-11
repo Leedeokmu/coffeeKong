@@ -1,8 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="common/common.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,11 +12,12 @@
 <link rel="stylesheet" href="/assets/css/image.css" />
 <link rel="stylesheet" href="/assets/css/header.css" />
 </head>
-<body>
+<body class="container">
+<div>
 	<nav class="navbar navbar-default">
-	<div class="container">
+
 		<div class="navbar-header">
-			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" 
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
 			data-target="#headerNav" aria-expanded="false">
 				<span class="sr-only">Toggle navigation</span>
 				<span class="icon-bar"></span>
@@ -41,18 +39,31 @@
 					</ul>
 				</li>
 				<li><a href="/learn">LEARN</a></li>
+				<li><a href="/users">USER MANAGE</a></li>
 			</ul>
 		</div>
 		<hr>
-	</div>
 	</nav>
-	<script src="/vendor/plugins/jQuery/jQuery-3.1.1.js"></script>
-	<script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
-	<script src="/vendor/plugins/jQuery/jquery.validate.min.js"></script>
-	<script src="/vendor/plugins/jQuery/jquery.form.min.js"></script>
-	<script src="/vendor/plugins/jQuery/additional-methods.min.js"></script>
-	<script src="/assets/js/validate.js"></script>
-	<script>
-	</script>
+</div>
 </body>
+<script src="/vendor/plugins/jQuery/jQuery-3.1.1.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="/vendor/plugins/jQuery/jquery.validate.min.js"></script>
+<script src="/vendor/plugins/jQuery/jquery.form.min.js"></script>
+<script src="/vendor/plugins/jQuery/additional-methods.min.js"></script>
+<script src="/assets/js/validate.js"></script>
+<script>
+	const httpCall = (method, url, params, dataType) => {
+		jQuery.ajaxSettings.traditional = true;
+		return $.ajax({
+			type: method,
+			url: url,
+			data: params,
+			dataType: dataType,
+		});
+	};
+	const move = (uri) => {
+		location.href = uri;
+	}
+</script>
 </html>

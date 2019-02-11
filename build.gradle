@@ -86,9 +86,8 @@ dependencies {
 
 	// jsp
 	compile group: 'javax.servlet.jsp', name: 'javax.servlet.jsp-api', version: '2.3.1'
-	compile 'javax.servlet:javax.servlet-api:3.1.0'
 	compile 'javax.servlet:jstl:1.2'
-
+//	compile 'javax.servlet:javax.servlet-api:3.1.0'
 	// jsp tomcat engine
 	compile 'org.apache.tomcat.embed:tomcat-embed-jasper'
 

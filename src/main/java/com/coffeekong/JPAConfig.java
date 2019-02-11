@@ -23,7 +23,7 @@ import javax.sql.DataSource;
 @EnableTransactionManagement
 public class JPAConfig {
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean(){
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(){
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
 
         vendorAdapter.setDatabase(Database.MYSQL);

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ include file="../common/common.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,9 +11,9 @@
 <title>Insert title here</title>
 <script type="text/javascript"	src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAFnGRVCulEtkiSXd6GPWJjZm0NEbuRr6w&sensor=false&libraries=places"></script>
 <script type="text/javascript">
-	var source, destination;
-	var directionsDisplay;
-	var directionsService = new google.maps.DirectionsService();
+	let source, destination;
+	let directionsDisplay;
+	let directionsService = new google.maps.DirectionsService();
 
 	google.maps.event.addDomListener(window, 'load', function() {
 		new google.maps.places.SearchBox(document.getElementById('txtSource'));

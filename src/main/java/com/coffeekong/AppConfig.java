@@ -69,14 +69,14 @@ public class AppConfig  implements WebMvcConfigurer {
 		registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
 	}
 
-//	// 핸들러 매핑 추가
+	// 핸들러 매핑 추가
 	@Bean
 	public HandlerMapping handlerMapping(){
 		RequestMappingHandlerMapping requestMappingHandlerMapping = new RequestMappingHandlerMapping();
 		requestMappingHandlerMapping.setUseSuffixPatternMatch(true);
 		return requestMappingHandlerMapping;
 	}
-	// message source
+
 	@Bean
 	public MessageSource messageSource(){
 		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
@@ -85,7 +85,7 @@ public class AppConfig  implements WebMvcConfigurer {
 		return messageSource;
 	}
 
-	@Bean
+	@Bean(name="coffeekongMessageUtils")
 	public MessageUtils messageUtils(){
 		MessageUtils messageUtils = new MessageUtils(messageSource());
 		return messageUtils;
