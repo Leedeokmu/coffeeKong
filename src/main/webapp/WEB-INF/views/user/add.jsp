@@ -8,81 +8,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>COFFEE KONG.</title>
 </head>
-
 <body>
+<div class="a_title text-center"><h2><span>ADD USER</span></h2></div><br />
 <div class="container">
-    <div class="a_title text-center"><h2><span>USER INFORMATION</span></h2></div><br />
-    <div>
-        <div class="row">
-            <span class="col-md-3">EMAIL</span>
-            <span class="col-md-9">${uvo.email }</span>
-        </div><hr />
-        <div class="row">
-            <span class="col-md-3">FIRST NAME</span>
-            <span class="col-md-9">${uvo.fname }</span>
-        </div><hr />
-        <div class="row">
-            <span class="col-md-3">LAST NAME</span>
-            <span class="col-md-9">${uvo.lname }</span>
-        </div><hr />
-        <div class="row">
-            <span class="col-md-3">POINT</span>
-            <span class="col-md-9">${uvo.point }</span>
-        </div>
-    </div><br />
-    <div>
-        <div class="hor_center">
-            <div class="btn-group">
-                <input type="button" class="btn btn-default uuBtn" value="EDIT"/>
-                <a href="#umdModal" data-toggle="modal" class="btn btn-default">DELETE</a>
+    <form id="addUserForm" class="form-horizontal">
+        <div>
+            <div class="form-group ver_center">
+                <label  class="control-label col-md-3">EMAIL</label>
+                <div class="col-md-9"><span><input type="text" name="email" class="form-control"/></span></div>
             </div>
-            <div id="umdModal" class="modal fade" role="dialog">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h3 class="modal-title text-center">DELTE</h3>
-                        </div>
-                        <div class="modal-body text-center">
-                            <h3>DELETE THIS USER? CHECK ONCE MORE.</h3><br />
-                        </div>
-                        <div class="modal-footer">
-                            <div >
-                                <input type="button" class="btn btn-default udBtn" value="ACCEPT"/>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
+            <div class="form-group ver_center">
+                <label class="control-label col-md-3">FIRST NAME</label>&nbsp;
+                <div class="col-md-9"><input type="text" name="fname" class="form-control"/></div>
+            </div>
+            <div class="form-group ver_center">
+                <label class="control-label col-md-3">LAST NAME</label>&nbsp;
+                <div class="col-md-9"><input type="text" name="lname" class="form-control"/></div>
+            </div>
+            <div class="form-group ver_center">
+                <label class="control-label col-md-3">PASSWORD</label>&nbsp;
+                <div class="col-md-9"><input type="password" name="pwd" class="form-control"/></div>
+            </div>
+            <div class="form-group ver_center">
+                <label class="control-label col-md-3">PASSWORD CONFIRM</label>&nbsp;
+                <div class="col-md-9"><input type="password" name="pwdConfirm" class="form-control"/></div>
+            </div>
+            <div class="hor_center">
+                <div class="btn-group">
+                    <button class="btn btn-default" onclick="addUser()">ACCEPT</button>&nbsp;
+                    <a href="/users" class="btn btn-default" >TO LIST</a>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
 </div>
-<form role="form">
-    <input type='hidden' name='email' value="${uvo.email}">
-    <input type='hidden' name='page' value="${cri.page}">
-    <input type='hidden' name='perPageNum' value="${cri.perPageNum}">
-    <input type='hidden' name='searchType' value="${cri.searchType}">
-    <input type='hidden' name='keyword' value="${cri.keyword}">
-</form>
 <script>
-    $(".uuBtn").on("click",function(e){
-        e.preventDefault();
-        var form = $('form[role="form"]');
-        form.find('input[name="email"]').attr("value", encodeURI(form.find('input[name="email"]').attr("value")));
-        form.attr("method", "get");
-        form.attr("action", "/manage/user/update");
-        form.submit();
-    });
-
-    $(".udBtn").on("click",function(e){
-        e.preventDefault();
-        var form = $('form[role="form"]');
-        form.find('input[name="email"]').attr("value", encodeURI(form.find('input[name="email"]').attr("value")));
-        form.attr("method", "post");
-        form.attr("action", "/manage/user/delete");
-        form.submit();
-    });
+    const addUser = () => {
+        event.preventDefault();
+        if(confirm('are you sure to add user?')){
+            let uri = '/users';
+            let response = httpCall('post', uri, $('#addUserForm').serialize());
+            response.done((res) => {
+                console.log(res);
+                alert('add user succeeded!');
+                move('/users');
+            }).fail((e) => {
+                console.log(e);
+                console.log(e.error)
+                alert('failed to add user');
+            })
+        }
+    }
 </script>
 </body>
 </html>

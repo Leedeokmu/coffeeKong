@@ -11,7 +11,7 @@
 <body>
 	<div class="container a_article">
 		<div class="a_title text-center"><h2><span>USER LIST</span></h2></div><br /><br />
-        <div class="row text-center">
+        <div class="row">
             <table class="table table-responsive table-bordered">
                 <thead>
                     <tr>
@@ -33,7 +33,10 @@
                 </tbody>
             </table>
         </div>
-		<div class="row text-center">
+		<div class="row">
+            <div class="col-md-2">
+                <a href="/users/add" class="btn btn-primary">ADD USER</a>
+            </div>
 			<c:import url="/WEB-INF/views/common/paging.jsp">
 				<c:param name="functionName" value="movePage"/>
 				<c:param name="page" value="users.pageable.page"/>

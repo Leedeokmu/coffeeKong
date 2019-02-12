@@ -24,6 +24,7 @@ public class User {
     @Column(name="u_lname")
     private String lname;
 
+    @NotNull
     @Column(name="u_pwd")
     private String pwd;
 

@@ -33,7 +33,7 @@
 	<c:when test="${content.equals('user-update')}">
 		<c:set var="content" value="./user/update.jsp"/>
 	</c:when>
-	<c:when test="${content.equals('user-addc')}">
+	<c:when test="${content.equals('user-add')}">
 		<c:set var="content" value="./user/add.jsp"/>
 	</c:when>
 	<c:otherwise>

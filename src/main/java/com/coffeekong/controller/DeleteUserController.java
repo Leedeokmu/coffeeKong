@@ -4,28 +4,38 @@ package com.coffeekong.controller;
 import com.coffeekong.service.DeleteUserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Slf4j
 @RequiredArgsConstructor
 @Controller
-@RequestMapping("/users")
 public class DeleteUserController {
     private final DeleteUserService deleteUserService;
 
-    @DeleteMapping("/{userId}")
-    public String delete(
-            @PathVariable("userId") Integer userId,
-            RedirectAttributes rattr
+    @DeleteMapping("/users/{userId}")
+    public @ResponseBody
+    ResponseEntity<Map<String, Object>> delete (
+            @PathVariable("userId") Long userId
     ) {
+        ResponseEntity<Map<String, Object>> entity = null;
+        Map<String,  Object> map = new HashMap<>();
 
+        try{
+            deleteUserService.deleteUser(userId);
+            entity = new ResponseEntity<>(map, HttpStatus.OK);
+        }catch (Exception e){
+            log.error(e.getMessage());
+            entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
 
-
-
-        return "redirect:/users";
+        return entity;
     }
 }
