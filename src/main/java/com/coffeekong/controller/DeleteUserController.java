@@ -27,6 +27,7 @@ public class DeleteUserController {
     ) {
         ResponseEntity<Map<String, Object>> entity = null;
         Map<String,  Object> map = new HashMap<>();
+        String id;
 
         try{
             deleteUserService.deleteUser(userId);
