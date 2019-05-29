@@ -4,19 +4,15 @@ import com.coffeekong.utils.MessageUtils;
 import org.springframework.beans.factory.config.PropertiesFactoryBean;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
-import org.springframework.boot.autoconfigure.session.SessionAutoConfiguration;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.core.Ordered;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.MediaType;
 import org.springframework.scheduling.TaskScheduler;
-import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.concurrent.ConcurrentTaskScheduler;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.web.accept.ContentNegotiationManagerFactoryBean;
 import org.springframework.web.servlet.HandlerMapping;
 import org.springframework.web.servlet.LocaleResolver;
@@ -32,16 +28,12 @@ import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
-import javax.servlet.annotation.MultipartConfig;
 import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
-@Configuration
-@EnableScheduling
-@EnableAspectJAutoProxy(proxyTargetClass=true)
-@MultipartConfig(maxFileSize = 10*1024*1024)
-@SpringBootApplication(scanBasePackages = "com.coffeekong", exclude={DataSourceAutoConfiguration.class, SessionAutoConfiguration.class} )
+@EnableCaching
+@SpringBootApplication
 public class AppConfig  implements WebMvcConfigurer {
 	public static void main(String[] args) {
 		SpringApplication.run(AppConfig.class, args);
@@ -109,7 +101,7 @@ public class AppConfig  implements WebMvcConfigurer {
 	public ScheduledExecutorService taskExecutor() { return Executors.newScheduledThreadPool(20); }
 
 	@Bean
-	public TaskScheduler taskScheduler() { return new ConcurrentTaskScheduler();}
+	public TaskScheduler taskScheduler() { return new ThreadPoolTaskScheduler();}
 
 	@Bean(name = "application")
 	public PropertiesFactoryBean mapper() {

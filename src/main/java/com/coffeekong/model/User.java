@@ -4,11 +4,12 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 @Data
 @Entity
 @Table(name="tbl_user", uniqueConstraints = @UniqueConstraint(columnNames = "u_email"))
-public class User {
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
