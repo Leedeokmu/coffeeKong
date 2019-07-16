@@ -1,32 +1,35 @@
 package com.coffeekong.service;
 
 import com.coffeekong.model.User;
-import com.coffeekong.repository.UserRepository;
+import com.coffeekong.repository.UserDatabaseClientRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @Slf4j
 @RequiredArgsConstructor
 @Service
 public class ReadUserService {
-	private final UserRepository userRepository;
+	private final UserDatabaseClientRepository userDatabaseClientRepository;
+	private static Mono<User> error = Mono.error(new Exception("No user was found"));
 
 	@Cacheable(value="userCache", key="#userId")
-	public User getUserById(Long userId) {
-		return userRepository.getById(userId);
+	public Mono<User> getUserById(Long userId) {
+		return userDatabaseClientRepository.getById(userId).switchIfEmpty(error);
 	}
+
 	@Cacheable(value="userCache")
-	public User getUser() {
-		return userRepository.getById(3L);
+	public Mono<User> getUser() {
+		return userDatabaseClientRepository.getById(3L);
 	}
 
 	@Cacheable(value = "userListPagingCache")
-	public Page<User> getUserList(Pageable pageable){
-		return userRepository.findAll(pageable);
+	public Flux<User> getUserList(Pageable pageable){
+		return userDatabaseClientRepository.findAll(pageable).switchIfEmpty(error);
 	}
 
 }

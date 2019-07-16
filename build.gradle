@@ -1,9 +1,11 @@
 buildscript {
 	ext {
-		springBootVersion = '2.1.1.RELEASE'
+		springBootVersion = '2.2.0.M3'
+
 	}
 	repositories {
 		mavenCentral()
+		maven { url "http://repo.spring.io/milestone" }
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
@@ -16,21 +18,25 @@ apply plugin: 'war'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
+
 springBoot {
 	buildInfo()
 }
 
+project.ext{
+	springSessionVersion = '1.1.1.RELEASE'
+	version = '1.0.0'
+}
+
 bootWar {
-	archiveName = "coffeekong-min.war"
+	archiveName = "coffeekong-${version}.war"
 }
 
 repositories {
 	mavenCentral()
+	maven { url "http://repo.spring.io/milestone" }
 }
 
-project.ext{
-	springSessionVersion = '1.1.1.RELEASE'
-}
 
 final String DEFAULT_PROFILE = 'dev'
 if(!project.hasProperty('profile') || !profile){
@@ -61,15 +67,27 @@ sourceSets{
 dependencies {
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	// spring boot essentials
-	compile('org.springframework.boot:spring-boot-starter-web')
+	compile('org.springframework.boot:spring-boot-starter-webflux')
 	compile('org.springframework.boot:spring-boot-starter-cache')
-	compile("org.springframework.boot:spring-boot-starter-aop")
+//	compile("org.springframework.boot:spring-boot-starter-aop")
 //	compile("org.springframework.boot:spring-boot-starter-jdbc")
 	compile('org.springframework.boot:spring-boot-starter-tomcat')
 	compile('org.springframework.boot:spring-boot-starter-json')
-	compile('org.springframework.boot:spring-boot-starter-data-jpa')
+//	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('org.springframework.boot:spring-boot-starter-actuator')
 	compile('org.springframework.boot:spring-boot-devtools')
+	//   r2dbc Milestone version driver
+	implementation 'org.springframework.data:spring-data-r2dbc:1.0.0.M2'
+	//   postgres r2dbc Milestone version driver
+	implementation 'io.r2dbc:r2dbc-postgresql:0.8.0.M8'
+
+	// lombok
+	implementation 'org.projectlombok:lombok:1.18.4'
+	annotationProcessor 'org.projectlombok:lombok:1.18.4'
+
+	// Ehcache
+	compile('javax.cache:cache-api:1.1.0')
+	compile('org.ehcache:ehcache:3.6.2')
 
 	implementation('javax.xml.bind:jaxb-api:2.3.0')
 	implementation('com.sun.xml.bind:jaxb-core:2.3.0')
@@ -78,12 +96,8 @@ dependencies {
 //	compile('org.glassfish.jaxb:jaxb-runtime:2.3.1')
 //	compile('org.eclipse.persistence:org.eclipse.persistence.moxy:2.7.3')
 
-	// Ehcache
-	compile('javax.cache:cache-api:1.1.0')
-	compile('org.ehcache:ehcache:3.6.2')
-
 	// session
-	compile("org.springframework.session:spring-session:${springSessionVersion}")
+//	compile("org.springframework.session:spring-session:${springSessionVersion}")
 
 	// validator
 	compile('javax.validation:validation-api:1.1.0.Final')
@@ -94,19 +108,11 @@ dependencies {
 	compile 'org.apache.commons:commons-lang3:3.0'
 	compile 'commons-io:commons-io:2.4'
 
-	// lombok
-	compile 'org.projectlombok:lombok:1.18.4'
-
 	// mysql connector
-	compile 'mysql:mysql-connector-java:5.1.36'
+	// compile 'mysql:mysql-connector-java:5.1.36'
 
 	// jsp
 	compile group: 'javax.servlet.jsp', name: 'javax.servlet.jsp-api', version: '2.3.1'
 	compile 'javax.servlet:jstl:1.2'
-//	compile 'javax.servlet:javax.servlet-api:3.1.0'
-	// jsp tomcat engine
 	compile 'org.apache.tomcat.embed:tomcat-embed-jasper'
-
-	// json
-	compile group: 'org.json', name: 'json', version: '20160212'
 }

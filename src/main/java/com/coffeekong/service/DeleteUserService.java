@@ -1,20 +1,19 @@
 package com.coffeekong.service;
 
-import com.coffeekong.repository.UserRepository;
+import com.coffeekong.repository.UserDatabaseClientRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import reactor.core.publisher.Mono;
 
 @Slf4j
 @RequiredArgsConstructor
 @Service
 public class DeleteUserService {
-    private final UserRepository userRepository;
+    private final UserDatabaseClientRepository userDatabaseClientRepository;
 
-    @Transactional
-    public void deleteUser(Long userId){
-        userRepository.deleteById(userId);
+    public Mono<Void> deleteUser(Long userId){
+        return userDatabaseClientRepository.deleteById(userId);
     }
 
 }

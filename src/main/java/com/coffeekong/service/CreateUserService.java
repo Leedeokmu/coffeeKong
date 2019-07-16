@@ -1,24 +1,25 @@
 package com.coffeekong.service;
 
 import com.coffeekong.model.User;
-import com.coffeekong.repository.UserRepository;
+import com.coffeekong.repository.UserDatabaseClientRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
 
 @Slf4j
 @RequiredArgsConstructor
 @Service
 public class CreateUserService {
-    private final UserRepository userRepository;
+    private final UserDatabaseClientRepository userDatabaseClientRepository;
 
-    public User register(User user) {
-        return userRepository.save(user);
+    public Mono<Void> register(User user) {
+        return userDatabaseClientRepository.save(user);
     }
 
-    public User update(Long userId, User updatedUser) {
+    public Mono<Void> update(Long userId, User updatedUser) {
         updatedUser.setId(userId);
-        return userRepository.save(updatedUser);
+        return userDatabaseClientRepository.update(updatedUser);
     }
 
 }
