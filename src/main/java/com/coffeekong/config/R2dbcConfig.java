@@ -23,7 +23,7 @@ public class R2dbcConfig extends AbstractR2dbcConfiguration {
     @Value("${spring.data.postgres.password}") private String password;
 
     // postgres db configuration
-    @Override
+    @Bean
     public ConnectionFactory connectionFactory() {
         return new PostgresqlConnectionFactory(
                 PostgresqlConnectionConfiguration.builder()
