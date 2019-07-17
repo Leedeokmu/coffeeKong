@@ -32,4 +32,8 @@ public class ReadUserService {
 		return userDatabaseClientRepository.findAll(pageable).switchIfEmpty(error);
 	}
 
+	public Mono<Long> getUserTotalCount(){
+		return userDatabaseClientRepository.getTotalCount();
+	}
+
 }

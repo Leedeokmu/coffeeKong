@@ -51,6 +51,15 @@ public class UserDatabaseClientRepository {
                 .all();
     }
 
+    public Mono<Long> getTotalCount(){
+        return databaseClient.execute()
+                .sql("SELECT count(id) from user")
+                .as(Long.class)
+                .fetch()
+                .first()
+                ;
+    }
+
 
 
 }

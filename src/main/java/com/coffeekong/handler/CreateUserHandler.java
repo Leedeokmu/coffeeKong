@@ -5,23 +5,14 @@ import com.coffeekong.service.CreateUserService;
 import com.coffeekong.service.ReadUserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.reactive.function.BodyInserter;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import static org.springframework.web.reactive.function.BodyInserters.fromObject;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -66,13 +57,22 @@ public class CreateUserHandler {
 
     public Mono<ServerResponse> updateUserPage(ServerRequest request){
         Long userId = Long.parseLong(request.pathVariable("userId"));
-        Map<String, Object> data = new HashMap<>();
-        data.put("content", "user-update");
-        data.put("user", readUserService.getUserById(userId));
 
-        return ServerResponse.ok()
-                .render("/index", data)
-                .switchIfEmpty(notFound);
+
+        return readUserService.getUserById(userId)
+                .flatMap(user -> {
+                    Map<String, Object> data = new HashMap<>();
+                    data.put("content", "user-update");
+                    data.put("user", user);
+                    return ServerResponse.ok()
+                            .render("/index", data)
+                            .switchIfEmpty(notFound);
+                })
+                .onErrorResume(e -> {
+                    log.error("failed to retrieve update page : {}", e.getMessage());
+                    return ServerResponse.badRequest().build();
+                })
+                ;
     }
 
     public Mono<ServerResponse> updateUser(ServerRequest request){
