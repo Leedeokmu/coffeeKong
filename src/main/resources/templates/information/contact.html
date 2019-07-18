@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+>
+<section th:fragment="contact">
+	<div class="container" style="width:30em;height:40em">
+		<div class="u_title">
+			<h2>CONTACT US</h2>
+		</div>
+		<form action="#">
+			<div>
+				<div><input type="text" name="name" class="form-control" placeholder="Input your name"/></div><br />
+				<div><input type="email" name="email" class="form-control" placeholder="Input your email"/></div><br />
+				<div><textarea name="content" class="form-control" placeholder="what can we help?"></textarea></div><br />
+			</div>
+			<div style="display:flex;justify-content:flex-end;">
+				<input type="submit" class="btn btn-default" value="send"/>
+			</div>
+		</form>
+	</div>
+</section>
+</html>

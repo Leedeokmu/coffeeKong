@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>COFFEEKONG INC.</title>
+</head>
+<body>
+	<!-- header -->
+	<header id="header" th:include="header :: header"></header>
+	<!-- content -->
+	<div id="content" th:switch="${content}">
+		<section th:case="'french'" th:replace="brew_french :: brew_french"></section>
+		<section th:case="'clever'" th:replace="brew_clever :: brew_clever"></section>
+		<section th:case="'chemex'" th:replace="brew_chemex :: brew_chemex"></section>
+		<section th:case="*" th:replace="brew_list :: brew_list"></section>
+	</div>
+	<!-- footer -->
+	<footer id="footer" th:replace="footer :: footer"></footer>
+</body>
+</html>

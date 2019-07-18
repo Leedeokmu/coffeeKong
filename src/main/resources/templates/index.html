@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>WELCOME TO COFFEE KONG.</title>
+</head>
+<link rel="stylesheet" href="/static/vendor/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="/static/assets/css/style.css" />
+<link rel="stylesheet" href="/static/assets/css/image.css" />
+<link rel="stylesheet" href="/static/assets/css/header.css" />
+
+<script src="/vendor/plugins/jQuery/jQuery-3.1.1.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="/vendor/plugins/jQuery/jquery.validate.min.js"></script>
+<script src="/vendor/plugins/jQuery/jquery.form.min.js"></script>
+<script src="/vendor/plugins/jQuery/additional-methods.min.js"></script>
+<script src="/assets/js/validate.js"></script>
+<body>
+	<!-- header start-->
+		<header id="header" th:replace="header :: header"></header>
+	<!-- header end-->
+	<!-- content start -->
+		<th:block th:switch="${content}">
+			<section th:case="'intro'" th:replace="information/intro :: intro"></section>
+			<section th:case="'location'" th:replace="information/location :: location"></section>
+			<section th:case="'contact'" th:replace="information/contact :: contact"></section>
+
+			<section th:case="'user-list'" th:replace="user/list :: user_list"></section>
+			<section th:case="'user-detail'" th:replace="user/detail :: user_detail"></section>
+			<section th:case="'user-update'" th:replace="user/update :: user_update"></section>
+			<section th:case="'user-add'" th:replace="user/add :: user_add"></section>
+			<section th:case="*" th:replace="index_init :: index_init"></section>
+		</th:block>
+	<!-- content end -->
+	<!-- footer start -->
+		<footer id="footer" th:replace="footer :: footer"></footer>
+	<!-- footer start -->
+	</div>
+</body>
+
+<script>
+	const httpCall = (method, url, params, dataType) => {
+		jQuery.ajaxSettings.traditional = true;
+		return $.ajax({
+			type: method,
+			url: url,
+			data: params,
+			dataType: dataType,
+		});
+	};
+	const move = (uri) => {
+		location.href = uri;
+	}
+</script>
+</html>
