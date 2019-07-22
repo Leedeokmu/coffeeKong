@@ -1,22 +1,29 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
->
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>COFFEEKONG INC.</title>
+	<title>WELCOME TO COFFEE KONG.</title>
 </head>
 <body>
 	<!-- header -->
-	<header id="header" th:include="header :: header"></header>
+	<header id="header" th:replace="header :: header"></header>
 	<!-- content -->
-	<div id="content" th:switch="${content}">
-		<section th:case="'french'" th:replace="brew_french :: brew_french"></section>
-		<section th:case="'clever'" th:replace="brew_clever :: brew_clever"></section>
-		<section th:case="'chemex'" th:replace="brew_chemex :: brew_chemex"></section>
-		<section th:case="*" th:replace="brew_list :: brew_list"></section>
-	</div>
+	<th:block th:switch="${content}">
+		<th:block th:case="'french'" >
+			<section th:replace="learn/brew_french :: brew_french"></section>
+		</th:block>
+		<th:block th:case="'clever'" >
+			<section th:replace="learn/brew_clever :: brew_clever"></section>
+		</th:block>
+		<th:block th:case="'chemex'" >
+			<section th:replace="learn/brew_chemex :: brew_chemex"></section>
+		</th:block>
+		<th:block th:case="*" >
+			<section th:replace="learn/brew_list :: brew_list"></section>
+		</th:block>
+	</th:block>
 	<!-- footer -->
 	<footer id="footer" th:replace="footer :: footer"></footer>
 </body>

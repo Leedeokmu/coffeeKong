@@ -45,7 +45,7 @@ See here for more details: http://gordondickens.com/wordpress/2013/03/27/sawing-
 <!--    <logger name="jdbc.sqlonly" additivity="false" level="DEBUG"/>-->
 <!--    <logger name="jdbc.resultsettable" additivity="false"  level="DEBUG"/>-->
 
-    <root level="INFO">
+    <root level="DEBUG">
         <appender-ref ref="console" />
         <appender-ref ref="rolling" />
     </root>

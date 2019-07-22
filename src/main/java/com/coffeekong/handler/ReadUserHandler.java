@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
+import org.springframework.web.reactive.result.view.Rendering;
 import reactor.core.publisher.Mono;
 
 import java.util.HashMap;
@@ -41,11 +42,12 @@ public class ReadUserHandler {
             paging.setPageSize(pageable.getPageSize());
             paging.setTotalCount(ttlCount);
 
-            Map<String, Object> data = new HashMap<>();
-            data.put("content", "user-add");
-            data.put("user", userList);
-            data.put("paging", paging);
-            return data;
+            return Rendering.view("index")
+                    .modelAttribute("content", "user-add")
+                    .modelAttribute("user", userList)
+                    .modelAttribute("paging", paging)
+                    .build()
+                    .modelAttributes();
         })
                 .flatMap(map -> ServerResponse.ok()
                         .render("index", map)

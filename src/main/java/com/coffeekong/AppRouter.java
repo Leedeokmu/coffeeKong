@@ -7,14 +7,12 @@ import com.coffeekong.handler.ReadUserHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.reactive.config.EnableWebFlux;
 import org.springframework.web.reactive.function.server.RouterFunction;
 
 import static org.springframework.web.reactive.function.server.RequestPredicates.*;
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 
 @RequiredArgsConstructor
-@EnableWebFlux
 @Configuration
 public class AppRouter {
     private final ReadUserHandler readUserHandler;
@@ -41,7 +39,7 @@ public class AppRouter {
                         .andRoute(GET("/info/location"), indexHandler::location)
                         .andRoute(GET("/info/contact"), indexHandler::contact)
                         .andRoute(GET("/learn"), indexHandler::learn)
-                        .andRoute(GET("//learn/{type}"), indexHandler::learnSubmenu);
+                        .andRoute(GET("/learn/{type}"), indexHandler::learnSubmenu);
     }
 
 }
