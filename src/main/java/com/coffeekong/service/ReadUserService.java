@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Schedulers;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -19,7 +20,7 @@ public class ReadUserService {
 
 //	@Cacheable(value="userCache", key="#userId")
 	public Mono<Users> getUserById(Long userId) {
-		return userDatabaseClientRepository.getById(userId).switchIfEmpty(error);
+		return userDatabaseClientRepository.getById(userId).subscribeOn(Schedulers.elastic()).switchIfEmpty(error);
 	}
 
 	@Cacheable(value="userCache")
@@ -29,7 +30,7 @@ public class ReadUserService {
 
 //	@Cacheable(value = "userListPagingCache")
 	public Flux<Users> getUserList(Pageable pageable){
-		return userDatabaseClientRepository.findAll(pageable).cache().switchIfEmpty(error);
+		return userDatabaseClientRepository.findAll(pageable).subscribeOn(Schedulers.elastic()).switchIfEmpty(error);
 	}
 
 	public Mono<Long> getUserTotalCount(){
