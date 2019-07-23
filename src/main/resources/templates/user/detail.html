@@ -1,31 +1,30 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
->
+<html xmlns:th="http://www.thymeleaf.org">
 <section th:fragment="user_detail">
 	<div class="container">
 		<div class="a_title text-center"><h2><span>USER INFORMATION</span></h2></div><br />
 		<div>
 			<div class="row">
 				<span class="col-md-3">ID</span>
-				<span class="col-md-9">${user.id }</span>
+				<span class="col-md-9" th:text="${user.id }">ID</span>
 			</div><hr />
 			<div class="row">
 				<span class="col-md-3">EMAIL</span>
-				<span class="col-md-9">${user.email }</span>
+				<span class="col-md-9" th:text="${user.email }">EMAIL</span>
 			</div><hr />
 			<div class="row">
 				<span class="col-md-3">FIRST NAME</span>
-				<span class="col-md-9">${user.fname }</span>
+				<span class="col-md-9" th:text="${user.fname }">FIRST NAME</span>
 			</div><hr />
 			<div class="row">
 				<span class="col-md-3">LAST NAME</span>
-				<span class="col-md-9">${user.lname }</span>
+				<span class="col-md-9" th:text="${user.lname }">LAST NAME</span>
 			</div><hr />
 		</div><br />
 		<div>
 			<div class="hor_center">
 				<div class="btn-group">
-					<button class="btn btn-default" onclick="move('/users/${user.id}/edit')">EDIT</button>
+					<button class="btn btn-default" th:onclick="|move('/users/${user.id}/edit')|">EDIT</button>
 					<a href="#userDeleteModal" data-toggle="modal" class="btn btn-default">DELETE</a>
 				</div>
 			</div>
@@ -44,7 +43,7 @@
 				</div>
 				<div class="modal-footer">
 					<div >
-						<input type="button" class="btn btn-danger" onclick="deleteUser()" value="ACCEPT"/>
+						<input type="button" class="btn btn-danger" th:onclick="|deleteUser(${user.id})|" value="ACCEPT"/>
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 					</div>
 				</div>
@@ -53,11 +52,11 @@
 	</div>
 
 	<script>
-		const deleteUser = () => {
+		const deleteUser = (userId) => {
 			if(confirm('are you sure to delete ${user.email}?')){
 				let uri = '/users/${user.id}';
 				let params = {};
-				params.userId = ${user.id};
+				params.userId = ;
 				let response = httpCall('DELETE', uri, params);
 				response.done((res) => {
 					alert('delete ${user.email} succeeded!');

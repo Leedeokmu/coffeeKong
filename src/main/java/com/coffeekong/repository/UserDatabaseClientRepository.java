@@ -1,6 +1,6 @@
 package com.coffeekong.repository;
 
-import com.coffeekong.model.User;
+import com.coffeekong.model.Users;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.r2dbc.core.DatabaseClient;
@@ -14,38 +14,38 @@ import reactor.core.publisher.Mono;
 public class UserDatabaseClientRepository {
     private final DatabaseClient databaseClient;
 
-    public Mono<Void> save(User user){
+    public Mono<Void> save(Users users){
         return databaseClient.insert()
-                .into(User.class)
-                .using(user)
+                .into(Users.class)
+                .using(users)
                 .then();
     }
 
-    public Mono<Void> update(User user){
+    public Mono<Void> update(Users users){
         return databaseClient.update()
-                .table(User.class)
-                .using(user)
+                .table(Users.class)
+                .using(users)
                 .then();
     }
 
     public Mono<Void> deleteById(Long userId){
         return databaseClient.delete()
-                .from(User.class)
+                .from(Users.class)
                 .matching(Criteria.where("id").is(userId))
                 .then();
     }
 
-    public Mono<User> getById(Long userId){
+    public Mono<Users> getById(Long userId){
         return databaseClient.select()
-                .from(User.class)
+                .from(Users.class)
                 .matching(Criteria.where("id").is(userId))
                 .fetch()
                 .one();
     }
 
-    public Flux<User> findAll(Pageable page){
+    public Flux<Users> findAll(Pageable page){
         return databaseClient.select()
-                .from(User.class)
+                .from(Users.class)
                 .page(page)
                 .fetch()
                 .all();
@@ -53,7 +53,7 @@ public class UserDatabaseClientRepository {
 
     public Mono<Long> getTotalCount(){
         return databaseClient.execute()
-                .sql("SELECT count(id) from user")
+                .sql("SELECT count(id) from users")
                 .as(Long.class)
                 .fetch()
                 .first()

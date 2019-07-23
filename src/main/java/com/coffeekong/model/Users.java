@@ -6,8 +6,7 @@ import org.springframework.data.relational.core.mapping.Table;
 
 @Data
 @Table
-public class User {
-
+public class Users {
     @Id
     private Long id;
     private String email;
@@ -15,6 +14,10 @@ public class User {
     private String lname;
     private String pwd;
 
-
-
+    public Users(String email, String fname, String lname, String pwd) {
+        this.email = email;
+        this.fname = fname;
+        this.lname = lname;
+        this.pwd = pwd;
+    }
 }

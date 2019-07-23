@@ -15,37 +15,31 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach var="user" items="${users.content}">
-                    <tr>
-                        <td class="text-center h_nav"><a href="/users/${user.id}" class="udBtn">${user.id }</a></td>
-                        <td class="text-center">${user.email}</td>
-                        <td class="text-center">${user.fname}</td>
-                        <td class="text-center">${user.lname}</td>
+                    <tr th:each="user : ${user}">
+                        <td class="text-center h_nav"><a th:href="@{/users/${user.id}}" class="udBtn" th:text="${user.id}">ID</a></td>
+                        <td class="text-center" th:text="${user.email}">EMAIL</td>
+                        <td class="text-center" th:text="${user.fname}">FIRST NAME</td>
+                        <td class="text-center" th:text="${user.lname}">LAST NAME</td>
                     </tr>
-                    </c:forEach>
                 </tbody>
             </table>
         </div>
 		<div class="row">
             <div class="col-md-2">
-                <a href="/users/add" class="btn btn-primary">ADD USER</a>
+                <a th:href="@{/users/add}" class="btn btn-primary">ADD USER</a>
             </div>
-			<c:import url="/WEB-INF/views/common/paging.jsp">
-				<c:param name="functionName" value="movePage"/>
-				<c:param name="page" value="users.pageable.page"/>
-			</c:import>
+            <th:block th:replace="common/paging :: paging (${paging})"></th:block>
 		</div>
 	</div>
     <script>
         const movePage = (pageNo) => {
             let url = '/users?';
             if (pageNo > 0) {
-                url += '&page=' + pageNo;
+                url += 'page=' + pageNo;
             }
             console.log(url);
             location.href = url;
         }
-
     </script>
 </section>
 </html>

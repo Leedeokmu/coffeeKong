@@ -34,7 +34,7 @@ public class AppRouter {
                         .andRoute(GET("/users"), readUserHandler::listUser)
                         .andRoute(GET("/users/{userId}"), readUserHandler::getUser)
                         // 그 외 페이지
-                        .andRoute(GET("/index"), indexHandler::index)
+                        .andRoute(GET("/index").or(GET("/")), indexHandler::index)
                         .andRoute(GET("/info/intro"), indexHandler::intro)
                         .andRoute(GET("/info/location"), indexHandler::location)
                         .andRoute(GET("/info/contact"), indexHandler::contact)

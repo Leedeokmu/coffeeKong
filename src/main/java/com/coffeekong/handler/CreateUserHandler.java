@@ -1,6 +1,6 @@
 package com.coffeekong.handler;
 
-import com.coffeekong.model.User;
+import com.coffeekong.model.Users;
 import com.coffeekong.service.CreateUserService;
 import com.coffeekong.service.ReadUserService;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
+import org.springframework.web.reactive.result.view.Rendering;
 import reactor.core.publisher.Mono;
 
 import java.util.HashMap;
@@ -24,17 +25,18 @@ public class CreateUserHandler {
     private Mono<ServerResponse> notFound = ServerResponse.notFound().build();
 
     public Mono<ServerResponse> createUserPage(ServerRequest request){
-        Map<String, Object> data = new HashMap<>();
-        data.put("content", "user-add");
         return ServerResponse.ok()
-                .render("/index", data)
+                .render("index", Rendering.view("index")
+                        .modelAttribute("content", "user-add")
+                        .build()
+                        .modelAttributes())
                 .switchIfEmpty(notFound);
     }
 
     public Mono<ServerResponse> createUser(ServerRequest request){
         Map<String, String> error = new HashMap<>();
         String pwdConfirm = (String) request.attribute("pwdConfirm").orElse("");
-        Mono<User> user = request.bodyToMono(User.class)
+        Mono<Users> user = request.bodyToMono(Users.class)
                 .filter(u -> u.getPwd().equals(pwdConfirm))
                 .switchIfEmpty(Mono.error(new Exception("password not matched")))
                 .doOnError((e) -> {
@@ -60,14 +62,14 @@ public class CreateUserHandler {
 
 
         return readUserService.getUserById(userId)
-                .flatMap(user -> {
-                    Map<String, Object> data = new HashMap<>();
-                    data.put("content", "user-update");
-                    data.put("user", user);
-                    return ServerResponse.ok()
-                            .render("/index", data)
-                            .switchIfEmpty(notFound);
-                })
+                .flatMap(user ->  ServerResponse.ok()
+                            .render("index", Rendering.view("index")
+                                    .modelAttribute("content", "user-update")
+                                    .modelAttribute("user", user)
+                                    .build()
+                                    .modelAttributes())
+                            .switchIfEmpty(notFound)
+                )
                 .onErrorResume(e -> {
                     log.error("failed to retrieve update page : {}", e.getMessage());
                     return ServerResponse.badRequest().build();
@@ -78,7 +80,7 @@ public class CreateUserHandler {
     public Mono<ServerResponse> updateUser(ServerRequest request){
         Long userId = Long.parseLong(request.pathVariable("userId"));
 
-        return request.bodyToMono(User.class)
+        return request.bodyToMono(Users.class)
                 .flatMap(u -> createUserService.update(userId, u))
                 .flatMap(u -> ServerResponse.ok()
                         .build())
