@@ -9,7 +9,6 @@
 <body>
 	<!-- header start-->
 	<header id="header" th:replace="header :: header"></header>
-	<!-- header end-->
 	<!-- content start -->
 	<th:block th:switch="${content}">
 		<th:block th:case="'intro'">
@@ -37,12 +36,9 @@
 			<section th:replace="index_init :: index_init"></section>
 		</th:block>
 	</th:block>
-	<!-- content end -->
 	<!-- footer start -->
 	<footer id="footer" th:replace="footer :: footer"></footer>
-	<!-- footer start -->
 </body>
-
 <script>
 	const httpCall = (method, url, params, dataType) => {
 		jQuery.ajaxSettings.traditional = true;
@@ -51,6 +47,7 @@
 			url: url,
 			data: params,
 			dataType: dataType,
+            contentType: 'application/json',
 		});
 	};
 	const move = (uri) => {

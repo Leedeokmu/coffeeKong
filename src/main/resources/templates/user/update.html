@@ -7,27 +7,27 @@
 			<div>
 				<div class="form-group ver_center">
 					<label  class="control-label col-md-3">ID</label>
-					<div class="col-md-9"><span><input type="text" name="id" class="form-control" th:value="${user.id}" readonly="readonly"/></span></div>
+					<div class="col-md-9"><span><input type="text" name="id" id="id" class="form-control" th:value="${user.id}" readonly="readonly"/></span></div>
 				</div>
 				<div class="form-group ver_center">
 					<label  class="control-label col-md-3">EMAIL</label>
-					<div class="col-md-9"><span><input type="text" name="email" class="form-control" th:value="${user.email}" readonly="readonly"/></span></div>
+					<div class="col-md-9"><span><input type="text" name="email" id="email"class="form-control" th:value="${user.email}" readonly="readonly"/></span></div>
 				</div>
 				<div class="form-group ver_center">
-					<label class="control-label col-md-3">FIRST NAME</label>&nbsp;
-					<div class="col-md-9"><input type="text" name="fname" class="form-control" th:value="${user.fname }" /></div>
+					<label class="control-label col-md-3">FIRST NAME</label>
+					<div class="col-md-9"><input type="text" name="fname" id="fname" class="form-control" th:value="${user.fname }" /></div>
 				</div>
 				<div class="form-group ver_center">
-					<label class="control-label col-md-3">LAST NAME</label>&nbsp;
-					<div class="col-md-9"><input type="text" name="lname" class="form-control" th:value="${user.lname }" /></div>
+					<label class="control-label col-md-3">LAST NAME</label>
+					<div class="col-md-9"><input type="text" name="lname" id="lname" class="form-control" th:value="${user.lname }" /></div>
 				</div>
 				<div class="form-group ver_center">
-					<label class="control-label col-md-3">PASSWORD</label>&nbsp;
-					<div class="col-md-9"><input type="password" class="form-control" name="pwd" /></div>
+					<label class="control-label col-md-3">PASSWORD</label>
+					<div class="col-md-9"><input type="password" class="form-control" name="pwd" id="pwd"/></div>
 				</div>
 				<div class="hor_center">	
 					<div class="btn-group">
-						<button class="btn btn-default" th:onclick="|updateUser(${user.email})|">ACCEPT</button>&nbsp;
+						<button type="button" class="btn btn-default" th:attr="onclick=|updateUser('${user.id}','${user.email}')|">ACCEPT</button>&nbsp;
 						<a th:href="@{/users}" class="btn btn-default ulBtn" >TO LIST</a>
 					</div>
 				</div>
@@ -35,10 +35,21 @@
 		</form>
 	</div>
 	<script>
-		const updateUser = (email) => {
+		const updateUser = (id, email) => {
 			if(confirm(`are you sure to update ${email}?`)){
-				let uri = `/users/${email}`;
-				let response = httpCall('PUT', uri, $('#updateUserForm').serialize());
+				let email = $('#email').val();
+				let lname = $('#lname').val();
+				let fname = $('#fname').val();
+				let pwd = $('#pwd').val();
+
+				let uri = `/users/${id}`;
+				let params = {};
+				params.email = email;
+				params.fname = fname;
+				params.lname = lname;
+				params.pwd = pwd;
+
+				let response = httpCall('PUT', uri, JSON.stringify(params));
 				response.done((res) => {
 					alert(`update ${email} success!`);
 					move('/users');

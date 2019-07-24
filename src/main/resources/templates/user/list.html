@@ -16,7 +16,7 @@
                 </thead>
                 <tbody>
                     <tr th:each="user : ${user}">
-                        <td class="text-center h_nav"><a th:href="@{/users/${user.id}}" class="udBtn" th:text="${user.id}">ID</a></td>
+                        <td class="text-center h_nav"><a th:href="@{|/users/${user.id}|}" th:text="${user.id}">ID</a></td>
                         <td class="text-center" th:text="${user.email}">EMAIL</td>
                         <td class="text-center" th:text="${user.fname}">FIRST NAME</td>
                         <td class="text-center" th:text="${user.lname}">LAST NAME</td>

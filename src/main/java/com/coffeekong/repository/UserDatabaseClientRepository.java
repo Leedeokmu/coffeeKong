@@ -9,6 +9,9 @@ import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+/**
+ * @author freeefly
+ */
 @RequiredArgsConstructor
 @Repository
 public class UserDatabaseClientRepository {
@@ -47,6 +50,7 @@ public class UserDatabaseClientRepository {
         return databaseClient.select()
                 .from(Users.class)
                 .page(page)
+                .orderBy(page.getSort())
                 .fetch()
                 .all();
     }

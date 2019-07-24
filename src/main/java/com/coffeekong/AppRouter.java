@@ -7,6 +7,7 @@ import com.coffeekong.handler.ReadUserHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.server.RouterFunction;
 
 import static org.springframework.web.reactive.function.server.RequestPredicates.*;
@@ -27,7 +28,7 @@ public class AppRouter {
                 route(GET("/users/add"), createUserHandler::createUserPage)
                         .andRoute(POST("/users"), createUserHandler::createUser)
                         .andRoute(GET("/users/{userId}/edit"), createUserHandler::updateUserPage)
-                        .andRoute(PUT("/users/{userId}"), createUserHandler::updateUser)
+                        .andRoute(PUT("/users/{userId}").and(accept(MediaType.APPLICATION_FORM_URLENCODED)), createUserHandler::updateUser)
                         // 유저 삭제
                         .andRoute(DELETE("/users/{userId}"), deleteUserHandler::delete)
                         // 유저 조회

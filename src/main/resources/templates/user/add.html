@@ -8,23 +8,23 @@
         <div>
             <div class="form-group ver_center">
                 <label  class="control-label col-md-3">EMAIL</label>
-                <div class="col-md-9"><span><input type="text" name="email" class="form-control"/></span></div>
+                <div class="col-md-9"><span><input type="text" id="email" name="email" class="form-control"/></span></div>
             </div>
             <div class="form-group ver_center">
                 <label class="control-label col-md-3">FIRST NAME</label>&nbsp;
-                <div class="col-md-9"><input type="text" name="fname" class="form-control"/></div>
+                <div class="col-md-9"><input type="text" name="fname" id="fname" class="form-control"/></div>
             </div>
             <div class="form-group ver_center">
                 <label class="control-label col-md-3">LAST NAME</label>&nbsp;
-                <div class="col-md-9"><input type="text" name="lname" class="form-control"/></div>
+                <div class="col-md-9"><input type="text" name="lname" id="lname" class="form-control"/></div>
             </div>
             <div class="form-group ver_center">
                 <label class="control-label col-md-3">PASSWORD</label>&nbsp;
-                <div class="col-md-9"><input type="password" name="pwd" class="form-control"/></div>
+                <div class="col-md-9"><input type="password" name="pwd" id="pwd" class="form-control"/></div>
             </div>
             <div class="form-group ver_center">
                 <label class="control-label col-md-3">PASSWORD CONFIRM</label>&nbsp;
-                <div class="col-md-9"><input type="password" name="pwdConfirm" class="form-control"/></div>
+                <div class="col-md-9"><input type="password" name="pwdConfirm" id="pwdConfirm" class="form-control"/></div>
             </div>
             <div class="hor_center">
                 <div class="btn-group">
@@ -39,8 +39,20 @@
     const addUser = () => {
         event.preventDefault();
         if(confirm('are you sure to add user?')){
+            let email = $('#email').val();
+            let lname = $('#lname').val();
+            let fname = $('#fname').val();
+            let pwd = $('#pwd').val();
+            let pwdConfirm = $('#pwdConfirm').val();
+
+            let params = {};
+            params.email = email;
+            params.fname = fname;
+            params.lname = lname;
+            params.pwd = pwd;
+            params.pwdConfirm = pwdConfirm;
             let uri = '/users';
-            let response = httpCall('post', uri, $('#addUserForm').serialize());
+            let response = httpCall('post', uri, JSON.stringify(params));
             response.done((res) => {
                 console.log(res);
                 alert('add user succeeded!');

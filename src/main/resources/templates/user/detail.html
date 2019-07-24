@@ -43,7 +43,7 @@
 				</div>
 				<div class="modal-footer">
 					<div >
-						<input type="button" class="btn btn-danger" th:onclick="|deleteUser(${user.id})|" value="ACCEPT"/>
+						<input type="button" class="btn btn-danger" th:attr="onclick=|deleteUser('${user.id}','${user.email}')|" value="ACCEPT"/>
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 					</div>
 				</div>
@@ -52,18 +52,18 @@
 	</div>
 
 	<script>
-		const deleteUser = (userId) => {
-			if(confirm('are you sure to delete ${user.email}?')){
-				let uri = '/users/${user.id}';
+		const deleteUser = (userId, email) => {
+			if(confirm(`are you sure to delete ${email}?`)){
+				let uri = `/users/${userId}`;
 				let params = {};
-				params.userId = ;
+				params.userId = userId;
 				let response = httpCall('DELETE', uri, params);
 				response.done((res) => {
-					alert('delete ${user.email} succeeded!');
+					alert(`delete ${email} succeeded!`);
 					move('/users');
 				}).fail((e) => {
 					console.log(e);
-					alert('failed to delete ${user.email}');
+					alert(`failed to delete ${email}`);
 				})
 			}
 

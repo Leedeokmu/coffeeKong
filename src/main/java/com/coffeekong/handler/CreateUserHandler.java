@@ -1,5 +1,7 @@
 package com.coffeekong.handler;
 
+import com.coffeekong.dto.UsersConverter;
+import com.coffeekong.dto.UsersDto;
 import com.coffeekong.model.Users;
 import com.coffeekong.service.CreateUserService;
 import com.coffeekong.service.ReadUserService;
@@ -21,6 +23,7 @@ import java.util.Map;
 public class CreateUserHandler {
     private final CreateUserService createUserService;
     private final ReadUserService readUserService;
+    private final UsersConverter usersConverter;
 
     private Mono<ServerResponse> notFound = ServerResponse.notFound().build();
 
@@ -35,9 +38,9 @@ public class CreateUserHandler {
 
     public Mono<ServerResponse> createUser(ServerRequest request){
         Map<String, String> error = new HashMap<>();
-        String pwdConfirm = (String) request.attribute("pwdConfirm").orElse("");
-        Mono<Users> user = request.bodyToMono(Users.class)
-                .filter(u -> u.getPwd().equals(pwdConfirm))
+        Mono<Users> user = request.bodyToMono(UsersDto.class)
+                .filter(u -> u.getPwd().equals(u.getPwdConfirm()))
+                .map(usersConverter::convert)
                 .switchIfEmpty(Mono.error(new Exception("password not matched")))
                 .doOnError((e) -> {
                     log.error(e.getMessage());
