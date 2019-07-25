@@ -42,11 +42,4 @@ public class AppConfig  {
 	@Bean
 	public TaskScheduler taskScheduler() { return new ThreadPoolTaskScheduler();}
 
-	@Bean(name = "application")
-	public PropertiesFactoryBean mapper() {
-		PropertiesFactoryBean bean = new PropertiesFactoryBean();
-		bean.setLocation(new ClassPathResource("application.properties"));
-		return bean;
-	}
-
 }

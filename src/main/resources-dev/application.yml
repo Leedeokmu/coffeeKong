@@ -1,0 +1,28 @@
+spring:
+  dao:
+    exceptiontranslation:
+      enabled: false
+  data:
+    postgres:
+      host: 127.0.0.1
+      port: 5432
+      database: coffeekong
+      username: postgres
+      password: test
+  cache:
+    jcache:
+      config: classpath:ehcache.xml
+  devtools:
+    livereload:
+      enabled: true
+  thymeleaf:
+    prefix: file:src/main/resources/templates/
+    suffix: .html
+
+server:
+  tomcat:
+    uri-encoding: UTF-8
+  port: 8000
+
+logback:
+  root-path: /D:/
