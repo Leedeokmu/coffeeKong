@@ -27,7 +27,11 @@ apply plugin: 'application'
 project.ext{
 	springSessionVersion = '1.1.1.RELEASE'
 }
+
+mainClassName = 'com.coffeekong.AppConfig'
+group = 'com.coffeekong'
 version = '1.0.3'
+sourceCompatibility = '1.8'
 
 springBoot {
 	buildInfo()
@@ -58,7 +62,6 @@ sourceSets{
 			srcDirs = [
 			        "src/main/resources-${profile}",
 					"src/main/resources",
-					"src/main/webapp"
 			]
 		}
 	}
@@ -67,7 +70,6 @@ sourceSets{
 			srcDirs = [
 					"src/main/resources-${profile}",
 					"src/main/resources",
-					"src/test/webapp"
 			]
 		}
 	}
