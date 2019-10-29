@@ -10,12 +10,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Controller
 public class IndexController {
 
+	@GetMapping(value={"/", ""})
+	public String index(){
+		return "index";
+	}
+
 	@GetMapping("/index")
 	public String index(Model model) {
 		log.trace("index page");
 		model.addAttribute("content", "");
 		return "/index";
 	}
+
 	@GetMapping("/info/intro")
 	public String intro(Model model) {
 		log.trace("intro page");

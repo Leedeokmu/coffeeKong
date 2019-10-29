@@ -29,6 +29,7 @@ public class RedirectToIndexFilter implements Filter {
                 requestURI.endsWith(".json") ||
                 requestURI.endsWith(".png") ||
                 requestURI.endsWith(".ico") ||
+                requestURI.endsWith(".svg") ||
                 requestURI.endsWith(".txt")
         ) {
             chain.doFilter(request, response);

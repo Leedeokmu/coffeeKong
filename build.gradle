@@ -24,7 +24,10 @@ apply plugin: 'java'
 apply plugin: 'com.moowork.node'
 apply plugin: 'application'
 
-version = '1.0.2'
+project.ext{
+	springSessionVersion = '1.1.1.RELEASE'
+}
+version = '1.0.3'
 
 springBoot {
 	buildInfo()
@@ -42,10 +45,6 @@ configurations {
 
 repositories {
 	mavenCentral()
-}
-
-project.ext{
-	springSessionVersion = '1.1.1.RELEASE'
 }
 
 final String DEFAULT_PROFILE = 'dev'
@@ -77,25 +76,21 @@ sourceSets{
 dependencies {
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	// spring boot essentials
+	implementation('org.springframework.boot:spring-boot-starter')
 	implementation('org.springframework.boot:spring-boot-starter-web')
 	implementation('org.springframework.boot:spring-boot-starter-cache')
 	implementation("org.springframework.boot:spring-boot-starter-aop")
 	implementation('org.springframework.boot:spring-boot-starter-json')
 	implementation('org.springframework.boot:spring-boot-starter-data-jpa')
 	implementation('org.springframework.boot:spring-boot-starter-thymeleaf')
-
-	runtimeOnly('org.springframework.boot:spring-boot-starter-actuator')
+//	runtimeOnly('org.springframework.boot:spring-boot-starter-actuator')
 	runtimeOnly('org.springframework.boot:spring-boot-devtools')
-
-
 	// Ehcache
 	implementation('javax.cache:cache-api:1.1.0')
 	implementation('org.ehcache:ehcache:3.6.2')
-
 	// lombok
 	implementation 'org.projectlombok:lombok:1.18.4'
 	annotationProcessor 'org.projectlombok:lombok:1.18.4'
-
 	// mysql connector
 	implementation 'mysql:mysql-connector-java:5.1.36'
 }
@@ -104,15 +99,15 @@ test {
 	useJUnitPlatform()
 }
 
-def webappDir = "$projectDir/src/main/webapp"
+// react 빌드 생성
+print 'profile : ' + profile
+def webappDir = "$projectDir/src/main/webapp/front"
 node {
 	version = '10.16.0'
 	download = true
 	workDir = file("${project.buildDir}/nodejs")
 	npmWorkDir=file("${project.buildDir}/npm")
 }
-
-print 'profile : ' + profile
 if( profile != 'dev'){
 	task appNpmInstall(type: NpmTask) {
 		workingDir = file(webappDir)
@@ -125,14 +120,8 @@ if( profile != 'dev'){
 	}
 
 	task copyWebApp(type: Copy) {
-
-		//    from "src/main/webapp/build" into 'build/resources/main/templates/.'
 		from "src/main/webapp/front/build" into 'src/main/resources/templates/.'
 	}
-
-//    appNpmInstall.onlyIf { profile != 'dev'}
-//    appNpmBuild.onlyIf { profile != 'dev'}
-//    copyWebApp.onlyIf { profile != 'dev'}
 
 	appNpmBuild.dependsOn appNpmInstall
 	copyWebApp.dependsOn appNpmBuild

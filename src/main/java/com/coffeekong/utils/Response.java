@@ -4,7 +4,7 @@ package com.coffeekong.utils;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.apache.commons.collections.MapUtils;
+import org.springframework.util.CollectionUtils;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -42,7 +42,7 @@ public class Response implements Serializable {
     @JsonProperty(value="context")
     @JsonInclude(Include.NON_NULL)
     public Map<String, Object> getContext() {
-        if (MapUtils.isEmpty(context)) {
+        if (CollectionUtils.isEmpty(context)) {
             return null;
         }
         return context;
