@@ -8,14 +8,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>WELCOME, COFFEE KONG</title>
 <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="/assets/css/style.css" />
-<link rel="stylesheet" href="/assets/css/image.css" />
-<link rel="stylesheet" href="/assets/css/header.css" />
+<link rel="stylesheet" href="/assets/css/style.css"/>
+<link rel="stylesheet" href="/assets/css/image.css"/>
+<link rel="stylesheet" href="/assets/css/header.css"/>
 </head>
 <body class="container">
 <div>
 	<nav class="navbar navbar-default">
-
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
 			data-target="#headerNav" aria-expanded="false">
@@ -51,7 +50,6 @@
 <script src="/vendor/plugins/jQuery/jquery.validate.min.js"></script>
 <script src="/vendor/plugins/jQuery/jquery.form.min.js"></script>
 <script src="/vendor/plugins/jQuery/additional-methods.min.js"></script>
-<script src="/assets/js/validate.js"></script>
 <script>
 	const httpCall = (method, url, params, dataType) => {
 		jQuery.ajaxSettings.traditional = true;

@@ -42,17 +42,7 @@ public class AppConfig  implements WebMvcConfigurer {
 	// resource handler 등록
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/**").addResourceLocations("/");
-		registry.addResourceHandler("/**/*.htm").addResourceLocations("/");
-		registry.addResourceHandler("/**/*.js").addResourceLocations("/");
-		registry.addResourceHandler("/**/*.css").addResourceLocations("/");
-		registry.addResourceHandler("/**/*.jpg").addResourceLocations("/");
-		registry.addResourceHandler("/**/*.jpeg").addResourceLocations("/");
-		registry.addResourceHandler("/**/*.png").addResourceLocations("/");
-		registry.addResourceHandler("/**/*.gic").addResourceLocations("/");
-		registry.addResourceHandler("/**/*.ico").addResourceLocations("/");
-		registry.addResourceHandler("/**/*.json").addResourceLocations("/");
-		registry.addResourceHandler("/**/*.ttf").addResourceLocations("/");
+		registry.addResourceHandler("/**/*").addResourceLocations("classpath:/templates");
 	}
 	// 초기화면 등록
 	@Override
@@ -66,32 +56,4 @@ public class AppConfig  implements WebMvcConfigurer {
 
 	@Bean
 	public TaskScheduler taskScheduler() { return new ThreadPoolTaskScheduler();}
-
-	@Bean
-	public ViewResolver viewResolver() {
-		Map<String, MediaType> mediaTypes = new HashMap<>();
-		mediaTypes.put("html", MediaType.TEXT_HTML);
-		mediaTypes.put("json", MediaType.APPLICATION_JSON);
-
-		ContentNegotiationManagerFactoryBean contentNegotiationManagerFactoryBean = new ContentNegotiationManagerFactoryBean();
-		contentNegotiationManagerFactoryBean.addMediaTypes(mediaTypes);
-
-		ContentNegotiatingViewResolver resolver = new ContentNegotiatingViewResolver();
-		resolver.setContentNegotiationManager(contentNegotiationManagerFactoryBean.getObject());
-
-		List<View> defaultViews = new ArrayList<>();
-		defaultViews.add(new MappingJackson2JsonView());
-		resolver.setDefaultViews(defaultViews);
-		resolver.setOrder(0);
-
-		List<ViewResolver> viewResolvers = new ArrayList<>();
-		InternalResourceViewResolver internalResourceViewResolver = new InternalResourceViewResolver();
-		internalResourceViewResolver.setPrefix("/WEB-INF/views/");
-		internalResourceViewResolver.setSuffix(".jsp");
-		internalResourceViewResolver.setOrder(1);
-		internalResourceViewResolver.setRequestContextAttribute("requestContext");
-		viewResolvers.add(internalResourceViewResolver);
-		resolver.setViewResolvers(viewResolvers);
-		return resolver;
-	}
 }
