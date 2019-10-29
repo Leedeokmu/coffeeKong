@@ -20,7 +20,7 @@ See here for more details: http://gordondickens.com/wordpress/2013/03/27/sawing-
                 <maxFileSize>100MB</maxFileSize>
             </timeBasedFileNamingAndTriggeringPolicy>
             <maxHistory>30</maxHistory>
-            <totalSizeCap>1GB</totalSizeCap>
+            <totalSizeCap>10GB</totalSizeCap>
         </rollingPolicy>
         <encoder>
             <pattern>%d{HH:mm:ss.SSS} %-5level %logger{32} - %msg%n</pattern>

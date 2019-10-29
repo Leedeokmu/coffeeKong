@@ -12,26 +12,26 @@ public class IndexController {
 
 	@GetMapping("/index")
 	public String index(Model model) {
-		log.trace("index ###################################################");
+		log.trace("index page");
 		model.addAttribute("content", "");
 		return "/index";
 	}
 	@GetMapping("/info/intro")
 	public String intro(Model model) {
-		log.trace("intro ###################################################");
+		log.trace("intro page");
 		model.addAttribute("content", "intro");
 		return "/index";
 	}
 	@GetMapping("/info/location")
 	public String location(Model model) {
-		log.trace("location ###################################################");
+		log.trace("location page");
 		model.addAttribute("content", "location");
 		return "/index";
 	}
 
 	@GetMapping("/info/contact")
 	public String contact(Model model) {
-		log.trace("contact ###################################################");
+		log.trace("contact page");
 
 		model.addAttribute("content", "contact");
 		return "/index";
@@ -39,15 +39,14 @@ public class IndexController {
 
 	@GetMapping("learn")
 	public String learn() {
-		log.trace("learn ############################");
+		log.trace("learn page");
 
 		return "/learn/learn";
 	}
 
 	@GetMapping("/learn/{type}")
 	public String learn(@PathVariable String type, Model model) {
-		log.trace("learn ###################################################");
-		log.trace("type : {}", type);
+		log.trace("learn page, type: {}", type);
 		model.addAttribute("content",type);
 		return "/learn/learn";
 	}

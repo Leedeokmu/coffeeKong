@@ -61,54 +61,11 @@ public class AppConfig  implements WebMvcConfigurer {
 		registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
 	}
 
-	// 핸들러 매핑 추가
-	@Bean
-	public HandlerMapping handlerMapping(){
-		RequestMappingHandlerMapping requestMappingHandlerMapping = new RequestMappingHandlerMapping();
-		requestMappingHandlerMapping.setUseSuffixPatternMatch(true);
-		return requestMappingHandlerMapping;
-	}
-
-	@Bean
-	public MessageSource messageSource(){
-		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-		messageSource.setDefaultEncoding("UTF-8");
-		messageSource.setBasenames("classpath:messages");
-		return messageSource;
-	}
-
-	@Bean(name="coffeekongMessageUtils")
-	public MessageUtils messageUtils(){
-		MessageUtils messageUtils = new MessageUtils(messageSource());
-		return messageUtils;
-	}
-
-	@Bean
-	public LocaleResolver localeResolver(){
-		SessionLocaleResolver localeResolver = new SessionLocaleResolver();
-		localeResolver.setDefaultLocale(Locale.KOREA);
-		return localeResolver;
-	}
-
-	@Bean
-	public LocaleChangeInterceptor localeChangeInterceptor() {
-		LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
-		localeChangeInterceptor.setParamName("lang");
-		return localeChangeInterceptor;
-	}
-
 	@Bean
 	public ScheduledExecutorService taskExecutor() { return Executors.newScheduledThreadPool(20); }
 
 	@Bean
 	public TaskScheduler taskScheduler() { return new ThreadPoolTaskScheduler();}
-
-	@Bean(name = "application")
-	public PropertiesFactoryBean mapper() {
-		PropertiesFactoryBean bean = new PropertiesFactoryBean();
-		bean.setLocation(new ClassPathResource("application.properties"));
-		return bean;
-	}
 
 	@Bean
 	public ViewResolver viewResolver() {

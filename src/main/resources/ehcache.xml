@@ -3,7 +3,7 @@
         xsi:schemaLocation="http://www.ehcache.org/v3 http://www.ehcache.org/schema/ehcache-core-3.0.xsd">
     <cache alias="userCache">
         <expiry>
-            <ttl unit="seconds">30</ttl>
+            <ttl unit="days">1</ttl>
         </expiry>
         <listeners>
             <listener>
@@ -22,7 +22,7 @@
 
     <cache alias="userListPagingCache">
         <expiry>
-            <ttl unit="seconds">30</ttl>
+            <ttl unit="days">1</ttl>
         </expiry>
         <listeners>
             <listener>

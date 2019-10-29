@@ -25,7 +25,7 @@ public class ReadUserController {
 			Pageable pageable,
 			Model model
 	) {
-		log.trace("User LIst ===============================================");
+		log.trace("User List page");
 		pageable = PageRequest.of(pageable.getPageNumber() == 0 ? pageable.getPageNumber() : pageable.getPageNumber() - 1, 5, new Sort(Sort.Direction.ASC, "id"));
 		Page<User> users = readUserService.getUserList(pageable);
 		Paging paging = new Paging();
@@ -44,7 +44,7 @@ public class ReadUserController {
 			@PathVariable("userId") Long userId,
 			Model model
 	) {
-		log.trace("User Detail =============================================== userId : {}", userId);
+		log.trace("User Detail page, user : {}", userId);
 		User user = readUserService.getUserById(userId);
 
 		model.addAttribute("content", "user-detail");

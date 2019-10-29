@@ -25,7 +25,7 @@
                     <c:forEach var="user" items="${users.content}">
                     <tr>
                         <td class="text-center h_nav"><a href="/users/${user.id}" class="udBtn">${user.id }</a></td>
-                        <td class="text-center">${user.email}</td>
+                        <td class="text-center h_nav"><a href="/users/${user.id}" class="udBtn">${user.email }</a></td>
                         <td class="text-center">${user.fname}</td>
                         <td class="text-center">${user.lname}</td>
                     </tr>

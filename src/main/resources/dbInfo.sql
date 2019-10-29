@@ -9,8 +9,6 @@
 	CONN projectspr/oracle;
 */
 -- UPDATE user SET authentication_string=password('test') WHERE user ='root';
-
-
 set password = password('test');
 
 CREATE USER 'coffeekong'@'%' IDENTIFIED BY 'test';
@@ -33,79 +31,80 @@ CREATE DATABASE IF NOT EXISTS `coffeekong`;
 use `coffeekong`;
 DROP TABLE IF EXISTS `tbl_user`;
 CREATE TABLE `tbl_user`(
-	`u_email` varchar(200) not null,
-	`u_fname` varchar(100) not null,
-	`u_lname` varchar(100) not null,
-	`u_pwd` varchar(100) not null,
+	`id` bigint NOT NULL AUTO_INCREMENT,
+	`u_email` varchar(200) NOT NULL,
+	`u_fname` varchar(100) NOT NULL,
+	`u_lname` varchar(100) NOT NULL,
+	`u_pwd` varchar(100) NOT NULL,
 	`u_point` int(10) default 0,
 	`sess_id` varchar(50) default 'none',
 	`sess_limit` datetime,
-	PRIMARY KEY(u_email)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+	PRIMARY KEY(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS tbl_manager;
 CREATE TABLE `tbl_manager`(
-	m_email varchar(200) not null,
-	m_fname varchar(100) not null,
-	m_lname varchar(100) not null,
-	m_pwd varchar(100) not null,
-	sess_id varchar(50) default 'none',
-	sess_limit datetime,
-	PRIMARY KEY(m_email)
-);
+    `id` bigint NOT NULL AUTO_INCREMENT,
+	`m_email` varchar(200) NOT NULL,
+	`m_fname` varchar(100) NOT NULL,
+	`m_lname` varchar(100) NOT NULL,
+	`m_pwd` varchar(100) NOT NULL,
+	`sess_id` varchar(50) default 'none',
+	`sess_limit` datetime,
+	PRIMARY KEY(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS tbl_prod;
 CREATE TABLE `tbl_prod`(
-	p_id int(10) not null AUTO_INCREMENT,
-	p_category varchar(200) not null,
-	p_name varchar(200) not null,
+	p_id int(10) NOT NULL AUTO_INCREMENT,
+	p_category varchar(200) NOT NULL,
+	p_name varchar(200) NOT NULL,
 	p_content varchar(2000),
 	p_price bigint(20),
-	p_mdate datetime not null,
+	p_mdate datetime NOT NULL,
 	p_rdate datetime default CURRENT_TIMESTAMP,
 	p_img varchar(2000),
 	PRIMARY KEY(p_id)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS `tbl_review`;
 CREATE TABLE `tbl_review`(
-	r_id int(10) not null AUTO_INCREMENT,
-	p_id int(10) not null,
+	r_id bigint NOT NULL AUTO_INCREMENT,
+	p_id bigint NOT NULL,
 	u_email varchar(200),
 	u_name varchar(100),
 	r_grade varchar(200),
 	r_content varchar(2000),
 	r_date datetime default CURRENT_TIMESTAMP,
 	PRIMARY KEY(r_id)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS `tbl_order`;
-
 CREATE TABLE `tbl_order`(
-	o_id int(10) not null AUTO_INCREMENT,
-	u_email varchar(100) not null,
-	o_price bigint(20) not null,
-	o_rfname varchar(100) not null,
-	o_rlname varchar(100) not null,
-	o_phone varchar(200) not null,
-	o_postcode varchar(200) not null,
-	o_addr varchar(1000) not null,
-	o_state varchar(100) not null,
+	o_id bigint NOT NULL AUTO_INCREMENT,
+	u_email varchar(100) NOT NULL,
+	o_price bigint(20) NOT NULL,
+	o_rfname varchar(100) NOT NULL,
+	o_rlname varchar(100) NOT NULL,
+	o_phone varchar(200) NOT NULL,
+	o_postcode varchar(200) NOT NULL,
+	o_addr varchar(1000) NOT NULL,
+	o_state varchar(100) NOT NULL,
 	o_date datetime default CURRENT_TIMESTAMP,
 	PRIMARY KEY(o_id)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS `tbl_order_prod`;
 CREATE TABLE `tbl_order_prod`(
-	op_id int(10) not null AUTO_INCREMENT,
-	o_id int(10) not null,
-	p_id int(10) not null,
-	op_qty int(10) not null,
+	op_id bigint NOT NULL AUTO_INCREMENT,
+	o_id bigint NOT NULL,
+	p_id bigint NOT NULL,
+	op_qty int(10) NOT NULL,
 	op_sz varchar(100),
 	op_type varchar(100),
-	op_price bigint(20) not null,
+	op_price bigint(20) NOT NULL,
 	PRIMARY KEY(op_id)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 commit;
 
