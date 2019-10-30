@@ -16,7 +16,7 @@ spring:
     livereload:
       enabled: true
   thymeleaf:
-    prefix: file:src/main/resources/templates/
+    prefix: classpath:/templates/
     suffix: .html
 
 server:

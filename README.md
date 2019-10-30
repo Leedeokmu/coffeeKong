@@ -1,13 +1,20 @@
-# COFFEEKONG coffee bean shopping mall
+### COFFEEKONG
+``` 
+coffee bean shopping mall
+```
 
-### ENVIRONMENT
-* SPRING BOOT + JPA + Vue.js + Mysql
+#### environment
+```
+* spring boot 
+    * r2dbc
+    * postgresql
+    * webflux
+* thymeleaf    
+```
 
-#### STACK
-* **Spring devtools(spring loaded)**  
->FOR direct-reload of static resources
-* **JPA**
->
+### execution
+```
+gradle bootRun -Pprofile={env}
+gradle build -Pprofile={env}
 
-* **webpack**
->
+```

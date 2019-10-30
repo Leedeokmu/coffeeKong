@@ -17,6 +17,10 @@ apply plugin: 'java'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
+//mainClassName = 'com.coffeekong.AppConfig'
+//group = 'com.coffeekong'
+version = '1.0.1'
+sourceCompatibility = '1.8'
 
 springBoot {
 	buildInfo()
