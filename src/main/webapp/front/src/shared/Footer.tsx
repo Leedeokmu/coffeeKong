@@ -14,7 +14,6 @@ const useStyles: StylesHook<Styles<Theme, {}, string>> = makeStyles((theme: Them
             paddingBottom: theme.spacing(2),
         },
         footer: {
-            backgroundColor: theme.palette.background.paper,
             marginTop: theme.spacing(8),
             padding: `${theme.spacing(6)}px 0`,
         },
@@ -26,7 +25,7 @@ const useStyles: StylesHook<Styles<Theme, {}, string>> = makeStyles((theme: Them
     })
 );
 
-const Footer: React.FC<{}> = () => {
+const Footer = () => {
     const classes = useStyles();
     return (
         <footer className={classes.footer}>
@@ -49,11 +48,10 @@ const Footer: React.FC<{}> = () => {
                         </a>
                     </Grid>
                 </Grid>
-                <Typography variant="h6">
+                <Typography variant={"body1"}>
                     © 2016 CoffeeKong. All Rights Reserved to freeefly.
                 </Typography>
             </Paper>
-
         </footer>
     );
 }

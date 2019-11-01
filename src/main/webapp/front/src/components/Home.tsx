@@ -11,7 +11,6 @@ import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Divider from '@material-ui/core/Divider';
 import Paper from '@material-ui/core/Paper';
 import {Link} from "react-router-dom";
 
@@ -38,97 +37,144 @@ const useStyles: StylesHook<Styles<Theme, {}, string>> = makeStyles((theme: Them
         },
         imageButton: {
             margin: 10,
-            width: 200,
-            height: 200,
+            width: 300,
+            height: 300,
         }
     })
 );
 
-const carouselImages: string[] = [
-    'coffee-beans',
-    'coffee-cup',
-    'coffee-drying',
-    'coffee-grind',
-    'coffee-ground'
-]
+interface Image {
+    alt: string;
+    src: string;
+}
 
-const Home: React.FC<{}> = () => {
+interface CardImage {
+    image: Image;
+    link: string;
+}
+interface ICoffeeCarousel {
+    images: Image[]
+}
+interface ICardButton {
+    card: CardImage;
+}
+
+const carouselImages: Image[] = [
+    {
+        alt: 'coffee-beans',
+        src: 'img/coffee-beans.jpg'
+    },{
+        alt: 'coffee-ground',
+        src: 'img/coffee-ground.jpg'
+    },{
+        alt: 'coffee-cup',
+        src: 'img/coffee-cup.jpg'
+    },{
+        alt: 'coffee-drying',
+        src: 'img/coffee-drying.jpg'
+    },{
+        alt: 'coffee-ground',
+        src: 'img/coffee-ground.jpg'
+    }
+];
+
+const cardButtonImages: CardImage[] = [
+    {
+        image: {
+            alt: 'coffees',
+            src: 'img/coffees.jpg'
+        },
+        link: '/users'
+    },{
+        image: {
+            alt: 'tools',
+            src: 'img/tools.jpg'
+        },
+        link: '/users'
+    },
+    {
+        image: {
+            alt: 'learn',
+            src: 'img/learn.jpg'
+        },
+        link: '/users'
+    }
+];
+
+const CoffeeCarousel = (props : ICoffeeCarousel) => {
     const classes: ClassNameMap = useStyles();
+    const {images} = props;
+    return (
+        <Carousel width="70em" autoPlay={true} showThumbs={false} infiniteLoop={true} centerMode={true}>
+            {images.map(img => (
+                <div key={img.alt}>
+                    <img alt={img.alt} src={img.src} className={classes.image}/>
+                    <p className={"legend"}>{img.alt}</p>
+                </div>
+            ))}
+        </Carousel>
+    )
+}
+
+const EntranceMessage = () => {
+    const classes = useStyles();
+    return (
+        <Paper elevation={5} className={classes.paper}>
+            <Typography variant={"h4"} paragraph={true} align={"center"} className={classes.entranceFont}>
+                "high quality coffee bean seller"
+            </Typography>
+            <Typography variant={"h6"} paragraph={true} align={"center"} className={classes.entranceFont}>
+                We match you with coffees you'll love from over 30 of the country's best award-winning artisan coffee roasters.
+                All coffee is roasted for your order and shipped directly to you.
+                <br/>
+                <br/>
+                When you get a Coffeekong coffee service, you get matched with a coffee curator - a coffee expert who learns the kinds of coffee
+                you like and sends you coffee based on your preferences.
+            </Typography>
+        </Paper>
+    )
+}
+
+
+const CardButton = (props: ICardButton) => {
+    const classes = useStyles();
+    const {card} = props;
+    return (
+        <Card className={classes.imageButton} >
+            <CardActionArea  style={{height:'100%'}}>
+                <Link to={card.link} style={{textDecoration: 'none'}}>
+                    <CardMedia
+                        component="img"
+                        alt={card.image.alt}
+                        image={card.image.src}
+                        title={card.image.alt}
+                    />
+                    <CardContent>
+                        <Typography variant={'h6'} align={"center"}>{card.image.alt}</Typography>
+                    </CardContent>
+                </Link>
+            </CardActionArea>
+        </Card>
+    )
+
+};
+
+const Home = () => {
+    const classes: ClassNameMap = useStyles();
+
     return (
         <div className={classes.content}>
-
-            <Grid container direction="column" justify="space-between" alignItems="center">
+            <Grid container justify="center" alignItems="center">
                 <Grid item className={classes.grid}>
-                    <Carousel width="50em" autoPlay={true} showThumbs={false} infiniteLoop={true} centerMode={true}>
-                        {carouselImages.map(imgName => (
-                            <div key={imgName}>
-                                <img alt={imgName} src={`img/${imgName}.jpg`} className={classes.image}/>
-                                <p className={"legend"}>{imgName}</p>
-                            </div>
-                        ))}
-                    </Carousel>
+                    <CoffeeCarousel images={carouselImages}/>
                 </Grid>
-                <Grid item >
-                    <Paper elevation={5} className={classes.paper}>
-                    <Typography variant={"h4"} paragraph={true} align={"center"} className={classes.entranceFont}>
-                        "high quality coffee bean seller"
-                    </Typography>
-                    <Typography variant={"h6"} paragraph={true} align={"center"} className={classes.entranceFont}>
-                        We match you with coffees you'll love from over 30 of the country's best award-winning artisan coffee roasters.
-                        All coffee is roasted for your order and shipped directly to you.
-                        <br/>
-                        <br/>
-                        When you get a Coffeekong coffee service, you get matched with a coffee curator - a coffee expert who learns the kinds of coffee
-                        you like and sends you coffee based on your preferences.
-                    </Typography>
-                    </Paper>
+                <Grid item>
+                    <EntranceMessage/>
                 </Grid>
                 <Grid container item justify={"center"}>
-                    <Card className={classes.imageButton}>
-                        <CardActionArea>
-                            <Link to={"/users"} style={{textDecoration:'none'}}>
-                            <CardMedia
-                                component="img"
-                                alt="coffee"
-                                image="img/coffees.jpg"
-                                title="coffee"
-                            />
-                            <CardContent>
-                                <Typography align={"center"}>COFFEE</Typography>
-                            </CardContent>
-                            </Link>
-                        </CardActionArea>
-                    </Card>
-                    <Card className={classes.imageButton}>
-                        <CardActionArea>
-                            <Link to={"/users"} style={{textDecoration:'none'}}>
-                                <CardMedia
-                                    component="img"
-                                    alt="tools"
-                                    image="img/tools.jpg"
-                                    title="tools"
-                                />
-                                <CardContent>
-                                    <Typography align={"center"}>TOOLS</Typography>
-                                </CardContent>
-                            </Link>
-                        </CardActionArea>
-                    </Card>
-                    <Card className={classes.imageButton}>
-                        <CardActionArea>
-                            <Link to={"/learn"} style={{textDecoration:'none'}}>
-                                <CardMedia
-                                    component="img"
-                                    alt="learn"
-                                    image="img/coffee_learn.jpg"
-                                    title="learn"
-                                />
-                                <CardContent>
-                                    <Typography align={"center"}>LEARN</Typography>
-                                </CardContent>
-                            </Link>
-                        </CardActionArea>
-                    </Card>
+                    {cardButtonImages.map(card => (
+                        <CardButton card={card} key={card.image.alt}/>
+                    ))}
                 </Grid>
             </Grid>
         </div>

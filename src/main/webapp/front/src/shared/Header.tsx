@@ -16,27 +16,25 @@ const useStyles: StylesHook<Styles<Theme, {}, string>> = makeStyles((theme: Them
     })
 );
 
-const Header : React.FC<{}> = () => {
+const Header = () => {
     const classes = useStyles();
     return (
-        <>
-            <AppBar position="static" color={"default"}>
-                <Toolbar>
-                    <Link to={"/"} style={{textDecoration:'none'}} className={classes.title}>
-                        <Button color={"default"}>Coffeekong</Button>
-                    </Link>
-                    <Link to={"/users"} style={{textDecoration:'none'}}>
-                        <Button color={"default"}>About</Button>
-                    </Link>
-                    <Link to={"/users"} style={{textDecoration:'none'}}>
-                        <Button color={"default"}>Learn</Button>
-                    </Link>
-                    <Link to={"/users"} style={{textDecoration:'none'}}>
-                        <Button color={"default"}>User Manage</Button>
-                    </Link>
-                </Toolbar>
-            </AppBar>
-        </>
+        <AppBar position="static" color={"secondary"}>
+            <Toolbar>
+                <Link to={"/"} style={{textDecoration:'none'}} className={classes.title}>
+                    <Button color={"default"}>Coffeekong</Button>
+                </Link>
+                <Link to={"/users"} style={{textDecoration:'none'}}>
+                    <Button color={"default"}>About</Button>
+                </Link>
+                <Link to={"/users"} style={{textDecoration:'none'}}>
+                    <Button color={"default"}>Learn</Button>
+                </Link>
+                <Link to={"/users"} style={{textDecoration:'none'}}>
+                    <Button color={"default"}>User Manage</Button>
+                </Link>
+            </Toolbar>
+        </AppBar>
     );
 }
 
