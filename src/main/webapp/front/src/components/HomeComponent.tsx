@@ -13,6 +13,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Paper from '@material-ui/core/Paper';
 import {Link} from "react-router-dom";
+import {CardImage, Image} from "../interface/Interfaces";
 
 const useStyles: StylesHook<Styles<Theme, {}, string>> = makeStyles((theme: Theme): StyleRules =>
     createStyles({
@@ -22,10 +23,10 @@ const useStyles: StylesHook<Styles<Theme, {}, string>> = makeStyles((theme: Them
             paddingBottom: theme.spacing(2),
         },
         grid: {
-            height: 500,
+            paddingTop: theme.spacing(10),
         },
         paper: {
-            padding: theme.spacing(8,8,8,8)
+            padding: theme.spacing(6,6,6,6)
         },
         image: {
             margin: 10,
@@ -43,15 +44,6 @@ const useStyles: StylesHook<Styles<Theme, {}, string>> = makeStyles((theme: Them
     })
 );
 
-interface Image {
-    alt: string;
-    src: string;
-}
-
-interface CardImage {
-    image: Image;
-    link: string;
-}
 interface ICoffeeCarousel {
     images: Image[]
 }
@@ -84,20 +76,20 @@ const cardButtonImages: CardImage[] = [
             alt: 'coffees',
             src: 'img/coffees.jpg'
         },
-        link: '/users'
+        link: '#'
     },{
         image: {
             alt: 'tools',
             src: 'img/tools.jpg'
         },
-        link: '/users'
+        link: '#'
     },
     {
         image: {
             alt: 'learn',
             src: 'img/learn.jpg'
         },
-        link: '/users'
+        link: '#'
     }
 ];
 
@@ -135,43 +127,40 @@ const EntranceMessage = () => {
     )
 }
 
-
 const CardButton = (props: ICardButton) => {
     const classes = useStyles();
     const {card} = props;
     return (
         <Card className={classes.imageButton} >
-            <CardActionArea  style={{height:'100%'}}>
-                <Link to={card.link} style={{textDecoration: 'none'}}>
-                    <CardMedia
-                        component="img"
-                        alt={card.image.alt}
-                        image={card.image.src}
-                        title={card.image.alt}
-                    />
-                    <CardContent>
-                        <Typography variant={'h6'} align={"center"}>{card.image.alt}</Typography>
-                    </CardContent>
-                </Link>
+            <CardActionArea style={{height:'100%'}} component={Link} to={card.link}>
+                <CardMedia
+                    component="img"
+                    alt={card.image.alt}
+                    image={card.image.src}
+                    title={card.image.alt}
+                />
+                <CardContent>
+                    <Typography variant={'h6'} align={"center"}>{card.image.alt}</Typography>
+                </CardContent>
             </CardActionArea>
         </Card>
     )
 
 };
 
-const Home = () => {
+const HomeComponent = () => {
     const classes: ClassNameMap = useStyles();
 
     return (
         <div className={classes.content}>
-            <Grid container justify="center" alignItems="center">
+            <Grid container justify="center">
                 <Grid item className={classes.grid}>
                     <CoffeeCarousel images={carouselImages}/>
                 </Grid>
-                <Grid item>
+                <Grid item className={classes.grid}>
                     <EntranceMessage/>
                 </Grid>
-                <Grid container item justify={"center"}>
+                <Grid container item justify={"space-evenly"} className={classes.grid}>
                     {cardButtonImages.map(card => (
                         <CardButton card={card} key={card.image.alt}/>
                     ))}
@@ -180,4 +169,4 @@ const Home = () => {
         </div>
     )
 }
-export default Home;
+export default HomeComponent;

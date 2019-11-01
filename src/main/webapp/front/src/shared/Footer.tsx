@@ -5,6 +5,8 @@ import {StylesHook} from "@material-ui/styles/makeStyles";
 import {StyleRules, Styles} from "@material-ui/styles/withStyles";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
+import Tooltip from '@material-ui/core/Tooltip';
+import {CardImage, Image} from "../interface/Interfaces";
 
 const useStyles: StylesHook<Styles<Theme, {}, string>> = makeStyles((theme: Theme): StyleRules =>
     createStyles({
@@ -12,10 +14,6 @@ const useStyles: StylesHook<Styles<Theme, {}, string>> = makeStyles((theme: Them
             ...theme.mixins.gutters(),
             paddingTop: theme.spacing(2),
             paddingBottom: theme.spacing(2),
-        },
-        footer: {
-            marginTop: theme.spacing(8),
-            padding: `${theme.spacing(6)}px 0`,
         },
         footerImg: {
             margin: 10,
@@ -25,27 +23,60 @@ const useStyles: StylesHook<Styles<Theme, {}, string>> = makeStyles((theme: Them
     })
 );
 
+const brandImages: Image[] = [
+    {
+        alt: 'b-corp-seal',
+        src: 'img/b-corp-seal.png'
+    }, {
+        alt: 'certified-kosher.png',
+        src: 'img/certified-kosher.png'
+    }, {
+        alt: 'cooperative-coffees.png',
+        src: 'img/cooperative-coffees.png'
+    },
+];
+
+const snsImages: CardImage[] = [
+    {
+        image: {
+            alt: 'facebook',
+            src: 'img/facebook_new.png'
+        },
+        link: 'http://www.facebook.com'
+    }, {
+        image: {
+            alt: 'twitter',
+            src: 'img/twitter_new.png'
+        },
+        link: 'http://www.twitter.com'
+    }, {
+        image: {
+            alt: 'youtube',
+            src: 'img/youtube_new.png'
+        },
+        link: 'http://www.youtube.com'
+    },
+];
+
 const Footer = () => {
     const classes = useStyles();
     return (
-        <footer className={classes.footer}>
+        <footer>
             <Paper className={classes.root} elevation={1}>
-                <Grid container justify="space-between" >
-                    <Grid>
-                        <img alt="b-corp-seal" src="img/b-corp-seal.png" className={classes.footerImg}/>
-                        <img alt="certified-kosher.png" src="img/certified-kosher.png" className={classes.footerImg}/>
-                        <img alt="cooperative-coffees.png" src="img/cooperative-coffees.png" className={classes.footerImg}/>
+                <Grid container justify="space-between">
+                    <Grid item>
+                        {brandImages.map(image => (
+                            <img key={image.alt} alt={image.alt} src={image.src} className={classes.footerImg}/>
+                        ))}
                     </Grid>
-                    <Grid>
-                        <a href="http://www.facebook.com" target={"_blank"}>
-                            <img alt="facebook_new" src="img/facebook_new.png" className={classes.footerImg}/>
-                        </a>
-                        <a href="http://www.twitter.com" target={"_blank"}>
-                            <img alt="twitter_new" src="img/twitter_new.png" className={classes.footerImg}/>
-                        </a>
-                        <a href="http://www.youtube.com" target={"_blank"}>
-                            <img alt="youtube_new" src="img/youtube_new.png" className={classes.footerImg}/>
-                        </a>
+                    <Grid item>
+                        {snsImages.map(image => (
+                            <Tooltip title={image.image.alt} key={image.image.alt}>
+                                <a href={image.link} target={"_blank"} >
+                                    <img alt={image.image.alt} src={image.image.src} className={classes.footerImg}/>
+                                </a>
+                            </Tooltip>
+                        ))}
                     </Grid>
                 </Grid>
                 <Typography variant={"body1"}>
@@ -54,6 +85,6 @@ const Footer = () => {
             </Paper>
         </footer>
     );
-}
+};
 
 export default Footer;
