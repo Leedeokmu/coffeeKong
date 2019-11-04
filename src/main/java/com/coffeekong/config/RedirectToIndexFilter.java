@@ -16,11 +16,12 @@ public class RedirectToIndexFilter implements Filter {
                          FilterChain chain) throws IOException, ServletException {
         String requestURI = ((HttpServletRequest) request).getRequestURI();
 
+        // skip api call
         if (requestURI.startsWith("/api")) {
             chain.doFilter(request, response);
             return;
         }
-
+        // bypass static resources
         if (
                 requestURI.startsWith("/public") ||
                 requestURI.endsWith(".map") ||
@@ -28,6 +29,8 @@ public class RedirectToIndexFilter implements Filter {
                 requestURI.endsWith(".css") ||
                 requestURI.endsWith(".json") ||
                 requestURI.endsWith(".png") ||
+                requestURI.endsWith(".jpg") ||
+                requestURI.endsWith(".jpeg") ||
                 requestURI.endsWith(".ico") ||
                 requestURI.endsWith(".svg") ||
                 requestURI.endsWith(".txt")
@@ -39,5 +42,4 @@ public class RedirectToIndexFilter implements Filter {
         // forward to index page except for /api and static resources
         request.getRequestDispatcher("/").forward(request, response);
     }
-
 }
