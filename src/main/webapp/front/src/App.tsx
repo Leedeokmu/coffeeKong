@@ -6,6 +6,7 @@ import {Route, Switch} from "react-router-dom";
 import Users from "./components/Users";
 import Container from "@material-ui/core/Container";
 import {GlobalStyle} from "./GlobalStyle";
+import IntroContainer from "./containers/IntroContainer";
 
 
 const App = () => {
@@ -16,11 +17,11 @@ const App = () => {
                 <Header/>
                 <Switch>
                     <Route exact={true} path={"/"} component={HomeContainer}/>
-                    <Route path={"/learn"} component={Users}/>
-                    <Route path={"/users"} component={Users}/>
-                    <Route path={"/intro"} component={Users}/>
+                    <Route path={"/intro"} component={IntroContainer}/>
                     <Route path={"/location"} component={Users}/>
                     <Route path={"/contact"} component={Users}/>
+                    <Route path={"/learn"} component={Users}/>
+                    <Route path={"/users"} component={Users}/>
                 </Switch>
                 <Footer/>
             </Container>

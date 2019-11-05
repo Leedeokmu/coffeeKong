@@ -152,21 +152,19 @@ const HomeComponent = () => {
     const classes: ClassNameMap = useStyles();
 
     return (
-        <div className={classes.content}>
-            <Grid container justify="center">
-                <Grid item className={classes.grid}>
-                    <CoffeeCarousel images={carouselImages}/>
-                </Grid>
-                <Grid item className={classes.grid}>
-                    <EntranceMessage/>
-                </Grid>
-                <Grid container item justify={"space-evenly"} className={classes.grid}>
-                    {cardButtonImages.map(card => (
-                        <CardButton card={card} key={card.image.alt}/>
-                    ))}
-                </Grid>
+        <Grid container justify="center" className={classes.content}>
+            <Grid item className={classes.grid}>
+                <CoffeeCarousel images={carouselImages}/>
             </Grid>
-        </div>
+            <Grid item className={classes.grid}>
+                <EntranceMessage/>
+            </Grid>
+            <Grid container item justify={"space-evenly"} className={classes.grid}>
+                {cardButtonImages.map(card => (
+                    <CardButton card={card} key={card.image.alt}/>
+                ))}
+            </Grid>
+        </Grid>
     )
 }
 export default HomeComponent;
