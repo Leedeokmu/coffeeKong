@@ -22,9 +22,6 @@ const useStyles: StylesHook<Styles<Theme, {}, string>> = makeStyles((theme: Them
             paddingTop: theme.spacing(2),
             paddingBottom: theme.spacing(2),
         },
-        grid: {
-            paddingTop: theme.spacing(10),
-        },
         paper: {
             padding: theme.spacing(6,6,6,6)
         },
@@ -152,14 +149,14 @@ const HomeComponent = () => {
     const classes: ClassNameMap = useStyles();
 
     return (
-        <Grid container justify="center" className={classes.content}>
-            <Grid item className={classes.grid}>
+        <Grid container justify="center" className={classes.content} spacing={6}>
+            <Grid item>
                 <CoffeeCarousel images={carouselImages}/>
             </Grid>
-            <Grid item className={classes.grid}>
+            <Grid item>
                 <EntranceMessage/>
             </Grid>
-            <Grid container item justify={"space-evenly"} className={classes.grid}>
+            <Grid container item justify={"space-evenly"}>
                 {cardButtonImages.map(card => (
                     <CardButton card={card} key={card.image.alt}/>
                 ))}

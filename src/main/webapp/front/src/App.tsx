@@ -7,6 +7,7 @@ import Users from "./components/Users";
 import Container from "@material-ui/core/Container";
 import {GlobalStyle} from "./GlobalStyle";
 import IntroContainer from "./containers/IntroContainer";
+import ContactContainer from "./containers/ContactContainer";
 
 
 const App = () => {
@@ -18,8 +19,7 @@ const App = () => {
                 <Switch>
                     <Route exact={true} path={"/"} component={HomeContainer}/>
                     <Route path={"/intro"} component={IntroContainer}/>
-                    <Route path={"/location"} component={Users}/>
-                    <Route path={"/contact"} component={Users}/>
+                    <Route path={"/contact"} component={ContactContainer}/>
                     <Route path={"/learn"} component={Users}/>
                     <Route path={"/users"} component={Users}/>
                 </Switch>

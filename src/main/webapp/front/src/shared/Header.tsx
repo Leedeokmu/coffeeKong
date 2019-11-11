@@ -51,10 +51,9 @@ const Header = () => {
                     onClose={_handleClose}
                 >
                     <MenuItem component={Link} to={"/intro"} onClick={_handleClose}>Introduction</MenuItem>
-                    <MenuItem component={Link} to={"/location"} onClick={_handleClose}>Location</MenuItem>
                     <MenuItem component={Link} to={"/contact"} onClick={_handleClose}>Contact us</MenuItem>
                 </Menu>
-                <Link to={"/users"} style={{textDecoration: 'none'}}>
+                <Link to={"/learn"} style={{textDecoration: 'none'}}>
                     <Button color={"default"}>Learn</Button>
                 </Link>
                 <Link to={"/users"} style={{textDecoration: 'none'}}>
