@@ -9,7 +9,7 @@ import {GlobalStyle} from "./GlobalStyle";
 import IntroContainer from "./containers/IntroContainer";
 import ContactContainer from "./containers/ContactContainer";
 
-
+// TODO: 1. contact 메뉴 UI 만 2. learn 메뉴 + learn 컴포넌트 3개 3. users 메뉴 - pagination & store 연동 & routing
 const App = () => {
     return (
         <div className="App">
